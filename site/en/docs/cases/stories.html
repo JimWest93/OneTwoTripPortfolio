@@ -1,0 +1,113 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>Stories: architecture, video and interactive journeys · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../../ru/docs/cases/stories.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="index.html">Cases</a><a href="../gallery.html">Gallery</a><a href="../statistics.html">Charts</a><a href="../../catalog.html">Examples</a><a href="../career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../../ru/docs/cases/stories.html">RU</a><a data-language="en" lang="en" hreflang="en" href="stories.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../../ru/docs/cases/stories.html">RU</a> · <a href="../../../index.html">Language selection</a></p>
+<h1 id="stories-architecture-video-and-interactive-journeys">Stories: architecture, video and interactive journeys</h1>
+<p><strong>2024–2026 · OneTwoTrip / iOS</strong></p>
+<p>I moved Stories to TCA and developed interactive behavior, video loading and giveaway participation.</p>
+<p><a href="#screens">View screens and states</a> · <a href="../gallery.html">Full gallery</a></p>
+<h2 id="context">Context</h2>
+<p>A stories viewer has more than a slide sequence: viewed and saved items, video, external actions, authentication and a route that can change dynamically. Changes must preserve progress and dismissal behavior.</p>
+<h2 id="my-contribution">My contribution</h2>
+<ul>
+<li>Separated preview, slides, catalog and infrastructure; moved state to TCA and integrated the new modules into existing screens.</li>
+<li>Added and corrected analytics events, saved stories and return-to-preview behavior.</li>
+<li>Fixed dynamic-story playback and video caching; moved to bounded preloading rather than preparing every slide upfront.</li>
+<li>Developed the Hotel Wednesday giveaway: a decision slide, backend participation, authentication over the story, dynamic branches and promo-code copying.</li>
+<li>Added successful-authentication events from Stories and worked on UI compatibility during migration.</li>
+</ul>
+<h2 id="technologies">Technologies</h2>
+<p>Swift, UIKit, TCA, Combine, AVFoundation / video integration, Nuke, Swinject, REST, XCTest / SnapshotTesting / XCUITest.</p>
+<h2 id="practical-examples">Practical examples</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Separating Stories modules</td>
+<td>Moved state to TCA and separated catalog, preview, slides and infrastructure.</td>
+<td>Architectural migration of an existing feature.</td>
+</tr>
+<tr>
+<td>Preparing video</td>
+<td>Replaced loading every slide upfront with bounded media preparation.</td>
+<td>Resource management in a media journey.</td>
+</tr>
+<tr>
+<td>Interactive giveaway</td>
+<td>Developed the decision slide, backend participation and dynamic branches.</td>
+<td>A journey driven by user choices and effects.</td>
+</tr>
+<tr>
+<td>Sign-in over a story</td>
+<td>Worked on authentication, return to viewing and successful-sign-in analytics.</td>
+<td>Preserving context across external navigation.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="engineering-decisions">Engineering decisions</h2>
+<ul>
+<li>Catalog, storage, slide viewing and preview presentation have separate responsibilities, allowing one journey to change without rewriting every integration.</li>
+<li>Interactive-story progress follows the available route rather than the initial slide count. Authentication and backend responses can change that route.</li>
+<li>Limited preloading reduces the amount of work before display; no measured speedup in milliseconds is claimed.</li>
+</ul>
+<h2 id="quality-and-checks">Quality and checks</h2>
+<ul>
+<li>Current tests cover reducers, props, analytics, universal links and previews; UI tests check the interactive journey.</li>
+<li>Migration work separately considered compatibility and the correctness of existing journeys.</li>
+</ul>
+<h2 id="outcome-and-scope">Outcome and scope</h2>
+<p>Stories gained clearer state architecture and support for complex product journeys, including branching and returning from authentication.</p>
+<h2 id="a-closer-look-at-the-journey">A closer look at the journey</h2>
+<h3 id="one-feature-several-responsibilities">One feature, several responsibilities</h3>
+<p>Previews, the saved collection, slide playback and the shared repository have different responsibilities. During the TCA migration I separated them and integrated the new modules into existing entry points. The full-screen snapshots below show the collection with content, empty state and a compact layout.</p>
+<h3 id="the-route-changes-during-playback">The route changes during playback</h3>
+<p>An interactive slide can trigger authentication or giveaway participation, and the server response can change the next branch. I worked on this route, returning to playback and analytics. Progress needs to match the available sequence rather than count every original slide mechanically.</p>
+<h3 id="media-preparation-is-bounded">Media preparation is bounded</h3>
+<p>The change history includes moving from preparing all videos to loading two slides, as well as cache fixes. This demonstrates work on resource use and the media lifecycle. No quantitative speedup is claimed without a separate measurement. Collection screenshots illustrate its UI, not playback or interactive branches.</p>
+<p><a name="screens"></a></p>
+<h2 id="screens-and-interface-states">Screens and interface states</h2>
+<p>Original snapshot-test images using prepared data. Each example identifies its source type. Design and overall architecture were team work; my contribution is described above. Select an image to inspect the details.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Solar Stories: populated collection</th>
+<th style="text-align: center;">Solar Stories on a compact screen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a name="visual-stories-solar-grid"></a><a href="../../../../assets/screenshots/stories-solar-grid.png"><img src="../../../../assets/screenshots/stories-solar-grid.png" alt="Solar Stories: populated collection" width="200"></a></td>
+<td style="text-align: center;"><a name="visual-stories-small-screen"></a><a href="../../../../assets/screenshots/stories-small-screen.png"><img src="../../../../assets/screenshots/stories-small-screen.png" alt="Solar Stories on a compact screen" width="200"></a></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Saved Stories: empty state</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a name="visual-stories-empty"></a><a href="../../../../assets/screenshots/stories-empty.png"><img src="../../../../assets/screenshots/stories-empty.png" alt="Saved Stories: empty state" width="200"></a></td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>Image context and notes</summary>
+<ul>
+<li><strong>Solar Stories: populated collection.</strong> A full-screen snapshot with four stories. The repeated cat image is a test fixture. My work included state migration and saved-collection integration. <em>Snapshot test using prepared data.</em></li>
+<li><strong>Solar Stories on a compact screen.</strong> The iPhone SE variant with seven stories: two columns and a collection extending beyond the viewport. <em>Snapshot test using prepared data.</em></li>
+<li><strong>Saved Stories: empty state.</strong> The screen explains how to save a story when the collection is empty. It is a separate presentation state. <em>Snapshot test using prepared data.</em></li>
+</ul>
+</details>
+<p><a href="../gallery.html">Full screen and component gallery</a></p>
+<h2 id="topics-for-an-interview">Topics for an interview</h2>
+<ul>
+<li>How do you preserve viewing context during authentication?</li>
+<li>How does limited video preloading affect the design of the media journey?</li>
+</ul>
+<p><a href="index.html">All cases</a> · <a href="../archive/index.html">Practical examples</a> · <a href="../engineering/technologies.html">Technologies</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">About the metrics</a><a href="../../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>

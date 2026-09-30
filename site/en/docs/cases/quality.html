@@ -1,0 +1,67 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>Quality: unit, snapshot and user-journey checks · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../../ru/docs/cases/quality.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="index.html">Cases</a><a href="../gallery.html">Gallery</a><a href="../statistics.html">Charts</a><a href="../../catalog.html">Examples</a><a href="../career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../../ru/docs/cases/quality.html">RU</a><a data-language="en" lang="en" hreflang="en" href="quality.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../../ru/docs/cases/quality.html">RU</a> · <a href="../../../index.html">Language selection</a></p>
+<h1 id="quality-unit-snapshot-and-user-journey-checks">Quality: unit, snapshot and user-journey checks</h1>
+<p><strong>2023–2026 · OneTwoTrip / iOS</strong></p>
+<p>I supported product changes with several levels of automated checks and developed the test journeys themselves.</p>
+<h2 id="context">Context</h2>
+<p>A large iOS app needs correct logic, stable presentation and working end-to-end journeys. These levels complement one another and catch different regressions.</p>
+<h2 id="my-contribution">My contribution</h2>
+<ul>
+<li>Wrote state and business-logic unit tests for the Solar profile, Digital Collectibles, finance, eSIM and travel history.</li>
+<li>Added snapshots for input fields, card accounts, eSIM and travel history with different sizes, text and states.</li>
+<li>Developed XCUITest journeys for authentication, profile, loyalty, virtual cards, eSIM, travel history, flights and B2B integrations.</li>
+<li>Maintained accessibility identifiers and mocks; updated journeys for UI 2.0 and contract changes.</li>
+<li>Shortened specific test routes with deep links and fixed unstable or broken checks.</li>
+</ul>
+<h2 id="technologies">Technologies</h2>
+<p>XCTest, XCUITest, SnapshotTesting, TCA TestStore, Mocks, Accessibility identifiers, Allure, Jenkins.</p>
+<h2 id="practical-examples">Practical examples</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Checking business state</td>
+<td>Wrote unit tests for profiles, achievements, finance, eSIM and trips.</td>
+<td>Testing logic independently of appearance.</td>
+</tr>
+<tr>
+<td>Checking components</td>
+<td>Added snapshots for UI sizes, text and states.</td>
+<td>Visual regressions and the design system.</td>
+</tr>
+<tr>
+<td>End-to-end journeys</td>
+<td>Developed XCUITest flows for sign-in, purchases, profiles and integrations.</td>
+<td>Checking app behavior from the user&#x27;s perspective.</td>
+</tr>
+<tr>
+<td>Maintaining tests</td>
+<td>Maintained mocks and accessibility identifiers, fixed instability and used deep links.</td>
+<td>Practical maintenance of automated checks.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="engineering-decisions">Engineering decisions</h2>
+<ul>
+<li>Unit tests check decisions and state, snapshots catch visual regressions, and UI tests check connected screens and actions. One level does not replace the others.</li>
+<li>Error states need controlled responses and network conditions rather than waiting for an accidental production failure.</li>
+<li>Test files, methods, runs and snapshot images are different metrics and are not mixed in the statistics.</li>
+</ul>
+<h2 id="quality-and-checks">Quality and checks</h2>
+<ul>
+<li>The analysis distinguishes testing tasks from commits that touch tests. Neither figure is a code-coverage percentage.</li>
+<li>The included images are genuine snapshot baselines; application tests were not rerun to create this portfolio.</li>
+</ul>
+<h2 id="outcome-and-scope">Outcome and scope</h2>
+<p>Testing became both part of my feature work and a separate engineering contribution: creating checks, maintaining them and diagnosing regressions.</p>
+<h2 id="topics-for-an-interview">Topics for an interview</h2>
+<ul>
+<li>Which errors are best caught by unit, snapshot and UI tests?</li>
+<li>How do you distinguish a test problem from an application regression?</li>
+</ul>
+<p><a href="index.html">All cases</a> · <a href="../archive/index.html">Practical examples</a> · <a href="../engineering/technologies.html">Technologies</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">About the metrics</a><a href="../../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>

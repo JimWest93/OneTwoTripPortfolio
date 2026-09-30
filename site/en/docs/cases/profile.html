@@ -1,0 +1,67 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>Profile, personal details and notifications · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../../ru/docs/cases/profile.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="index.html">Cases</a><a href="../gallery.html">Gallery</a><a href="../statistics.html">Charts</a><a href="../../catalog.html">Examples</a><a href="../career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../../ru/docs/cases/profile.html">RU</a><a data-language="en" lang="en" hreflang="en" href="profile.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../../ru/docs/cases/profile.html">RU</a> · <a href="../../../index.html">Language selection</a></p>
+<h1 id="profile-personal-details-and-notifications">Profile, personal details and notifications</h1>
+<p><strong>2023–2026 · OneTwoTrip / iOS</strong></p>
+<p>I developed OTT and Solar profiles, personal-data editing, bonus sections and notification channels.</p>
+<h2 id="context">Context</h2>
+<p>The profile brings together authentication, personal data, loyalty, favorites, support and social features. It needs consistent state, correct validation and navigation to independent modules.</p>
+<h2 id="my-contribution">My contribution</h2>
+<ul>
+<li>Moved the Solar profile to the original TCA implementation, developed the header and its business logic, wallet/account sections and guest state.</li>
+<li>Worked on profile photos, data editing, About the app, favorite hotels and marketing statistics.</li>
+<li>Developed the OTT personal-details screen in UI 2.0 with new fields, validation and support navigation for contact changes.</li>
+<li>Implemented notification-channel UI and business logic, scrolling to the first unread message, notification subsystem changes and events.</li>
+<li>Contributed to social journeys: reporting a user, travel history in another user's profile and onboarding updates.</li>
+</ul>
+<h2 id="technologies">Technologies</h2>
+<p>Swift, UIKit, TCA, PropsBuilder, Swinject, Nuke, Push notifications, REST, XCTest / XCUITest.</p>
+<h2 id="practical-examples">Practical examples</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Profile across sign-in states</td>
+<td>Moved the Solar profile to TCA and developed its header and account sections.</td>
+<td>Screen composition and state lifecycle.</td>
+</tr>
+<tr>
+<td>Editing personal details</td>
+<td>Worked on UI 2.0 fields, validation and support navigation for contact changes.</td>
+<td>Forms and product-contract constraints.</td>
+</tr>
+<tr>
+<td>Notification channels</td>
+<td>Implemented UI, business logic and scrolling to unread messages.</td>
+<td>Aligning data, navigation and presentation.</td>
+</tr>
+<tr>
+<td>Widgets and social journeys</td>
+<td>Added favorites, statistics and travel history in other users&#x27; profiles.</td>
+<td>Module reuse and user context.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="engineering-decisions">Engineering decisions</h2>
+<ul>
+<li>Guest, signed-in and loyalty-tier states need explicit presentation rather than unrelated rules that hide individual views.</li>
+<li>Cached profile data needs to match the new session when switching accounts; I worked on keeping this behaviour consistent.</li>
+<li>Notification channels and support share navigation but have different data and behavior.</li>
+</ul>
+<h2 id="quality-and-checks">Quality and checks</h2>
+<ul>
+<li>Checks include a Solar profile unit test and UI tests for sections, photos and personal-data editing.</li>
+<li>Regression work covers avatar caching, validation, keyboard behavior, small screens and preserving channel state.</li>
+</ul>
+<h2 id="outcome-and-scope">Outcome and scope</h2>
+<p>The profile became an ongoing area of my contribution, from screen composition to product widgets, testing and maintenance.</p>
+<h2 id="topics-for-an-interview">Topics for an interview</h2>
+<ul>
+<li>How should guest and signed-in profiles share logic without diverging?</li>
+<li>Which states need checking when users edit their contact details?</li>
+</ul>
+<p><a href="index.html">All cases</a> · <a href="../archive/index.html">Practical examples</a> · <a href="../engineering/technologies.html">Technologies</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">About the metrics</a><a href="../../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>

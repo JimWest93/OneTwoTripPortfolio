@@ -1,0 +1,90 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>Solar: launching and developing a separate app · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../../ru/docs/cases/solar.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="index.html">Cases</a><a href="../gallery.html">Gallery</a><a href="../statistics.html">Charts</a><a href="../../catalog.html">Examples</a><a href="../career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../../ru/docs/cases/solar.html">RU</a><a data-language="en" lang="en" hreflang="en" href="solar.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../../ru/docs/cases/solar.html">RU</a> · <a href="../../../index.html">Language selection</a></p>
+<h1 id="solar-launching-and-developing-a-separate-app">Solar: launching and developing a separate app</h1>
+<p><strong>2022–2024 · OneTwoTrip / iOS</strong></p>
+<p>I contributed to launching Solar on the OneTwoTrip codebase and developing its main screens.</p>
+<p><a href="#screens">View screens and states</a> · <a href="../gallery.html">Full gallery</a></p>
+<h2 id="context">Context</h2>
+<p>The new product reused existing travel capabilities but required its own composition, visual language, home screen, authentication, profile and analytics. Shared code needed clear boundaries from application-specific behavior.</p>
+<h2 id="my-contribution">My contribution</h2>
+<ul>
+<li>Contributed to the Solar target, AppDelegate and Coordinator, initial journey and tab bar.</li>
+<li>Developed the home screen: header menu, stories, banners, unfinished bookings, footer, configuration and analytics events.</li>
+<li>Worked on the profile, orders, notifications, magic links and social sign-in; adapted links, quick actions and section navigation.</li>
+<li>Maintained AppsFlyer/Adjust integrations and events, currency selection, payment differences and offline behavior.</li>
+<li>Fixed regressions after shared changes were integrated and contributed to preparing and maintaining Solar releases.</li>
+</ul>
+<h2 id="technologies">Technologies</h2>
+<p>Swift, UIKit, Tuist / multi-target, Coordinator, Swinject, TCA, WebKit, AVKit / Lottie, AppsFlyer / Adjust, XCUITest.</p>
+<h2 id="practical-examples">Practical examples</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Composing a separate app</td>
+<td>Contributed to the Solar target, AppDelegate, Coordinator and tab bar.</td>
+<td>A separate product on a shared codebase.</td>
+</tr>
+<tr>
+<td>Home screen</td>
+<td>Developed menus, Stories, banners and unfinished bookings.</td>
+<td>Configurable product-screen composition.</td>
+</tr>
+<tr>
+<td>Sign-in and section navigation</td>
+<td>Worked on authentication, profile, orders and quick actions.</td>
+<td>Consistent user journeys.</td>
+</tr>
+<tr>
+<td>Different configurations</td>
+<td>Handled currencies, links, analytics and regressions following shared changes.</td>
+<td>Maintaining multiple application variants.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="engineering-decisions">Engineering decisions</h2>
+<ul>
+<li>A shared codebase does not imply identical products. Configuration and build composition define Solar-specific behavior.</li>
+<li>Shared changes require checking both apps: OTT navigation, styling or authentication changes can affect Solar.</li>
+<li>My work focused on mobile app composition, user journeys and integration with the team's shared platform.</li>
+</ul>
+<h2 id="quality-and-checks">Quality and checks</h2>
+<ul>
+<li>Separate UI tests cover the Solar home screen, tab bar, profile and authentication.</li>
+<li>Integration and release fixes demonstrate continued product work after the initial launch.</li>
+</ul>
+<h2 id="outcome-and-scope">Outcome and scope</h2>
+<p>I gained experience developing a separate app on a shared modular foundation, from initial composition to end-to-end journeys and release support.</p>
+<p><a name="screens"></a></p>
+<h2 id="screens-and-interface-states">Screens and interface states</h2>
+<p>Original snapshot-test images using prepared data. Each example identifies its source type. Design and overall architecture were team work; my contribution is described above. Select an image to inspect the details.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Solar Stories: populated collection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a name="visual-stories-solar-grid"></a><a href="../../../../assets/screenshots/stories-solar-grid.png"><img src="../../../../assets/screenshots/stories-solar-grid.png" alt="Solar Stories: populated collection" width="200"></a></td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>Image context and notes</summary>
+<ul>
+<li><strong>Solar Stories: populated collection.</strong> A full-screen snapshot with four stories. The repeated cat image is a test fixture. My work included state migration and saved-collection integration. <em>Snapshot test using prepared data.</em></li>
+</ul>
+</details>
+<p><a href="../gallery.html">Full screen and component gallery</a></p>
+<h2 id="topics-for-an-interview">Topics for an interview</h2>
+<ul>
+<li>How should multiple apps share a codebase while preserving their differences?</li>
+<li>What regressions can occur when shared changes reach a separate product?</li>
+</ul>
+<p><a href="index.html">All cases</a> · <a href="../archive/index.html">Practical examples</a> · <a href="../engineering/technologies.html">Technologies</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">About the metrics</a><a href="../../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>

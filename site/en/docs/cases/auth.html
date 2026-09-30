@@ -1,0 +1,67 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>Authentication across different product journeys · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../../ru/docs/cases/auth.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="index.html">Cases</a><a href="../gallery.html">Gallery</a><a href="../statistics.html">Charts</a><a href="../../catalog.html">Examples</a><a href="../career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../../ru/docs/cases/auth.html">RU</a><a data-language="en" lang="en" hreflang="en" href="auth.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../../ru/docs/cases/auth.html">RU</a> · <a href="../../../index.html">Language selection</a></p>
+<h1 id="authentication-across-different-product-journeys">Authentication across different product journeys</h1>
+<p><strong>2022–2024 · OneTwoTrip / iOS</strong></p>
+<p>I developed phone and email sign-in, repeat authentication, magic links and social sign-in for Solar.</p>
+<h2 id="context">Context</h2>
+<p>Authentication is used in profiles, orders and checkout, so a failure can affect multiple product areas. I worked on transitions between sign-in methods, incomplete contact details and returning users to their original journey.</p>
+<h2 id="my-contribution">My contribution</h2>
+<ul>
+<li>Developed repeat authentication, session-state handling and user feedback.</li>
+<li>Worked on the new email/PIN journey, switching to phone sign-in, requesting a missing phone number and continuing checkout.</li>
+<li>Contributed to Solar authentication: magic links, Apple ID and Google ID, incoming-link handling and product configuration differences.</li>
+<li>Handled edge cases involving connectivity, CAPTCHA, resending codes, switching methods, the keyboard, validation and registration during checkout.</li>
+<li>Added account-deletion confirmation and updated authentication events and Solar tests.</li>
+</ul>
+<h2 id="technologies">Technologies</h2>
+<p>Swift, UIKit, Presenter / Interactor / Router, Swinject, REST, Deep Links / Universal Links, WebKit, Apple ID / Google ID integrations, XCUITest.</p>
+<h2 id="practical-examples">Practical examples</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Continuing checkout after sign-in</td>
+<td>Worked on email/PIN, switching to phone and requesting missing contacts.</td>
+<td>Authentication as part of a product journey.</td>
+</tr>
+<tr>
+<td>Repeat sign-in on a device</td>
+<td>Developed repeat authentication and consistent user-session behaviour.</td>
+<td>Session state and reusable flows.</td>
+</tr>
+<tr>
+<td>Signing in to Solar</td>
+<td>Contributed to magic links, Apple ID, Google ID and incoming links.</td>
+<td>Integration of multiple authentication methods.</td>
+</tr>
+<tr>
+<td>Errors and repeated actions</td>
+<td>Handled CAPTCHA, missing connectivity, code resends and method changes.</td>
+<td>Explicit edge states and validation.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="engineering-decisions">Engineering decisions</h2>
+<ul>
+<li>Successful sign-in returns control to the initiating journey: profile, orders or checkout. The completion context matters more than simply dismissing the form.</li>
+<li>Remembering a device does not replace server-side session validation; this portfolio describes the user journey without reproducing the internal token scheme.</li>
+<li>Shared sign-in and return-to-action states account for provider differences and product configuration.</li>
+</ul>
+<h2 id="quality-and-checks">Quality and checks</h2>
+<ul>
+<li>A dedicated Solar authentication UI test and successive fixes cover checkout and incoming-link journeys.</li>
+<li>Responsibility boundaries were checked against the implementation and module contracts.</li>
+</ul>
+<h2 id="outcome-and-scope">Outcome and scope</h2>
+<p>Different entry points gained a consistent sign-in journey that continues the user's action and handles errors explicitly.</p>
+<h2 id="topics-for-an-interview">Topics for an interview</h2>
+<ul>
+<li>How do you continue the original action after authentication?</li>
+<li>How do you keep state consistent when the user changes sign-in methods?</li>
+</ul>
+<p><a href="index.html">All cases</a> · <a href="../archive/index.html">Practical examples</a> · <a href="../engineering/technologies.html">Technologies</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">About the metrics</a><a href="../../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>

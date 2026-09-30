@@ -1,0 +1,100 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>Payment integrations and completing a purchase · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../../ru/docs/cases/payments.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="index.html">Cases</a><a href="../gallery.html">Gallery</a><a href="../statistics.html">Charts</a><a href="../../catalog.html">Examples</a><a href="../career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../../ru/docs/cases/payments.html">RU</a><a data-language="en" lang="en" hreflang="en" href="payments.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../../ru/docs/cases/payments.html">RU</a> · <a href="../../../index.html">Language selection</a></p>
+<h1 id="payment-integrations-and-completing-a-purchase">Payment integrations and completing a purchase</h1>
+<p><strong>2022–2026 · OneTwoTrip / iOS</strong></p>
+<p>I worked on client-side payment journeys across products and shared payment-progress presentation.</p>
+<p><a href="#screens">View screens and states</a> · <a href="../gallery.html">Full gallery</a></p>
+<h2 id="context">Context</h2>
+<p>Payments connect external providers, WebView/3DS, waiting for server status and returning to an order. Users need to understand whether an operation is continuing and what to do after an error.</p>
+<h2 id="my-contribution">My contribution</h2>
+<ul>
+<li>Integrated BridgerPay into the hotel journey and maintained related payment-method identification and widget UI changes.</li>
+<li>Supported NowPayments in Solar flights and hotels; fixed completion and presentation of external payment journeys.</li>
+<li>Worked on the shared SBP payment loader and its UI tests.</li>
+<li>Developed the eSIM payment screen and client integration, contacts, errors, timer and order navigation.</li>
+<li>Fixed order behavior after payment errors and related states in the rail product.</li>
+</ul>
+<h2 id="technologies">Technologies</h2>
+<p>Swift, UIKit / SwiftUI, WebKit, 3DS, REST / polling, TCA, Coordinator, BridgerPay / NowPayments integrations, XCUITest.</p>
+<h2 id="practical-examples">Practical examples</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>External payment providers</td>
+<td>Integrated BridgerPay in hotels and maintained NowPayments in Solar.</td>
+<td>Client-side integration of payment journeys.</td>
+</tr>
+<tr>
+<td>Waiting for SBP payment</td>
+<td>Worked on the shared payment loader and its UI tests.</td>
+<td>Reusable presentation of an intermediate state.</td>
+</tr>
+<tr>
+<td>Buying an eSIM</td>
+<td>Developed payment UI, backend interaction, contact handling and order navigation.</td>
+<td>Orchestrating several purchase steps.</td>
+</tr>
+<tr>
+<td>Returning after failure</td>
+<td>Fixed order state after payment errors and completion of external journeys.</td>
+<td>Error handling and interface recovery.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="engineering-decisions">Engineering decisions</h2>
+<ul>
+<li>The external payment UI status can differ from the final order status. The client completes the journey according to the backend contract.</li>
+<li>Payment methods have different transitions, but progress indication and error handling should be consistent.</li>
+<li>My scope is client-side provider integration, payment state and navigation to the purchase result.</li>
+</ul>
+<h2 id="quality-and-checks">Quality and checks</h2>
+<ul>
+<li>The history includes integration fixes, eSIM unit/UI tests and a UI test for the shared SBP loader.</li>
+<li>Requirements and implementation are separated by product and provider.</li>
+</ul>
+<h2 id="outcome-and-scope">Outcome and scope</h2>
+<p>I gained experience supporting purchases from the form to confirmation, including rejection, waiting and returning from an external interface.</p>
+<h2 id="a-closer-look-at-the-journey">A closer look at the journey</h2>
+<h3 id="waiting-for-an-external-result">Waiting for an external result</h3>
+<p>Opening a banking app or WebView does not complete a purchase by itself. The client needs to show waiting, handle return and obtain the outcome according to the provider contract. My work included Solar and eSIM payment integrations, the shared loader and transition checks.</p>
+<h3 id="esim-a-detailed-checkout-case">eSIM: a detailed checkout case</h3>
+<p>For eSIM I worked on the SwiftUI screen, user contacts, REST API integration, 3DS, polling, promo codes and the timer. <a href="esim.html">The dedicated case</a> explains payment transitions, protection against stale promo responses, a fully discounted purchase without card selection and resuming after screen lock; it also includes the original price-breakdown snapshot.</p>
+<h3 id="an-error-should-leave-a-clear-next-step">An error should leave a clear next step</h3>
+<p>Retry and Close have different consequences for the purchase journey. A full-screen baseline with a long message shows another concern: actions must remain accessible with awkward data. These snapshots belong to the shared team payment container; my contribution is described in the integration and state-handling examples.</p>
+<p><a name="screens"></a></p>
+<h2 id="screens-and-interface-states">Screens and interface states</h2>
+<p>Original snapshot-test images using prepared data. Each example identifies its source type. Design and overall architecture were team work; my contribution is described above. Select an image to inspect the details.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Waiting for external payment</th>
+<th style="text-align: center;">Payment error: long text and two actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a name="visual-payment-waiting"></a><a href="../../../../assets/screenshots/payment-waiting.png"><img src="../../../../assets/screenshots/payment-waiting.png" alt="Waiting for external payment" width="200"></a></td>
+<td style="text-align: center;"><a name="visual-payment-long-error"></a><a href="../../../../assets/screenshots/payment-long-error.png"><img src="../../../../assets/screenshots/payment-long-error.png" alt="Payment error: long text and two actions" width="200"></a></td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>Image context and notes</summary>
+<ul>
+<li><strong>Waiting for external payment.</strong> A full-screen snapshot of the shared payment container. It shows waiting for a banking-app handoff; this is the SberPay variant, not a screenshot of SBP specifically. <em>Snapshot test using prepared data.</em></li>
+<li><strong>Payment error: long text and two actions.</strong> Stress-test data checks how a long message coexists with Retry and Close actions. <em>Snapshot test using prepared data.</em></li>
+</ul>
+</details>
+<p><a href="../gallery.html">Full screen and component gallery</a></p>
+<h2 id="topics-for-an-interview">Topics for an interview</h2>
+<ul>
+<li>Which states does the client pass through between payment initiation and order confirmation?</li>
+<li>How do you restore a clear interface after an external provider rejects a payment?</li>
+</ul>
+<p><a href="index.html">All cases</a> · <a href="../archive/index.html">Practical examples</a> · <a href="../engineering/technologies.html">Technologies</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">About the metrics</a><a href="../../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>

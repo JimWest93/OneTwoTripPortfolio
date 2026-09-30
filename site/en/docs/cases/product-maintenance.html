@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>Hotels, trains and everyday product reliability · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../../ru/docs/cases/product-maintenance.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="index.html">Cases</a><a href="../gallery.html">Gallery</a><a href="../statistics.html">Charts</a><a href="../../catalog.html">Examples</a><a href="../career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../../ru/docs/cases/product-maintenance.html">RU</a><a data-language="en" lang="en" hreflang="en" href="product-maintenance.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../../ru/docs/cases/product-maintenance.html">RU</a> · <a href="../../../index.html">Language selection</a></p>
+<h1 id="hotels-trains-and-everyday-product-reliability">Hotels, trains and everyday product reliability</h1>
+<p><strong>2021–2026 · OneTwoTrip / iOS</strong></p>
+<p>Much of my work involved steadily improving the existing app: bugs, navigation, locales and screen states.</p>
+<h2 id="context">Context</h2>
+<p>Major features rely on handling real edge cases. Early tasks show how I learned a large codebase, moving from visual defects to asynchronous data, network failures and navigation between screens.</p>
+<h2 id="my-contribution">My contribution</h2>
+<ul>
+<li>In hotels, fixed favorites, review loading, photos and galleries, results states, calendars, safe areas, scrolling and post-search navigation.</li>
+<li>In rail journeys, added documents for canceled orders, status checking after payment errors and cancellation/repeating of electronic registration.</li>
+<li>Worked on shared orders: pull-to-refresh, empty states, archived-order deep links and consistent authentication.</li>
+<li>Fixed date formatting, locale changes, offline WebViews, the status bar, keyboard behavior and small-device presentation.</li>
+<li>Continued maintaining shared and product-specific journeys alongside new features.</li>
+</ul>
+<h2 id="technologies">Technologies</h2>
+<p>Swift, UIKit, Legacy Objective-C interoperability, REST, WebKit, DateFormatter / localization, Navigation / coordinators, Debugging.</p>
+<h2 id="practical-examples">Practical examples</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hotel journeys</td>
+<td>Fixed favorites, reviews, galleries, search results, calendars and post-search navigation.</td>
+<td>Diagnosing regressions in an existing product.</td>
+</tr>
+<tr>
+<td>Rail orders</td>
+<td>Worked on cancellation documents, post-payment-error state and electronic registration.</td>
+<td>Aligning client UI with order state.</td>
+</tr>
+<tr>
+<td>Shared order list</td>
+<td>Refined refresh, empty states, archived links and authentication.</td>
+<td>Reusable navigation and data updates.</td>
+</tr>
+<tr>
+<td>Platform behavior</td>
+<td>Fixed dates, locales, offline WebViews, the keyboard and small screens.</td>
+<td>Reliability across different environments.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="engineering-decisions">Engineering decisions</h2>
+<ul>
+<li>Fixing UI often means finding the cause in lifecycle, data or routing rather than simply changing a constraint.</li>
+<li>Maintenance work across several products complements the larger feature case studies.</li>
+</ul>
+<h2 id="quality-and-checks">Quality and checks</h2>
+<ul>
+<li>My recorded engineering work begins in December 2021; the career overview describes its progression.</li>
+<li>The cases distinguish bug fixes, new journeys and maintenance of existing team modules.</li>
+</ul>
+<h2 id="outcome-and-scope">Outcome and scope</h2>
+<p>This work built practical understanding of a large app and provided a foundation for more independent features, shared components and engineering tools.</p>
+<h2 id="topics-for-an-interview">Topics for an interview</h2>
+<ul>
+<li>How do you isolate a regression in a large app with shared components?</li>
+<li>Which states are easy to miss when fixing navigation and order refresh?</li>
+</ul>
+<p><a href="index.html">All cases</a> · <a href="../archive/index.html">Practical examples</a> · <a href="../engineering/technologies.html">Technologies</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">About the metrics</a><a href="../../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>

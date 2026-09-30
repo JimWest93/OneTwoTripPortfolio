@@ -1,0 +1,119 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>Cashback and accounts: balances, cards and screen states · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../../ru/docs/cases/loyalty.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="index.html">Cases</a><a href="../gallery.html">Gallery</a><a href="../statistics.html">Charts</a><a href="../../catalog.html">Examples</a><a href="../career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../../ru/docs/cases/loyalty.html">RU</a><a data-language="en" lang="en" hreflang="en" href="loyalty.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../../ru/docs/cases/loyalty.html">RU</a> · <a href="../../../index.html">Language selection</a></p>
+<h1 id="cashback-and-accounts-balances-cards-and-screen-states">Cashback and accounts: balances, cards and screen states</h1>
+<p><strong>2023–2025 · OneTwoTrip / iOS</strong></p>
+<p>Developed Solar Cash and migrated the cashback section to UI 2.0: UIKit, TCA, multiple data sources, card and bonus balances, statuses and error handling.</p>
+<p><a href="#screens">View screens and states</a> · <a href="../gallery.html">Full gallery</a></p>
+<h2 id="context">Context</h2>
+<p>Loyalty depends on user status, available bonuses, cards and account state. The screen must explain conditions and offer the correct actions even with incomplete data or a network error.</p>
+<h2 id="my-contribution">My contribution</h2>
+<ul>
+<li>Added Solar Cash to the profile, credit/debit history, empty states and hotel-flow bonus integration.</li>
+<li>Moved OTT cashback to UI 2.0: header, virtual/physical cards, Tripcoins, travel cashback, boosted cashback, information blocks and banners.</li>
+<li>Separated legacy and new screens, added configuration, a feature flag and error handling, then removed the old implementation.</li>
+<li>Wrote and maintained tests for different statuses, card issuance, missing connectivity, invalid backend responses and updates after card-tier changes.</li>
+</ul>
+<h2 id="technologies">Technologies</h2>
+<p>Swift, UIKit, TCA, Swift Concurrency / async-await, PropsBuilder, Swinject, REST / mapping, SnapshotTesting, XCTest, XCUITest.</p>
+<h2 id="practical-examples">Practical examples</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Solar Cash balance</td>
+<td>Added credit/debit history, empty states and hotel integration.</td>
+<td>Financial data within a product interface.</td>
+</tr>
+<tr>
+<td>New cashback screen</td>
+<td>Migrated card, Tripcoin and boosted-cashback blocks to UI 2.0.</td>
+<td>Migrating a complex screen while preserving rules.</td>
+</tr>
+<tr>
+<td>Controlled UI rollout</td>
+<td>Separated old and new implementations and added configuration and a feature flag.</td>
+<td>Incremental introduction of changes.</td>
+</tr>
+<tr>
+<td>Edge states</td>
+<td>Checked card statuses, network errors and updates after tier changes.</td>
+<td>Systematic checks of financial journeys.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="engineering-decisions">Engineering decisions</h2>
+<ul>
+<li>The cashback redesign had to preserve financial rules: functionality remained consistent while the visual styles changed.</li>
+<li>User status and card capabilities form a state matrix. Checking a single successful screen is insufficient.</li>
+<li>After issuing or upgrading a card, the parent section must refresh its data rather than merely dismissing the child screen.</li>
+</ul>
+<h2 id="quality-and-checks">Quality and checks</h2>
+<ul>
+<li>Developed unit, snapshot and UI checks for loyalty tiers, information blocks, errors and navigation.</li>
+<li>UI tests connect product actions to the resulting screen state.</li>
+</ul>
+<h2 id="outcome-and-scope">Outcome and scope</h2>
+<p>Financial user states gained an updated presentation and systematic checks. Revenue or program-adoption gains are not claimed without product analytics.</p>
+<h2 id="a-closer-look-at-the-journey">A closer look at the journey</h2>
+<ol>
+<li><strong>Check the session.</strong> Separate the guest state from loading personal financial data.</li>
+<li><strong>Assemble the data.</strong> Fetch configuration plus account, card, loyalty-status and cashback data.</li>
+<li><strong>Build the blocks.</strong> Show the appropriate balances, terms and actions for the card and user state.</li>
+<li><strong>Refresh after an action.</strong> Synchronise the parent screen after card issuance or an upgrade.</li>
+</ol>
+<p>A simplified route through one journey. Error branches and additional actions are discussed below.</p>
+<h3 id="one-screen-multiple-independent-sources">One screen, multiple independent sources</h3>
+<p>Cashback combines card balances, tripcoins, a savings account, loyalty status, offers and banners. I migrated these blocks to UI 2.0 and integrated configuration and error handling. In the TCA implementation, data from several services loads through async/await and TaskGroup after configuration, while a PropsBuilder produces UIKit components from state. Money and bonus units have different representations, and each balance remains associated with its own account.</p>
+<h3 id="a-matrix-of-card-and-user-states">A matrix of card and user states</h3>
+<p>A virtual card has presence and upgrade-eligibility states; a physical card can be absent, pending, issued or failed. These states determine the copy, balance presentation and available navigation. I worked on the card and higher-cashback blocks, including refreshing the screen after issuance and upgrades. The challenge is keeping the parent screen consistent with the result of a child journey. <a href="virtual-card.html">Card account, limits and operations</a>.</p>
+<h3 id="network-errors-and-financial-interface-checks">Network errors and financial-interface checks</h3>
+<p>Empty data, a guest session, no connection and malformed service responses need distinct checks. I implemented error handling and developed unit, snapshot and UI tests for the section. The code tracks authorisation, loading and network availability separately; signing out resets personal state. Snapshot tests cover the accounts block and higher-cashback variants at different widths, while UI scenarios cover statuses and refresh after actions.</p>
+<p><a name="screens"></a></p>
+<h2 id="screens-and-interface-states">Screens and interface states</h2>
+<p>Original snapshot-test images using prepared data. Each example identifies its source type. Design and overall architecture were team work; my contribution is described above. Select an image to inspect the details.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Cashback: cards and accounts</th>
+<th style="text-align: center;">Higher cashback and card limits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a name="visual-cashback-accounts"></a><a href="../../../../assets/screenshots/cashback-accounts.png"><img src="../../../../assets/screenshots/cashback-accounts.png" alt="Cashback: cards and accounts" width="250"></a></td>
+<td style="text-align: center;"><a name="visual-cashback-upgrade"></a><a href="../../../../assets/screenshots/cashback-upgrade.png"><img src="../../../../assets/screenshots/cashback-upgrade.png" alt="Higher cashback and card limits" width="250"></a></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Progress toward Premium status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a name="visual-loyalty-progress"></a><a href="../../../../assets/screenshots/loyalty-progress.png"><img src="../../../../assets/screenshots/loyalty-progress.png" alt="Progress toward Premium status" width="250"></a></td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>Image context and notes</summary>
+<ul>
+<li><strong>Cashback: cards and accounts.</strong> Cashback-screen block with physical and virtual cards, a bonus account and a savings account. Balances and masked card numbers are snapshot-test fixtures. <em>Original component snapshot using test data.</em></li>
+<li><strong>Higher cashback and card limits.</strong> An upgrade-block state: per-transaction and monthly limits, cashback terms and the next action. This is a UI test example, not current banking terms. <em>Original component snapshot using test data.</em></li>
+<li><strong>Progress toward Premium status.</strong> Counter, progress and status conditions in UI 2.0. An illustration of the loyalty area; the shared design and test baseline are team work. <em>Snapshot test using prepared data.</em></li>
+</ul>
+</details>
+<p><a href="../gallery.html">Full screen and component gallery</a></p>
+<h2 id="topics-for-an-interview">Topics for an interview</h2>
+<ul>
+<li>How do you test a screen with several financial states?</li>
+<li>How should a feature flag be used when replacing an existing section?</li>
+</ul>
+<p><a href="index.html">All cases</a> · <a href="../archive/index.html">Practical examples</a> · <a href="../engineering/technologies.html">Technologies</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">About the metrics</a><a href="../../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>

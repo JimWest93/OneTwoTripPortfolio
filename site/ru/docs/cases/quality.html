@@ -1,0 +1,67 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Валерий Веселов — iOS Developer. Полное портфолио OneTwoTrip и Solar."><title>Качество: unit, snapshot и пользовательские сценарии · Valeriy Veselov</title><link rel="alternate" hreflang="en" href="../../../en/docs/cases/quality.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">К содержанию</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Основная навигация"><a href="index.html">Кейсы</a><a href="../gallery.html">Галерея</a><a href="../statistics.html">Графики</a><a href="../../catalog.html">Задачи</a><a href="../career/summary.html">Резюме</a></nav><nav class="language-switch" aria-label="Язык страницы"><a data-language="ru" lang="ru" hreflang="ru" href="quality.html" aria-current="page">RU</a><a data-language="en" lang="en" hreflang="en" href="../../../en/docs/cases/quality.html">EN</a></nav></header><main id="main" class="article"><p><a href="../../../en/docs/cases/quality.html">EN</a> · <a href="../../../index.html">Выбор языка / Language</a></p>
+<h1 id="unit-snapshot">Качество: unit, snapshot и пользовательские сценарии</h1>
+<p><strong>2023–2026 · OneTwoTrip / iOS</strong></p>
+<p>Сопровождал продуктовые изменения несколькими уровнями автоматизированных проверок и развивал сами тестовые сценарии.</p>
+<h2 id="_1">Контекст</h2>
+<p>Для большого iOS-приложения важны и корректность логики, и стабильное отображение, и работоспособность полного пути пользователя. Эти уровни дополняют друг друга и обнаруживают разные типы регрессий.</p>
+<h2 id="_2">Мой вклад</h2>
+<ul>
+<li>Писал unit-тесты состояния и бизнес-логики профиля Solar, Digital Collectibles, финансов, eSIM и истории путешествий.</li>
+<li>Добавлял snapshot-тесты компонентов полей ввода, кабинета карты, eSIM и истории; использовал варианты размера, текста и состояния.</li>
+<li>Развивал XCUITest-сценарии авторизации, профиля, лояльности, виртуальной карты, eSIM, истории путешествий, авиа и B2B-интеграций.</li>
+<li>Поддерживал accessibility identifiers и моки; обновлял сценарии при переходе на UI 2.0 и изменении контрактов.</li>
+<li>Ускорял конкретные тестовые маршруты через диплинки и исправлял нестабильные/сломавшиеся проверки.</li>
+</ul>
+<h2 id="_3">Технологии</h2>
+<p>XCTest, XCUITest, SnapshotTesting, TCA TestStore, Mocks, Accessibility identifiers, Allure, Jenkins.</p>
+<h2 id="_4">Примеры задач</h2>
+<table>
+<thead>
+<tr>
+<th>Сценарий</th>
+<th>Что я делал</th>
+<th>Инженерный акцент</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Проверка бизнес-состояния</td>
+<td>Писал unit-тесты профиля, достижений, финансов, eSIM и поездок.</td>
+<td>Тестирование логики независимо от внешнего вида.</td>
+</tr>
+<tr>
+<td>Проверка компонентов</td>
+<td>Добавлял snapshot-тесты размеров, текста и состояний UI.</td>
+<td>Визуальные регрессии и дизайн-система.</td>
+</tr>
+<tr>
+<td>Сквозные маршруты</td>
+<td>Развивал XCUITest-сценарии входа, покупки, профиля и продуктовых интеграций.</td>
+<td>Проверка поведения приложения с точки зрения пользователя.</td>
+</tr>
+<tr>
+<td>Сопровождение тестов</td>
+<td>Поддерживал моки и accessibility identifiers, исправлял нестабильность и использовал диплинки.</td>
+<td>Практическая поддержка автоматизированных проверок.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_5">Инженерные решения</h2>
+<ul>
+<li>Unit-тесты проверяют решения и состояния, snapshot — визуальную регрессию, UI-тесты — связь экранов и действий. Наличие одного уровня не заменяет остальные.</li>
+<li>Для состояния ошибки нужны контролируемые ответы и сеть, а не ожидание случайного production-сбоя.</li>
+<li>Количество тестовых файлов, методов, запусков и snapshot-картинок — разные метрики; в статистике они не смешиваются.</li>
+</ul>
+<h2 id="_6">Качество и проверки</h2>
+<ul>
+<li>Архив отдельно выделяет тестовые задачи и коммиты, затрагивающие тесты. Эти показатели не являются процентом покрытия кода.</li>
+<li>Приложенные изображения взяты из реальных snapshot-baselines; в этой работе тесты приложения повторно не запускались.</li>
+</ul>
+<h2 id="_7">Результат и границы</h2>
+<p>Тестирование стало частью моей работы над фичами и отдельным направлением инженерного вклада: создание проверок, сопровождение и диагностика регрессий.</p>
+<h2 id="_8">Что можно обсудить на интервью</h2>
+<ul>
+<li>Какие ошибки лучше ловить unit-, snapshot- и UI-тестами?</li>
+<li>Как отделить проблему теста от регрессии приложения?</li>
+</ul>
+<p><a href="index.html">Все кейсы</a> · <a href="../archive/index.html">Практические задачи</a> · <a href="../engineering/technologies.html">Технологии</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">О показателях</a><a href="../../../index.html">Выбрать язык</a><span>Срез 29.09.2026</span></footer></body></html>

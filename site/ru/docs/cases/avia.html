@@ -1,0 +1,92 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Валерий Веселов — iOS Developer. Полное портфолио OneTwoTrip и Solar."><title>Авиа: формы поиска, тарифы и сценарии заказа · Valeriy Veselov</title><link rel="alternate" hreflang="en" href="../../../en/docs/cases/avia.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">К содержанию</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Основная навигация"><a href="index.html">Кейсы</a><a href="../gallery.html">Галерея</a><a href="../statistics.html">Графики</a><a href="../../catalog.html">Задачи</a><a href="../career/summary.html">Резюме</a></nav><nav class="language-switch" aria-label="Язык страницы"><a data-language="ru" lang="ru" hreflang="ru" href="avia.html" aria-current="page">RU</a><a data-language="en" lang="en" hreflang="en" href="../../../en/docs/cases/avia.html">EN</a></nav></header><main id="main" class="article"><p><a href="../../../en/docs/cases/avia.html">EN</a> · <a href="../../../index.html">Выбор языка / Language</a></p>
+<h1 id="_1">Авиа: формы поиска, тарифы и сценарии заказа</h1>
+<p><strong>2022–2026 · OneTwoTrip / iOS</strong></p>
+<p>Развивал авиационные экраны и участвовал в переходе формы поиска и выбора тарифа на UI 2.0.</p>
+<p><a href="#screens">Смотреть экраны и состояния</a> · <a href="../gallery.html">Вся галерея</a></p>
+<h2 id="_2">Контекст</h2>
+<p>Пользовательский путь от поиска до тарифа и заказа чувствителен к навигации, состоянию выбранных параметров и корректной цене. Мой вклад включает ранние исправления и поздние комплексные изменения представления.</p>
+<h2 id="_3">Мой вклад</h2>
+<ul>
+<li>Исправлял параметры поиска, статусы и переходы заказа, маршрутные документы, фильтры и связанные регрессии.</li>
+<li>Собирал новую форму поиска из общих компонентов, поддерживал простой и сложный маршрут, анимации и BI; добавлял UI-проверки.</li>
+<li>Переводил выбор тарифов на UI 2.0: карточки, состояние выбора, отображение цены, советы, баннеры, ошибки и переход к бронированию.</li>
+<li>Работал над выбором мест в уже оформленном заказе, согласованностью цвета аватаров пассажиров и интеграцией предложения eSIM.</li>
+</ul>
+<h2 id="_4">Технологии</h2>
+<p>Swift, UIKit, TCA, PropsBuilder, Swinject, Common UI components, Feature flags, XCTest / SnapshotTesting / XCUITest.</p>
+<h2 id="_5">Примеры задач</h2>
+<table>
+<thead>
+<tr>
+<th>Сценарий</th>
+<th>Что я делал</th>
+<th>Инженерный акцент</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Форма поиска UI 2.0</td>
+<td>Собирал простой и сложный маршрут из общих компонентов, добавлял события и UI-проверки.</td>
+<td>Продуктовая форма с несколькими режимами.</td>
+</tr>
+<tr>
+<td>Выбор тарифа</td>
+<td>Переводил карточки, цены, состояние выбора и переход к бронированию на UI 2.0.</td>
+<td>Обновление интерфейса с сохранением правил покупки.</td>
+</tr>
+<tr>
+<td>Сопровождение заказа</td>
+<td>Исправлял параметры, статусы, документы, фильтры и переходы.</td>
+<td>Работа с регрессиями в длинном продуктовом пути.</td>
+</tr>
+<tr>
+<td>Дополнительные услуги</td>
+<td>Работал над местами в оформленном заказе и предложением eSIM.</td>
+<td>Интеграция связанных продуктов в контекст заказа.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_6">Инженерные решения</h2>
+<ul>
+<li>Новый экран тарифов построен как presentation layer поверх существующей продуктовой логики и backend-контракта.</li>
+<li>Для Solar сохранялось отдельное поведение формы поиска. Редизайн OTT не должен автоматически менять второй продукт.</li>
+<li>Цена, выбранный тариф и параметры перехода должны сохранять согласованность при обновлении UI.</li>
+</ul>
+<h2 id="_7">Качество и проверки</h2>
+<ul>
+<li>Добавлял UI-проверки новой формы поиска и тарифов; сопровождал тестами последующие изменения сценариев заказа.</li>
+<li>Отдельные UI-задачи покрывают новую форму поиска и тарифы; поздние исправления заказа имеют собственные тесты и PR.</li>
+</ul>
+<h2 id="_8">Результат и границы</h2>
+<p>Опыт включает работу на нескольких шагах авиационного пути и миграцию UI без подмены бизнес-правил.</p>
+<p><a name="screens"></a></p>
+<h2 id="_9">Экраны и состояния интерфейса</h2>
+<p>Оригинальные изображения из snapshot-тестов на подготовленных данных. Тип материала указан под каждым примером. Дизайн и общая архитектура создавались командой; мой вклад описан выше. Нажмите на изображение, чтобы рассмотреть детали.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Карточка авиатарифа UI 2.0</th>
+<th style="text-align: center;">Форма поиска: туда и обратно</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a name="visual-avia-tariff"></a><a href="../../../../assets/screenshots/avia-tariff.png"><img src="../../../../assets/screenshots/avia-tariff.png" alt="Карточка авиатарифа UI 2.0" width="250"></a></td>
+<td style="text-align: center;"><a name="visual-avia-search"></a><a href="../../../../assets/screenshots/avia-search.png"><img src="../../../../assets/screenshots/avia-search.png" alt="Форма поиска: туда и обратно" width="250"></a></td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>Сценарии и пояснения к изображениям</summary>
+<ul>
+<li><strong>Карточка авиатарифа UI 2.0.</strong> Условия авиатарифа и доступное действие в общем визуальном стиле UI 2.0. <em>Реальный snapshot-baseline компонента на тестовых данных; не снимок production-сессии.</em></li>
+<li><strong>Форма поиска: туда и обратно.</strong> Состояние поиска с двумя направлениями и связанными параметрами поездки. <em>Реальный snapshot-baseline компонента на тестовых данных; не снимок production-сессии.</em></li>
+</ul>
+</details>
+<p><a href="../gallery.html">Вся галерея экранов и компонентов</a></p>
+<h2 id="_10">Что можно обсудить на интервью</h2>
+<ul>
+<li>Как спроектировать общую форму для простого и сложного маршрута?</li>
+<li>Как обновлять UI выбора тарифа, сохраняя бизнес-правила покупки?</li>
+</ul>
+<p><a href="index.html">Все кейсы</a> · <a href="../archive/index.html">Практические задачи</a> · <a href="../engineering/technologies.html">Технологии</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">О показателях</a><a href="../../../index.html">Выбрать язык</a><span>Срез 29.09.2026</span></footer></body></html>

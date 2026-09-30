@@ -1,0 +1,67 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>Jenkins: build diagnostics and CI maintenance · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../../ru/docs/cases/jenkins.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="index.html">Cases</a><a href="../gallery.html">Gallery</a><a href="../statistics.html">Charts</a><a href="../../catalog.html">Examples</a><a href="../career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../../ru/docs/cases/jenkins.html">RU</a><a data-language="en" lang="en" hreflang="en" href="jenkins.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../../ru/docs/cases/jenkins.html">RU</a> · <a href="../../../index.html">Language selection</a></p>
+<h1 id="jenkins-build-diagnostics-and-ci-maintenance">Jenkins: build diagnostics and CI maintenance</h1>
+<p><strong>2025–2026 · OneTwoTrip / iOS</strong></p>
+<p>I developed practical tools for dSYM handling, macOS-agent maintenance, build information and the review process.</p>
+<h2 id="context">Context</h2>
+<p>iOS builds need crash-diagnostic symbols, available disk space on macOS agents and clear environment information. I developed these tools within the team’s existing Jenkins and Fastlane infrastructure.</p>
+<h2 id="my-contribution">My contribution</h2>
+<ul>
+<li>Created a pipeline to upload dSYMs from a selected macOS agent's cache by app, version and build number. Added input/cache checks, parallel uploads and retries for failed files only.</li>
+<li>Extended dSYM uploads to debug builds of release tasks and added the agent name to build details.</li>
+<li>Added a CI-agent maintenance pipeline with manual execution, a system-cleaner availability check, disk state before/after and freed-space reporting.</li>
+<li>Extended the review process: Fastlane review notifications reports completed reviews before the move to testing.</li>
+<li>Fixed the metrics environment with pinned Ruby, execution without user gems and shared post-cleanup.</li>
+</ul>
+<h2 id="technologies">Technologies</h2>
+<p>Jenkins Declarative Pipeline, Groovy, Bash, Ruby / Fastlane, macOS agents, Firebase Crashlytics dSYM, mise, Git.</p>
+<h2 id="practical-examples">Practical examples</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Uploading dSYMs</td>
+<td>Created a pipeline selecting artifacts by app/build, uploading in parallel and retrying failures.</td>
+<td>Automating iOS diagnostics.</td>
+</tr>
+<tr>
+<td>Maintaining a macOS agent</td>
+<td>Added a manual cleanup pipeline with checks and free-space measurements.</td>
+<td>Controlled operations on the CI environment.</td>
+</tr>
+<tr>
+<td>Build and review context</td>
+<td>Added agent names to build information and completed-review reporting.</td>
+<td>Diagnostics and team workflow.</td>
+</tr>
+<tr>
+<td>Isolating Ruby</td>
+<td>Worked with pinned Ruby, user gems and shared cleanup.</td>
+<td>Reproducible infrastructure scripts.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="engineering-decisions">Engineering decisions</h2>
+<ul>
+<li>dSYM retries are bounded by the overall job timeout; this differs from the bounded HTTP retries in the later metrics publisher.</li>
+<li>The maintenance pipeline manually cleans a selected agent and reports the result through available disk space.</li>
+<li>My contribution centers on pipeline orchestration and integrating existing system tools.</li>
+</ul>
+<h2 id="quality-and-checks">Quality and checks</h2>
+<ul>
+<li>For dSYM handling and agent maintenance, I accounted for input checks, required-file availability and unsuccessful operations.</li>
+<li>Ruby launcher checks covered gem conflicts and entry-point integration. Local checks do not establish production reliability.</li>
+</ul>
+<h2 id="outcome-and-scope">Outcome and scope</h2>
+<p>Dedicated maintenance and diagnostic tools became available for iOS CI, and build information became more useful for investigating failures. I do not claim unmeasured time savings or availability gains.</p>
+<h2 id="topics-for-an-interview">Topics for an interview</h2>
+<ul>
+<li>How do you retry failed artifact uploads without repeating successful ones?</li>
+<li>Which checks should precede maintenance on a selected CI agent?</li>
+</ul>
+<p><a href="index.html">All cases</a> · <a href="../archive/index.html">Practical examples</a> · <a href="../engineering/technologies.html">Technologies</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">About the metrics</a><a href="../../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>

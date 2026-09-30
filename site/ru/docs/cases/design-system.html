@@ -1,0 +1,106 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Валерий Веселов — iOS Developer. Полное портфолио OneTwoTrip и Solar."><title>Общие UI-компоненты и переход на UI 2.0 · Valeriy Veselov</title><link rel="alternate" hreflang="en" href="../../../en/docs/cases/design-system.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">К содержанию</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Основная навигация"><a href="index.html">Кейсы</a><a href="../gallery.html">Галерея</a><a href="../statistics.html">Графики</a><a href="../../catalog.html">Задачи</a><a href="../career/summary.html">Резюме</a></nav><nav class="language-switch" aria-label="Язык страницы"><a data-language="ru" lang="ru" hreflang="ru" href="design-system.html" aria-current="page">RU</a><a data-language="en" lang="en" hreflang="en" href="../../../en/docs/cases/design-system.html">EN</a></nav></header><main id="main" class="article"><p><a href="../../../en/docs/cases/design-system.html">EN</a> · <a href="../../../index.html">Выбор языка / Language</a></p>
+<h1 id="ui-ui-20">Общие UI-компоненты и переход на UI 2.0</h1>
+<p><strong>2022–2026 · OneTwoTrip / iOS</strong></p>
+<p>Развивал общие стили и компоненты, которые используются несколькими продуктовыми командами.</p>
+<p><a href="#screens">Смотреть экраны и состояния</a> · <a href="../gallery.html">Вся галерея</a></p>
+<h2 id="_1">Контекст</h2>
+<p>Изменение базового поля ввода или кнопки затрагивает множество экранов. Моя работа включала нормализацию API, миграцию потребителей, поддержку состояний и проверку дизайна на разных размерах устройств.</p>
+<h2 id="_2">Мой вклад</h2>
+<ul>
+<li>Упрощал общие стили кнопок, обновлял палитру и переносил приложение на новые стили; удалял неиспользуемые компоненты.</li>
+<li>Разрабатывал новые поля ввода и поля поиска, включая отдельный компактный вариант, состояния ввода, ошибки, блокировку и иконки. Исследовал существующие реализации текстовых полей перед дальнейшим объединением.</li>
+<li>Дорабатывал поля выбора, сегментированный переключатель и floating button; создавал общий виджет профиля.</li>
+<li>Добавлял варианты информационные блоки и нижние панели действий для UI 2.0, поддерживал длинный текст, цены, кнопки и состояния загрузки.</li>
+<li>Обновлял использования общих компонентов в профиле, истории путешествий, формах поиска и тарифах.</li>
+</ul>
+<h2 id="_3">Технологии</h2>
+<p>Swift, UIKit, SwiftUI interoperability, Props, PinLayout, Design tokens / styles, SnapshotTesting, XCTest, Accessibility identifiers.</p>
+<h2 id="_4">Примеры задач</h2>
+<table>
+<thead>
+<tr>
+<th>Сценарий</th>
+<th>Что я делал</th>
+<th>Инженерный акцент</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Единые поля ввода</td>
+<td>Разрабатывал поля ввода и поля поиска: ошибки, блокировку, иконки и компактное представление.</td>
+<td>Контракт и состояния общего компонента.</td>
+</tr>
+<tr>
+<td>Поля выбора и переключатели</td>
+<td>Дорабатывал поля выбора, сегментированный контрол и floating button.</td>
+<td>Композиция интерфейса для разных экранов.</td>
+</tr>
+<tr>
+<td>Нижняя панель действия</td>
+<td>Добавлял варианты нижние панели действий с ценой, длинным текстом, кнопками и загрузкой.</td>
+<td>Гибкая компоновка и состояния действий.</td>
+</tr>
+<tr>
+<td>Переход на новые стили</td>
+<td>Обновлял кнопки, палитру и использования компонентов в продуктовых модулях.</td>
+<td>Последовательная миграция большого приложения.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_5">Инженерные решения</h2>
+<ul>
+<li>Компонент описывает визуальное состояние через Props, а бизнес-правила остаются у потребителя.</li>
+<li>Новые формы вводились с сохранением совместимости legacy-экранов. Маленькое поле поиска выделялось отдельно, когда его назначение действительно отличалось.</li>
+<li>Для переиспользуемого UI важны не только default-состояния, но и длинные значения, ошибка, disabled, editing, loading и маленькие экраны.</li>
+</ul>
+<h2 id="_6">Качество и проверки</h2>
+<ul>
+<li>Отдельные snapshot-задачи для полей ввода; в текущих baselines представлены разные размеры и состояния поля ввода, поля поиска, поля выбора и нижние панели действий.</li>
+<li>При изменении общего компонента учитывал его использования в продуктовых экранах и проверял соответствующие визуальные состояния.</li>
+</ul>
+<h2 id="_7">Результат и границы</h2>
+<p>Мой вклад — развитие отдельных фундаментальных компонентов и их внедрение в продуктовые сценарии. Архитектура и дизайн-система создавались командой.</p>
+<p><a name="screens"></a></p>
+<h2 id="_8">Экраны и состояния интерфейса</h2>
+<p>Оригинальные изображения из snapshot-тестов на подготовленных данных. Тип материала указан под каждым примером. Дизайн и общая архитектура создавались командой; мой вклад описан выше. Нажмите на изображение, чтобы рассмотреть детали.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Общее поле ввода</th>
+<th style="text-align: center;">Общее поле выбора</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a name="visual-input-field"></a><a href="../../../../assets/screenshots/input-field.png"><img src="../../../../assets/screenshots/input-field.png" alt="Общее поле ввода" width="250"></a></td>
+<td style="text-align: center;"><a name="visual-select-field"></a><a href="../../../../assets/screenshots/select-field.png"><img src="../../../../assets/screenshots/select-field.png" alt="Общее поле выбора" width="250"></a></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Нижняя панель с ценой и действием</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a name="visual-bottom-bar"></a><a href="../../../../assets/screenshots/bottom-bar.png"><img src="../../../../assets/screenshots/bottom-bar.png" alt="Нижняя панель с ценой и действием" width="250"></a></td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>Сценарии и пояснения к изображениям</summary>
+<ul>
+<li><strong>Общее поле ввода.</strong> Общее поле ввода для переиспользования в продуктовых формах. <em>Реальный snapshot-baseline компонента на тестовых данных; не снимок production-сессии.</em></li>
+<li><strong>Общее поле выбора.</strong> Поле выбора с единым отображением значения и состояния. <em>Реальный snapshot-baseline компонента на тестовых данных; не снимок production-сессии.</em></li>
+<li><strong>Нижняя панель с ценой и действием.</strong> Цена и основное действие остаются отдельным переиспользуемым элементом. <em>Реальный snapshot-baseline компонента на тестовых данных; не снимок production-сессии.</em></li>
+</ul>
+</details>
+<p><a href="../gallery.html">Вся галерея экранов и компонентов</a></p>
+<h2 id="_9">Что можно обсудить на интервью</h2>
+<ul>
+<li>Как выбрать границу между общим компонентом и продуктовой логикой?</li>
+<li>Как мигрировать использования компонента, сохраняя все состояния?</li>
+</ul>
+<p><a href="index.html">Все кейсы</a> · <a href="../archive/index.html">Практические задачи</a> · <a href="../engineering/technologies.html">Технологии</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">О показателях</a><a href="../../../index.html">Выбрать язык</a><span>Срез 29.09.2026</span></footer></body></html>

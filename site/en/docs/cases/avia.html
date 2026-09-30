@@ -1,0 +1,92 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>Flights: search forms, fares and order journeys · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../../ru/docs/cases/avia.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="index.html">Cases</a><a href="../gallery.html">Gallery</a><a href="../statistics.html">Charts</a><a href="../../catalog.html">Examples</a><a href="../career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../../ru/docs/cases/avia.html">RU</a><a data-language="en" lang="en" hreflang="en" href="avia.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../../ru/docs/cases/avia.html">RU</a> · <a href="../../../index.html">Language selection</a></p>
+<h1 id="flights-search-forms-fares-and-order-journeys">Flights: search forms, fares and order journeys</h1>
+<p><strong>2022–2026 · OneTwoTrip / iOS</strong></p>
+<p>I developed flight screens and contributed to migrating search and fare selection to UI 2.0.</p>
+<p><a href="#screens">View screens and states</a> · <a href="../gallery.html">Full gallery</a></p>
+<h2 id="context">Context</h2>
+<p>The journey from search to fare selection and order depends on navigation, selected parameters and correct prices. My contribution includes early fixes and later, broader presentation changes.</p>
+<h2 id="my-contribution">My contribution</h2>
+<ul>
+<li>Fixed search parameters, order statuses and navigation, travel documents, filters and related regressions.</li>
+<li>Built the new search form from shared components, supported simple and multi-city routes, animations and analytics, and added UI checks.</li>
+<li>Moved fare selection to UI 2.0: cards, selection state, prices, advice, banners, errors and the transition to booking.</li>
+<li>Worked on selecting seats in existing orders, consistent passenger-avatar colors and eSIM offers.</li>
+</ul>
+<h2 id="technologies">Technologies</h2>
+<p>Swift, UIKit, TCA, PropsBuilder, Swinject, Common UI components, Feature flags, XCTest / SnapshotTesting / XCUITest.</p>
+<h2 id="practical-examples">Practical examples</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UI 2.0 search form</td>
+<td>Built simple and multi-city routes with shared components, events and UI checks.</td>
+<td>A product form with multiple modes.</td>
+</tr>
+<tr>
+<td>Fare selection</td>
+<td>Moved cards, prices, selection and the booking transition to UI 2.0.</td>
+<td>Updating UI while preserving purchase rules.</td>
+</tr>
+<tr>
+<td>Order maintenance</td>
+<td>Fixed parameters, statuses, documents, filters and navigation.</td>
+<td>Regression work across a long product journey.</td>
+</tr>
+<tr>
+<td>Additional services</td>
+<td>Worked on seats in existing orders and eSIM offers.</td>
+<td>Integrating related products into order context.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="engineering-decisions">Engineering decisions</h2>
+<ul>
+<li>The new fare screen is a presentation layer over existing product logic and the backend contract.</li>
+<li>Solar retained separate search-form behavior. Redesigning OTT should not automatically change the second product.</li>
+<li>Price, selected fare and navigation parameters must remain consistent as the interface updates.</li>
+</ul>
+<h2 id="quality-and-checks">Quality and checks</h2>
+<ul>
+<li>Added UI checks for the new search form and fares; maintained tests for subsequent order-journey changes.</li>
+<li>Separate checks cover the search form and fares, while later order fixes include their own tests and review.</li>
+</ul>
+<h2 id="outcome-and-scope">Outcome and scope</h2>
+<p>This experience spans several steps of the flight journey and UI migration while preserving business rules.</p>
+<p><a name="screens"></a></p>
+<h2 id="screens-and-interface-states">Screens and interface states</h2>
+<p>Original snapshot-test images using prepared data. Each example identifies its source type. Design and overall architecture were team work; my contribution is described above. Select an image to inspect the details.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">UI 2.0 flight fare card</th>
+<th style="text-align: center;">Round-trip search form</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a name="visual-avia-tariff"></a><a href="../../../../assets/screenshots/avia-tariff.png"><img src="../../../../assets/screenshots/avia-tariff.png" alt="UI 2.0 flight fare card" width="250"></a></td>
+<td style="text-align: center;"><a name="visual-avia-search"></a><a href="../../../../assets/screenshots/avia-search.png"><img src="../../../../assets/screenshots/avia-search.png" alt="Round-trip search form" width="250"></a></td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>Image context and notes</summary>
+<ul>
+<li><strong>UI 2.0 flight fare card.</strong> Fare conditions and the available action follow the shared UI 2.0 style. <em>Original component snapshot using test data.</em></li>
+<li><strong>Round-trip search form.</strong> Round-trip search with linked journey parameters. <em>Original component snapshot using test data.</em></li>
+</ul>
+</details>
+<p><a href="../gallery.html">Full screen and component gallery</a></p>
+<h2 id="topics-for-an-interview">Topics for an interview</h2>
+<ul>
+<li>How would you design a shared form for simple and multi-city routes?</li>
+<li>How do you update fare-selection UI without changing purchase rules?</li>
+</ul>
+<p><a href="index.html">All cases</a> · <a href="../archive/index.html">Practical examples</a> · <a href="../engineering/technologies.html">Technologies</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">About the metrics</a><a href="../../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>

@@ -1,0 +1,700 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>Practical examples · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../../ru/docs/archive/index.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="../cases/index.html">Cases</a><a href="../gallery.html">Gallery</a><a href="../statistics.html">Charts</a><a href="../../catalog.html">Examples</a><a href="../career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../../ru/docs/archive/index.html">RU</a><a data-language="en" lang="en" hreflang="en" href="index.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../../ru/docs/archive/index.html">RU</a> · <a href="../../../index.html">Language selection</a></p>
+<h1 id="practical-examples">Practical examples</h1>
+<p>84 selected examples from 21 cases: scenario, my contribution and technical focus. Find experience relevant to a role. Examples overlap and do not add up to a count of released features.</p>
+<h2 id="product-journeys">Product journeys</h2>
+<h3 id="esim-swiftui-payments-3ds-and-service-management"><a href="../cases/esim.html">eSIM: SwiftUI, payments, 3DS and service management</a></h3>
+<p><strong>2025–2026</strong> · Swift, SwiftUI + UIKit / UIHostingController, TCA, Combine, Swift Concurrency / async-await, Swinject, REST / Codable, 3DS, Tuist, XCTest / SnapshotTesting / XCUITest</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Buying mobile data</td>
+<td>Connected the catalog, plan selection, authentication and payment screen into one journey.</td>
+<td>An end-to-end flow spanning several modules.</td>
+</tr>
+<tr>
+<td>Payment and returning to the app</td>
+<td>Worked on 3DS, status polling, errors and recalculating the payment timer after backgrounding.</td>
+<td>Asynchronous state and the application lifecycle.</td>
+</tr>
+<tr>
+<td>Topping up an existing eSIM</td>
+<td>Extended order details, balance and top-ups, preserving differences between purchase and top-up data.</td>
+<td>Shared mechanisms with different business rules.</td>
+</tr>
+<tr>
+<td>Accessing the service while traveling</td>
+<td>Contributed to offline states and setup guidance; added checks for key journeys.</td>
+<td>Network constraints and testing.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="travel-history-maps-trips-and-personal-journeys"><a href="../cases/travel-history.html">Travel history: maps, trips and personal journeys</a></h3>
+<p><strong>2025–2026</strong> · Swift, SwiftUI + UIKit, TCA, Combine, Swinject, CoreLocation, Map SDK abstraction / YandexMapKit, REST, XCTest / SnapshotTesting / XCUITest</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trip map and list</td>
+<td>Built pins, clusters, a carousel and list sheet; fixed synchronization after changes.</td>
+<td>Consistent state across multiple views.</td>
+</tr>
+<tr>
+<td>Manual itinerary creation</td>
+<td>Developed route-point entry, location selection and trip-detail editing.</td>
+<td>Forms, validation and reusable search.</td>
+</tr>
+<tr>
+<td>Trip details</td>
+<td>Worked on the timeline and presentation of different transport types.</td>
+<td>Turning heterogeneous data into a clear interface.</td>
+</tr>
+<tr>
+<td>Checking trip changes</td>
+<td>Covered creation, editing and errors with unit and UI tests.</td>
+<td>Testable business logic and user journeys.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="a-custom-support-chat-replacing-the-zendesk-sdk"><a href="../cases/chat.html">A custom support chat replacing the Zendesk SDK</a></h3>
+<p><strong>2022–2024</strong> · Swift, UIKit, Socket.IO, Alamofire, ChatLayout, DifferenceKit, Nuke, WebKit, Swinject, TCA / Combine in the current implementation</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Messages and chatbot actions</td>
+<td>Developed text, suggested replies, attachments and order navigation.</td>
+<td>An interactive interface over a support API.</td>
+</tr>
+<tr>
+<td>Connection loss</td>
+<td>Worked on undelivered messages, reconnection and errors.</td>
+<td>Realtime state under network failures.</td>
+</tr>
+<tr>
+<td>Support within an order</td>
+<td>Added deep links and support entry points from orders and payment failures.</td>
+<td>Navigation that preserves user context.</td>
+</tr>
+<tr>
+<td>Long conversations</td>
+<td>Fixed scrolling, keyboard behavior, obscured messages and read receipts.</td>
+<td>Maintaining a complex UIKit interface.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="solar-launching-and-developing-a-separate-app"><a href="../cases/solar.html">Solar: launching and developing a separate app</a></h3>
+<p><strong>2022–2024</strong> · Swift, UIKit, Tuist / multi-target, Coordinator, Swinject, TCA, WebKit, AVKit / Lottie, AppsFlyer / Adjust, XCUITest</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Composing a separate app</td>
+<td>Contributed to the Solar target, AppDelegate, Coordinator and tab bar.</td>
+<td>A separate product on a shared codebase.</td>
+</tr>
+<tr>
+<td>Home screen</td>
+<td>Developed menus, Stories, banners and unfinished bookings.</td>
+<td>Configurable product-screen composition.</td>
+</tr>
+<tr>
+<td>Sign-in and section navigation</td>
+<td>Worked on authentication, profile, orders and quick actions.</td>
+<td>Consistent user journeys.</td>
+</tr>
+<tr>
+<td>Different configurations</td>
+<td>Handled currencies, links, analytics and regressions following shared changes.</td>
+<td>Maintaining multiple application variants.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="solar-digital-collectibles-native-ui-and-webview"><a href="../cases/digital-collectibles.html">Solar Digital Collectibles: native UI and WebView</a></h3>
+<p><strong>2023–2024</strong> · Swift, UIKit, WebKit / native–web communication, TCA, Combine, REST, LinkPresentation, Swinject, XCTest</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Planets and achievement lists</td>
+<td>Created cards, the sheet list, zoom controls and supporting actions.</td>
+<td>A distinctive interface and navigation model.</td>
+</tr>
+<tr>
+<td>Native screen and WebView</td>
+<td>Integrated the achievements API, WebView communication and reward-screen logic.</td>
+<td>Connecting different presentation technologies.</td>
+</tr>
+<tr>
+<td>Achievement actions</td>
+<td>Added claiming, wallet actions, sharing and universal links.</td>
+<td>Product actions connected to external navigation.</td>
+</tr>
+<tr>
+<td>Moving state to TCA</td>
+<td>Contributed to module migration, wrote unit tests and handled errors.</td>
+<td>State architecture and testability.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="profile-personal-details-and-notifications"><a href="../cases/profile.html">Profile, personal details and notifications</a></h3>
+<p><strong>2023–2026</strong> · Swift, UIKit, TCA, PropsBuilder, Swinject, Nuke, Push notifications, REST, XCTest / XCUITest</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Profile across sign-in states</td>
+<td>Moved the Solar profile to TCA and developed its header and account sections.</td>
+<td>Screen composition and state lifecycle.</td>
+</tr>
+<tr>
+<td>Editing personal details</td>
+<td>Worked on UI 2.0 fields, validation and support navigation for contact changes.</td>
+<td>Forms and product-contract constraints.</td>
+</tr>
+<tr>
+<td>Notification channels</td>
+<td>Implemented UI, business logic and scrolling to unread messages.</td>
+<td>Aligning data, navigation and presentation.</td>
+</tr>
+<tr>
+<td>Widgets and social journeys</td>
+<td>Added favorites, statistics and travel history in other users&#x27; profiles.</td>
+<td>Module reuse and user context.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cashback-and-accounts-balances-cards-and-screen-states"><a href="../cases/loyalty.html">Cashback and accounts: balances, cards and screen states</a></h3>
+<p><strong>2023–2025</strong> · Swift, UIKit, TCA, Swift Concurrency / async-await, PropsBuilder, Swinject, REST / mapping, SnapshotTesting, XCTest, XCUITest</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Solar Cash balance</td>
+<td>Added credit/debit history, empty states and hotel integration.</td>
+<td>Financial data within a product interface.</td>
+</tr>
+<tr>
+<td>New cashback screen</td>
+<td>Migrated card, Tripcoin and boosted-cashback blocks to UI 2.0.</td>
+<td>Migrating a complex screen while preserving rules.</td>
+</tr>
+<tr>
+<td>Controlled UI rollout</td>
+<td>Separated old and new implementations and added configuration and a feature flag.</td>
+<td>Incremental introduction of changes.</td>
+</tr>
+<tr>
+<td>Edge states</td>
+<td>Checked card statuses, network errors and updates after tier changes.</td>
+<td>Systematic checks of financial journeys.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cards-and-transaction-history-limits-pagination-and-states"><a href="../cases/virtual-card.html">Cards and transaction history: limits, pagination and states</a></h3>
+<p><strong>2024–2025</strong> · Swift, UIKit, TCA, Presenter / Interactor / Router, REST, Swinject, Props, SnapshotTesting, XCTest, XCUITest</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Card account</td>
+<td>Worked on virtual and physical cards, issuance states and transactions.</td>
+<td>Multiple states of a financial product.</td>
+</tr>
+<tr>
+<td>Limits and servicing</td>
+<td>Implemented spending limits, a dedicated screen and service terms.</td>
+<td>Clear presentation of product constraints.</td>
+</tr>
+<tr>
+<td>Financial transaction history</td>
+<td>Developed transaction and bonus lists, a date filter and pagination resets on period changes and refresh; fixed scrolling.</td>
+<td>TCA, REST API, pagination and list states.</td>
+</tr>
+<tr>
+<td>Checking user journeys</td>
+<td>Developed issuance, identity and error tests; used targeted deep links.</td>
+<td>Testability and UI-test maintenance.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stories-architecture-video-and-interactive-journeys"><a href="../cases/stories.html">Stories: architecture, video and interactive journeys</a></h3>
+<p><strong>2024–2026</strong> · Swift, UIKit, TCA, Combine, AVFoundation / video integration, Nuke, Swinject, REST, XCTest / SnapshotTesting / XCUITest</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Separating Stories modules</td>
+<td>Moved state to TCA and separated catalog, preview, slides and infrastructure.</td>
+<td>Architectural migration of an existing feature.</td>
+</tr>
+<tr>
+<td>Preparing video</td>
+<td>Replaced loading every slide upfront with bounded media preparation.</td>
+<td>Resource management in a media journey.</td>
+</tr>
+<tr>
+<td>Interactive giveaway</td>
+<td>Developed the decision slide, backend participation and dynamic branches.</td>
+<td>A journey driven by user choices and effects.</td>
+</tr>
+<tr>
+<td>Sign-in over a story</td>
+<td>Worked on authentication, return to viewing and successful-sign-in analytics.</td>
+<td>Preserving context across external navigation.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="flights-search-forms-fares-and-order-journeys"><a href="../cases/avia.html">Flights: search forms, fares and order journeys</a></h3>
+<p><strong>2022–2026</strong> · Swift, UIKit, TCA, PropsBuilder, Swinject, Common UI components, Feature flags, XCTest / SnapshotTesting / XCUITest</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UI 2.0 search form</td>
+<td>Built simple and multi-city routes with shared components, events and UI checks.</td>
+<td>A product form with multiple modes.</td>
+</tr>
+<tr>
+<td>Fare selection</td>
+<td>Moved cards, prices, selection and the booking transition to UI 2.0.</td>
+<td>Updating UI while preserving purchase rules.</td>
+</tr>
+<tr>
+<td>Order maintenance</td>
+<td>Fixed parameters, statuses, documents, filters and navigation.</td>
+<td>Regression work across a long product journey.</td>
+</tr>
+<tr>
+<td>Additional services</td>
+<td>Worked on seats in existing orders and eSIM offers.</td>
+<td>Integrating related products into order context.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="business-trip-journeys-inside-the-consumer-app"><a href="../cases/b2b-scenarios.html">Business-trip journeys inside the consumer app</a></h3>
+<p><strong>2026</strong> · Swift, UIKit, TCA / state management, Feature flags, REST, Cross-module configuration, XCUITest</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business-trip search</td>
+<td>Added the business-trip flag to flights, hotels and trains.</td>
+<td>One journey across multiple product areas.</td>
+</tr>
+<tr>
+<td>Profile and order entry points</td>
+<td>Implemented profile sheets and a banner placement in rail orders.</td>
+<td>Coordinated cross-module navigation.</td>
+</tr>
+<tr>
+<td>Backend-contract changes</td>
+<td>Refined banner requests and corporate-card checks after requirements changed.</td>
+<td>Adapting client logic to an API.</td>
+</tr>
+<tr>
+<td>Checking combined journeys</td>
+<td>Added and fixed UI tests for business trips inside the consumer app.</td>
+<td>Integration checks of the user journey.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="payment-integrations-and-completing-a-purchase"><a href="../cases/payments.html">Payment integrations and completing a purchase</a></h3>
+<p><strong>2022–2026</strong> · Swift, UIKit / SwiftUI, WebKit, 3DS, REST / polling, TCA, Coordinator, BridgerPay / NowPayments integrations, XCUITest</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>External payment providers</td>
+<td>Integrated BridgerPay in hotels and maintained NowPayments in Solar.</td>
+<td>Client-side integration of payment journeys.</td>
+</tr>
+<tr>
+<td>Waiting for SBP payment</td>
+<td>Worked on the shared payment loader and its UI tests.</td>
+<td>Reusable presentation of an intermediate state.</td>
+</tr>
+<tr>
+<td>Buying an eSIM</td>
+<td>Developed payment UI, backend interaction, contact handling and order navigation.</td>
+<td>Orchestrating several purchase steps.</td>
+</tr>
+<tr>
+<td>Returning after failure</td>
+<td>Fixed order state after payment errors and completion of external journeys.</td>
+<td>Error handling and interface recovery.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hotels-trains-and-everyday-product-reliability"><a href="../cases/product-maintenance.html">Hotels, trains and everyday product reliability</a></h3>
+<p><strong>2021–2026</strong> · Swift, UIKit, Legacy Objective-C interoperability, REST, WebKit, DateFormatter / localization, Navigation / coordinators, Debugging</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hotel journeys</td>
+<td>Fixed favorites, reviews, galleries, search results, calendars and post-search navigation.</td>
+<td>Diagnosing regressions in an existing product.</td>
+</tr>
+<tr>
+<td>Rail orders</td>
+<td>Worked on cancellation documents, post-payment-error state and electronic registration.</td>
+<td>Aligning client UI with order state.</td>
+</tr>
+<tr>
+<td>Shared order list</td>
+<td>Refined refresh, empty states, archived links and authentication.</td>
+<td>Reusable navigation and data updates.</td>
+</tr>
+<tr>
+<td>Platform behavior</td>
+<td>Fixed dates, locales, offline WebViews, the keyboard and small screens.</td>
+<td>Reliability across different environments.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="shared-components">Shared components</h2>
+<h3 id="authentication-across-different-product-journeys"><a href="../cases/auth.html">Authentication across different product journeys</a></h3>
+<p><strong>2022–2024</strong> · Swift, UIKit, Presenter / Interactor / Router, Swinject, REST, Deep Links / Universal Links, WebKit, Apple ID / Google ID integrations, XCUITest</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Continuing checkout after sign-in</td>
+<td>Worked on email/PIN, switching to phone and requesting missing contacts.</td>
+<td>Authentication as part of a product journey.</td>
+</tr>
+<tr>
+<td>Repeat sign-in on a device</td>
+<td>Developed repeat authentication and consistent user-session behaviour.</td>
+<td>Session state and reusable flows.</td>
+</tr>
+<tr>
+<td>Signing in to Solar</td>
+<td>Contributed to magic links, Apple ID, Google ID and incoming links.</td>
+<td>Integration of multiple authentication methods.</td>
+</tr>
+<tr>
+<td>Errors and repeated actions</td>
+<td>Handled CAPTCHA, missing connectivity, code resends and method changes.</td>
+<td>Explicit edge states and validation.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="a-shared-calendar-across-product-areas"><a href="../cases/calendar.html">A shared calendar across product areas</a></h3>
+<p><strong>2022–2023</strong> · Swift, UIKit, UICollectionView, Props / render, Presenter / Interactor / Router, Swinject, Tuist, Localization / DateFormatter</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shared date selection</td>
+<td>Developed calendar configuration, public entry points, presenter and PropsBuilder.</td>
+<td>Designing a reusable UI module.</td>
+</tr>
+<tr>
+<td>Different product areas</td>
+<td>Integrated the calendar into flights, hotels and trains while preserving constraints.</td>
+<td>A shared component with product configuration.</td>
+</tr>
+<tr>
+<td>Returning to a selected date</td>
+<td>Fixed initial scrolling and editing an existing date range.</td>
+<td>Correct state restoration.</td>
+</tr>
+<tr>
+<td>Locales and working days</td>
+<td>Worked on months, weekdays, weekends and the working-day calendar.</td>
+<td>Localization and calendar behavior.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="shared-ui-components-and-the-move-to-ui-20"><a href="../cases/design-system.html">Shared UI components and the move to UI 2.0</a></h3>
+<p><strong>2022–2026</strong> · Swift, UIKit, SwiftUI interoperability, Props, PinLayout, Design tokens / styles, SnapshotTesting, XCTest, Accessibility identifiers</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Consistent input fields</td>
+<td>Developed input fields and search fields with errors, disabled states, icons and compact presentation.</td>
+<td>A shared component&#x27;s contract and states.</td>
+</tr>
+<tr>
+<td>Selection fields and controls</td>
+<td>Extended selection fields, the segmented control and floating buttons.</td>
+<td>Interface composition across screens.</td>
+</tr>
+<tr>
+<td>Bottom action bar</td>
+<td>Added bottom action bars variants with prices, long text, buttons and loading.</td>
+<td>Flexible layout and action states.</td>
+</tr>
+<tr>
+<td>New styles across the app</td>
+<td>Updated buttons, the palette and component consumers in product modules.</td>
+<td>A staged migration in a large application.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="quality">Quality</h2>
+<h3 id="quality-unit-snapshot-and-user-journey-checks"><a href="../cases/quality.html">Quality: unit, snapshot and user-journey checks</a></h3>
+<p><strong>2023–2026</strong> · XCTest, XCUITest, SnapshotTesting, TCA TestStore, Mocks, Accessibility identifiers, Allure, Jenkins</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Checking business state</td>
+<td>Wrote unit tests for profiles, achievements, finance, eSIM and trips.</td>
+<td>Testing logic independently of appearance.</td>
+</tr>
+<tr>
+<td>Checking components</td>
+<td>Added snapshots for UI sizes, text and states.</td>
+<td>Visual regressions and the design system.</td>
+</tr>
+<tr>
+<td>End-to-end journeys</td>
+<td>Developed XCUITest flows for sign-in, purchases, profiles and integrations.</td>
+<td>Checking app behavior from the user&#x27;s perspective.</td>
+</tr>
+<tr>
+<td>Maintaining tests</td>
+<td>Maintained mocks and accessibility identifiers, fixed instability and used deep links.</td>
+<td>Practical maintenance of automated checks.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="engineering-tools">Engineering tools</h2>
+<h3 id="jenkins-build-diagnostics-and-ci-maintenance"><a href="../cases/jenkins.html">Jenkins: build diagnostics and CI maintenance</a></h3>
+<p><strong>2025–2026</strong> · Jenkins Declarative Pipeline, Groovy, Bash, Ruby / Fastlane, macOS agents, Firebase Crashlytics dSYM, mise, Git</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Uploading dSYMs</td>
+<td>Created a pipeline selecting artifacts by app/build, uploading in parallel and retrying failures.</td>
+<td>Automating iOS diagnostics.</td>
+</tr>
+<tr>
+<td>Maintaining a macOS agent</td>
+<td>Added a manual cleanup pipeline with checks and free-space measurements.</td>
+<td>Controlled operations on the CI environment.</td>
+</tr>
+<tr>
+<td>Build and review context</td>
+<td>Added agent names to build information and completed-review reporting.</td>
+<td>Diagnostics and team workflow.</td>
+</tr>
+<tr>
+<td>Isolating Ruby</td>
+<td>Worked with pinned Ruby, user gems and shared cleanup.</td>
+<td>Reproducible infrastructure scripts.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="repository-metrics-history-test-analysis-and-delivery"><a href="../cases/repository-metrics.html">Repository metrics: history, test analysis and delivery</a></h3>
+<p><strong>2026</strong> · Swift / SwiftSyntax, Swift Package Manager, Ruby, Python, Bash, Groovy / Jenkins CPS, Static code analysis / cloc, VictoriaMetrics, Grafana, mise</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Historical calculation</td>
+<td>Added monthly Git-state backfill and fixed timestamps.</td>
+<td>Reproducible analysis of repository history.</td>
+</tr>
+<tr>
+<td>Static test analysis</td>
+<td>Developed a SwiftSyntax XCTest/Quick analyzer with Codex and explicit diagnostic limits.</td>
+<td>Source analysis and correct metric semantics.</td>
+</tr>
+<tr>
+<td>Delivery after network failure</td>
+<td>Separated payload and progress, added batches, retries and Restart from Stage.</td>
+<td>Recovery of a long infrastructure operation.</td>
+</tr>
+<tr>
+<td>Checking Jenkins behavior</td>
+<td>Added bootstrap and a local fixture for sandbox/CPS and recovery.</td>
+<td>Infrastructure checks outside production.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="documentation-ai-tools-and-engineering-workflow"><a href="../cases/engineering-workflow.html">Documentation, AI tools and engineering workflow</a></h3>
+<p><strong>2026</strong> · Codex, Repository skills, Jira / Bitbucket integrations, Markdown, Tuist manifests, Ruby / Python tooling, Git / release workflow</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>From analysis to a task</td>
+<td>Developed and refined a workflow that turns systems analysis into mobile stories.</td>
+<td>Formalizing input requirements for development.</td>
+</tr>
+<tr>
+<td>Module documentation</td>
+<td>Created a README preparation/update process and applied it to eSIM and Stories.</td>
+<td>Maintaining the team&#x27;s architectural context.</td>
+</tr>
+<tr>
+<td>Working with AI tools</td>
+<td>Used agents for research and implementation, recorded their contribution and checked results.</td>
+<td>Setting constraints and evaluating generated changes.</td>
+</tr>
+<tr>
+<td>Application variants</td>
+<td>Contributed to OTT, Solar and KZ release configuration.</td>
+<td>Managing product differences on a shared foundation.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="systems-analysis-and-technical-documentation"><a href="../cases/analysis-documentation.html">Systems analysis and technical documentation</a></h3>
+<p><strong>2023–2026</strong> · Systems analysis, Confluence / Jira, API contracts, Backward compatibility, Feature configuration, Deep links and analytics</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual trip creation</td>
+<td>Analyzed city/date selection, timeline refresh, segment deletion and restoration.</td>
+<td>Systems analysis of a user journey.</td>
+</tr>
+<tr>
+<td>Data compatibility</td>
+<td>Examined editability flags and optional fields&#x27; impact on older versions.</td>
+<td>API agreement and backward compatibility.</td>
+</tr>
+<tr>
+<td>Configuration contracts</td>
+<td>Documented Solar, home-screen widgets and Quick Actions for colleagues.</td>
+<td>Technical documentation people can use.</td>
+</tr>
+<tr>
+<td>Clarifying mobile requirements</td>
+<td>Contributed to formalizing B2B journeys and offline eSIM access.</td>
+<td>Connecting product requirements with client implementation.</td>
+</tr>
+</tbody>
+</table></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">About the metrics</a><a href="../../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>

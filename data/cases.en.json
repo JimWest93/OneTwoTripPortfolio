@@ -1,0 +1,1537 @@
+[
+  {
+    "slug": "esim",
+    "title": "eSIM: SwiftUI, payments, 3DS and service management",
+    "period": "2025–2026",
+    "lead": "Built the eSIM journey from catalogue to service management, with a particular focus on SwiftUI checkout, REST API integration, 3DS, promo codes and payment-timer lifecycle.",
+    "context": "Travelers need a straightforward way to buy mobile data and return to their eSIM during a trip. This journey combines a product catalog, authentication, payments, service state, device limitations and network availability. I worked on both the initial launch and subsequent product iterations.",
+    "work": [
+      "Implemented entry points from the home screen and deep links, coverage selection, search, plan lists and descriptions. Integrated product screens with the shared modular infrastructure.",
+      "Worked on the payment screen and its backend integration: embedded authentication, bank and saved cards, 3DS, status polling, loading and error states. Added contact entry and validation, including users without an email address.",
+      "Developed My eSIMs, order details, balance, top-ups and navigation to setup. Extended the journey with discounts, promo codes, refreshed offers after timer expiry and alternative coverage names in search.",
+      "Contributed to offline scenarios, setup guidance and eSIM offers within flight orders. Automatic offers accounted for departure time and reopening an order.",
+      "Added analytics events for the widget, purchase, eSIM list and top-ups; developed unit, snapshot and UI tests."
+    ],
+    "technologies": [
+      "Swift",
+      "SwiftUI + UIKit / UIHostingController",
+      "TCA",
+      "Combine",
+      "Swift Concurrency / async-await",
+      "Swinject",
+      "REST / Codable",
+      "3DS",
+      "Tuist",
+      "XCTest / SnapshotTesting / XCUITest"
+    ],
+    "decisions": [
+      "Screen state is separate from navigation: the reducer handles state and effects, PropsBuilder prepares presentation, and the router/coordinator handles navigation and payment orchestration.",
+      "Purchase and top-up have different inputs and rules: purchase requires contacts, while top-up uses an existing eSIM identifier. The module contract preserves that distinction.",
+      "The payment timer uses an absolute deadline: ticks stop in the background and the remaining time is recalculated on return. This avoids incorrect payment time after the device locks.",
+      "Retaining an already loaded list after connectivity is lost refers to the open screen's memory, not a complete persistent offline store."
+    ],
+    "quality": [
+      "Separate work covered purchase and My eSIMs unit tests, component snapshots, and UI checks for entry points, payment and service management.",
+      "Unit tests cover 3DS requests, stale promo-validation responses, partial and full discounts, resuming before and after the deadline, and late timer ticks. Snapshot tests capture the price breakdown; UI tests cover purchase, top-up and promo codes."
+    ],
+    "result": "A connected iOS journey for buying and managing eSIMs, extended through further iterations after launch.",
+    "images": [
+      "esim-payment-price",
+      "esim-payment",
+      "esim-tariff",
+      "esim-balance"
+    ],
+    "examples": [
+      {
+        "scenario": "Buying mobile data",
+        "contribution": "Connected the catalog, plan selection, authentication and payment screen into one journey.",
+        "focus": "An end-to-end flow spanning several modules."
+      },
+      {
+        "scenario": "Payment and returning to the app",
+        "contribution": "Worked on 3DS, status polling, errors and recalculating the payment timer after backgrounding.",
+        "focus": "Asynchronous state and the application lifecycle."
+      },
+      {
+        "scenario": "Topping up an existing eSIM",
+        "contribution": "Extended order details, balance and top-ups, preserving differences between purchase and top-up data.",
+        "focus": "Shared mechanisms with different business rules."
+      },
+      {
+        "scenario": "Accessing the service while traveling",
+        "contribution": "Contributed to offline states and setup guidance; added checks for key journeys.",
+        "focus": "Network constraints and testing."
+      }
+    ],
+    "discussion": [
+      "How should a payment flow handle 3DS and returning from the background?",
+      "How do you protect the total from a stale promo response and verify a fully discounted purchase?"
+    ],
+    "group": "Product journeys",
+    "flow": [
+      {
+        "title": "Prepare checkout",
+        "body": "Load the plan and payment methods, validate purchase contacts or provide the eSIM identifier for a top-up."
+      },
+      {
+        "title": "Resolve the total",
+        "body": "Apply the discount and validated promo code. A fully covered total follows a separate path without card selection."
+      },
+      {
+        "title": "Process payment",
+        "body": "Create the order and continue payment; open 3DS when required, then poll for status."
+      },
+      {
+        "title": "Present the result",
+        "body": "Present success based on the service response; handle cancellation, failure and expiry as separate outcomes."
+      }
+    ],
+    "walkthrough": [
+      {
+        "title": "SwiftUI + TCA: a form inside a payment journey",
+        "body": "The screen combines plan details, contacts, a payment method, a promo code and the total. I worked on the UI, validation and backend integration. SwiftUI is hosted in UIHostingController; TCA manages state and asynchronous effects, a PropsBuilder produces presentation data, and a router handles navigation. Purchase and top-up share mechanisms but require different data: a top-up uses the existing eSIM ICCID and omits the purchase-contact section."
+      },
+      {
+        "title": "3DS and API-confirmed completion",
+        "body": "Developed the chain of order creation, payment continuation, 3DS and result polling. The service can confirm payment immediately or request bank verification. After 3DS, the client polls for the result; closing verification does not stand in for purchase confirmation. Cancelling 3DS clears the processing state, while failures lead to an actionable next step. [Other payment integrations and the shared waiting UI](payments.md)."
+      },
+      {
+        "title": "Promo codes: asynchronous validation and consistent pricing",
+        "body": "Added promo-code support for purchases and top-ups. A response is accepted only for the current request ID and pricing context, preventing a stale validation result from changing the user’s new selection. Payment is unavailable during validation, and the total and breakdown reflect the confirmed discount. Full coverage needs a cardless branch that still creates and confirms the order. The snapshot below shows the plan discount, promo discount and final total separately."
+      },
+      {
+        "title": "Timer, screen lock and app resumption",
+        "body": "Fixed timer behaviour after screen lock and backgrounding. Remaining time is derived from an absolute deadline; ticks are cancelled while inactive and recalculated on resumption. A late tick must not present an expiry sheet in the background or present it twice. Unit tests use controlled time for these transitions; UI checks also cover refreshing offers after checkout expires."
+      }
+    ]
+  },
+  {
+    "slug": "travel-history",
+    "title": "Travel history: maps, trips and personal journeys",
+    "period": "2025–2026",
+    "lead": "I developed travel history, from displaying trips on a map to manually creating and editing itineraries.",
+    "context": "Travel history turns a completed booking into lasting personal content: users can see where they have been, open trip details and add journeys booked outside OneTwoTrip. The product goals included repeat engagement and social use cases; I do not have measured retention gains.",
+    "work": [
+      "Built the map screen, pins, clustering, selected-trip carousel and list sheet. Added the profile widget, onboarding, statistics and analytics events.",
+      "Developed trip details with a timeline and different transport types; extended cards with city counts.",
+      "Implemented manual trips: route-point forms, location selection, editing and deletion. Reused a shared location-selection component and integrated geographic search.",
+      "Fixed inconsistencies between the map and list after adding or deleting a trip, other users' history states and widget loading.",
+      "Covered the main journey, errors, trip creation and editing with unit and UI tests; used snapshots for cards and statistics."
+    ],
+    "technologies": [
+      "Swift",
+      "SwiftUI + UIKit",
+      "TCA",
+      "Combine",
+      "Swinject",
+      "CoreLocation",
+      "Map SDK abstraction / YandexMapKit",
+      "REST",
+      "XCTest / SnapshotTesting / XCUITest"
+    ],
+    "decisions": [
+      "Maps are accessed through shared interfaces: the product module handles trips and annotations rather than SDK implementation details.",
+      "Personal and other users' histories have different contexts. Content and available actions must account for ownership.",
+      "Data updates must appear consistently in the widget, list and pins; a successful local deletion response does not guarantee that every screen is synchronized."
+    ],
+    "quality": [
+      "Developed unit, snapshot and UI checks for the first version, then extended checks for manual trip creation and editing.",
+      "Tested state logic separately from user journeys. These tests do not imply complete coverage of map rendering."
+    ],
+    "result": "Travel history evolved from a map of orders into an editable collection of journeys with multiple entry points and shared location-selection components.",
+    "images": [
+      "travel-card",
+      "travel-timeline",
+      "travel-statistics",
+      "travel-rail",
+      "travel-card-dense"
+    ],
+    "examples": [
+      {
+        "scenario": "Trip map and list",
+        "contribution": "Built pins, clusters, a carousel and list sheet; fixed synchronization after changes.",
+        "focus": "Consistent state across multiple views."
+      },
+      {
+        "scenario": "Manual itinerary creation",
+        "contribution": "Developed route-point entry, location selection and trip-detail editing.",
+        "focus": "Forms, validation and reusable search."
+      },
+      {
+        "scenario": "Trip details",
+        "contribution": "Worked on the timeline and presentation of different transport types.",
+        "focus": "Turning heterogeneous data into a clear interface."
+      },
+      {
+        "scenario": "Checking trip changes",
+        "contribution": "Covered creation, editing and errors with unit and UI tests.",
+        "focus": "Testable business logic and user journeys."
+      }
+    ],
+    "discussion": [
+      "How do you keep the map, list and details synchronized after a trip changes?",
+      "Which constraints should be agreed with the backend before implementing manual itineraries?"
+    ],
+    "group": "Product journeys",
+    "walkthrough": [
+      {
+        "title": "Map, card and list represent the same trip",
+        "body": "The map combines pins and clusters, while a selected trip is accessible through a card and the sheet list. My work covered the map, clustering, carousel and navigation to details. The technical challenge was keeping selection coherent as zoom and viewing mode changed across several representations of one trip."
+      },
+      {
+        "title": "A timeline with heterogeneous content",
+        "body": "One details screen presents flights, rail journeys, stays and manually added items. Each type needs its own UI model while headings, dates and route order remain consistent. I developed this screen composition and data transformation. Separate snapshots demonstrate transport widgets and compact-card constraints."
+      },
+      {
+        "title": "Manual trips: editing, deletion and undo",
+        "body": "The form adds transport or a stay to a user-created trip. Saving returns updated details. Deleting an item retains information for undo; restoration performs a new request and updates the timeline and statistics. Ownership and trip type determine editing availability. This was part of my work on manual itineraries."
+      },
+      {
+        "title": "An empty state and an error are different situations",
+        "body": "An empty timeline offers adding an item, while a loading failure offers retry. A save failure needs to preserve the form context. Alongside implementation, I worked on error handling, tests and checks across screen sizes."
+      }
+    ],
+    "flow": [
+      {
+        "title": "Map / list",
+        "body": "Select a trip"
+      },
+      {
+        "title": "Details",
+        "body": "Loading and timeline"
+      },
+      {
+        "title": "Manual item",
+        "body": "Transport or accommodation form"
+      },
+      {
+        "title": "Update",
+        "body": "Details and statistics after the response"
+      }
+    ]
+  },
+  {
+    "slug": "chat",
+    "title": "A custom support chat replacing the Zendesk SDK",
+    "period": "2022–2024",
+    "lead": "I contributed to a custom support interface integrated with the Helpdesk API and application journeys.",
+    "context": "Users need to talk to a bot or support agent inside the app, send documents and return to previous conversations. Moving from a packaged SDK required UI, networking, delivery states and authentication integration.",
+    "work": [
+      "Developed chat and chatbot interactions: text messages, suggested replies, images, attachments, links and navigation to orders.",
+      "Worked on undelivered-message indicators, errors, reconnection, scrolling and read receipts.",
+      "Added a feature flag, chat deep link and analytics events; contributed to removing Zendesk SDK and moving FAQ to a WebView.",
+      "Extended chat in Solar with a separate tab, entry points from orders and payment errors, and support for GuideGPT/Solly journeys.",
+      "Fixed regressions involving endless loading, sending without a socket connection, attachments, the keyboard and obscured messages."
+    ],
+    "technologies": [
+      "Swift",
+      "UIKit",
+      "Socket.IO",
+      "Alamofire",
+      "ChatLayout",
+      "DifferenceKit",
+      "Nuke",
+      "WebKit",
+      "Swinject",
+      "TCA / Combine in the current implementation"
+    ],
+    "decisions": [
+      "Transport, message state and UI have separate responsibilities. Tapping Send does not mean delivery: intermediate and error states are necessary.",
+      "Authentication and order navigation must work from the support context; unavailable networking and a broken socket connection need separate handling.",
+      "The module evolved over several years: the listed stack reflects its current structure, not only its initial version."
+    ],
+    "quality": [
+      "Journeys and requirements were checked against the main chat task and its subtasks. The repository contains snapshots for bubbles, suggested replies and undelivered-message state.",
+      "The fixes show ongoing maintenance after integration, beyond the initial UI implementation."
+    ],
+    "result": "Support gained a custom mobile interface and product navigation. My contribution included building, integrating and stabilizing parts of this team-owned solution.",
+    "images": [
+      "chat-options"
+    ],
+    "examples": [
+      {
+        "scenario": "Messages and chatbot actions",
+        "contribution": "Developed text, suggested replies, attachments and order navigation.",
+        "focus": "An interactive interface over a support API."
+      },
+      {
+        "scenario": "Connection loss",
+        "contribution": "Worked on undelivered messages, reconnection and errors.",
+        "focus": "Realtime state under network failures."
+      },
+      {
+        "scenario": "Support within an order",
+        "contribution": "Added deep links and support entry points from orders and payment failures.",
+        "focus": "Navigation that preserves user context."
+      },
+      {
+        "scenario": "Long conversations",
+        "contribution": "Fixed scrolling, keyboard behavior, obscured messages and read receipts.",
+        "focus": "Maintaining a complex UIKit interface."
+      }
+    ],
+    "discussion": [
+      "How should chat behave after connection loss or an undelivered message?",
+      "What makes scrolling and keyboard handling difficult in a conversation?"
+    ],
+    "group": "Product journeys"
+  },
+  {
+    "slug": "auth",
+    "title": "Authentication across different product journeys",
+    "period": "2022–2024",
+    "lead": "I developed phone and email sign-in, repeat authentication, magic links and social sign-in for Solar.",
+    "context": "Authentication is used in profiles, orders and checkout, so a failure can affect multiple product areas. I worked on transitions between sign-in methods, incomplete contact details and returning users to their original journey.",
+    "work": [
+      "Developed repeat authentication, session-state handling and user feedback.",
+      "Worked on the new email/PIN journey, switching to phone sign-in, requesting a missing phone number and continuing checkout.",
+      "Contributed to Solar authentication: magic links, Apple ID and Google ID, incoming-link handling and product configuration differences.",
+      "Handled edge cases involving connectivity, CAPTCHA, resending codes, switching methods, the keyboard, validation and registration during checkout.",
+      "Added account-deletion confirmation and updated authentication events and Solar tests."
+    ],
+    "technologies": [
+      "Swift",
+      "UIKit",
+      "Presenter / Interactor / Router",
+      "Swinject",
+      "REST",
+      "Deep Links / Universal Links",
+      "WebKit",
+      "Apple ID / Google ID integrations",
+      "XCUITest"
+    ],
+    "decisions": [
+      "Successful sign-in returns control to the initiating journey: profile, orders or checkout. The completion context matters more than simply dismissing the form.",
+      "Remembering a device does not replace server-side session validation; this portfolio describes the user journey without reproducing the internal token scheme.",
+      "Shared sign-in and return-to-action states account for provider differences and product configuration."
+    ],
+    "quality": [
+      "A dedicated Solar authentication UI test and successive fixes cover checkout and incoming-link journeys.",
+      "Responsibility boundaries were checked against the implementation and module contracts."
+    ],
+    "result": "Different entry points gained a consistent sign-in journey that continues the user's action and handles errors explicitly.",
+    "images": [],
+    "examples": [
+      {
+        "scenario": "Continuing checkout after sign-in",
+        "contribution": "Worked on email/PIN, switching to phone and requesting missing contacts.",
+        "focus": "Authentication as part of a product journey."
+      },
+      {
+        "scenario": "Repeat sign-in on a device",
+        "contribution": "Developed repeat authentication and consistent user-session behaviour.",
+        "focus": "Session state and reusable flows."
+      },
+      {
+        "scenario": "Signing in to Solar",
+        "contribution": "Contributed to magic links, Apple ID, Google ID and incoming links.",
+        "focus": "Integration of multiple authentication methods."
+      },
+      {
+        "scenario": "Errors and repeated actions",
+        "contribution": "Handled CAPTCHA, missing connectivity, code resends and method changes.",
+        "focus": "Explicit edge states and validation."
+      }
+    ],
+    "discussion": [
+      "How do you continue the original action after authentication?",
+      "How do you keep state consistent when the user changes sign-in methods?"
+    ],
+    "group": "Shared components"
+  },
+  {
+    "slug": "calendar",
+    "title": "A shared calendar across product areas",
+    "period": "2022–2023",
+    "lead": "I contributed to a shared calendar and migrated different date-selection journeys to it.",
+    "context": "Flights, hotels, trains and other products select dates differently but need consistent behavior and a shared visual component. The work covered configuration, selected-date state, locales and integrations as well as appearance.",
+    "work": [
+      "Added the working-day calendar and weekend display, then worked on the shared calendar component.",
+      "Developed PropsBuilder, configuration, presenter, public entry points and example scenarios.",
+      "Integrated the shared calendar into hotel, flight, rail and other entry points; removed replaced legacy modules.",
+      "Fixed initial scrolling to a selected date, month and weekday presentation across locales, date editing and selection constraints."
+    ],
+    "technologies": [
+      "Swift",
+      "UIKit",
+      "UICollectionView",
+      "Props / render",
+      "Presenter / Interactor / Router",
+      "Swinject",
+      "Tuist",
+      "Localization / DateFormatter"
+    ],
+    "decisions": [
+      "The product area supplies configuration: product differences should not create hard dependencies from the calendar to every screen.",
+      "Consumers were migrated separately. Integration compatibility was checked incrementally before old modules were removed.",
+      "App and device locales can differ; formatting and calendar order must follow the chosen product behavior."
+    ],
+    "quality": [
+      "The history distinguishes component implementation, integrations and regression fixes. Example apps were used to check different configurations.",
+      "The work spans calendar integration in hotels, flights, trains and the virtual-card journey."
+    ],
+    "result": "Repeated date-selection interfaces were consolidated into a configurable shared implementation maintained across several products.",
+    "images": [],
+    "examples": [
+      {
+        "scenario": "Shared date selection",
+        "contribution": "Developed calendar configuration, public entry points, presenter and PropsBuilder.",
+        "focus": "Designing a reusable UI module."
+      },
+      {
+        "scenario": "Different product areas",
+        "contribution": "Integrated the calendar into flights, hotels and trains while preserving constraints.",
+        "focus": "A shared component with product configuration."
+      },
+      {
+        "scenario": "Returning to a selected date",
+        "contribution": "Fixed initial scrolling and editing an existing date range.",
+        "focus": "Correct state restoration."
+      },
+      {
+        "scenario": "Locales and working days",
+        "contribution": "Worked on months, weekdays, weekends and the working-day calendar.",
+        "focus": "Localization and calendar behavior."
+      }
+    ],
+    "discussion": [
+      "What belongs in a shared calendar's public configuration?",
+      "How do you meet different product requirements without duplicating the component?"
+    ],
+    "group": "Shared components"
+  },
+  {
+    "slug": "design-system",
+    "title": "Shared UI components and the move to UI 2.0",
+    "period": "2022–2026",
+    "lead": "I developed shared styles and components used by several product teams.",
+    "context": "Changing a basic input field or button affects many screens. My work included API consistency, consumer migration, state handling and checking designs across device sizes.",
+    "work": [
+      "Simplified shared button styles, updated the palette and migrated the app to new styles; removed unused components.",
+      "Developed input fields and search fields, including a compact variant, input states, errors, disabled behavior and icons. Investigated existing text-field implementations before consolidation.",
+      "Extended selection fields, segmented controls and floating buttons; built a shared profile widget.",
+      "Added information blocks and bottom action bars variants for UI 2.0 with long text, prices, buttons and loading states.",
+      "Updated component usage in profiles, travel history, search forms and fare selection."
+    ],
+    "technologies": [
+      "Swift",
+      "UIKit",
+      "SwiftUI interoperability",
+      "Props",
+      "PinLayout",
+      "Design tokens / styles",
+      "SnapshotTesting",
+      "XCTest",
+      "Accessibility identifiers"
+    ],
+    "decisions": [
+      "A component describes visual state through Props; business rules remain with its consumer.",
+      "New forms preserved legacy-screen compatibility. A compact search field was separated when its purpose was genuinely different.",
+      "Reusable UI must handle long values, errors, disabled, editing and loading states, and small screens as well as defaults."
+    ],
+    "quality": [
+      "Dedicated snapshot work covered input fields; current baselines include different sizes and states of input fields, search fields, selection fields and bottom action bars.",
+      "When changing a shared component, I considered its consumers and checked the relevant visual states."
+    ],
+    "result": "My contribution was developing individual foundational components and integrating them into product journeys. The architecture and design system were built by the team.",
+    "images": [
+      "input-field",
+      "select-field",
+      "bottom-bar"
+    ],
+    "examples": [
+      {
+        "scenario": "Consistent input fields",
+        "contribution": "Developed input fields and search fields with errors, disabled states, icons and compact presentation.",
+        "focus": "A shared component's contract and states."
+      },
+      {
+        "scenario": "Selection fields and controls",
+        "contribution": "Extended selection fields, the segmented control and floating buttons.",
+        "focus": "Interface composition across screens."
+      },
+      {
+        "scenario": "Bottom action bar",
+        "contribution": "Added bottom action bars variants with prices, long text, buttons and loading.",
+        "focus": "Flexible layout and action states."
+      },
+      {
+        "scenario": "New styles across the app",
+        "contribution": "Updated buttons, the palette and component consumers in product modules.",
+        "focus": "A staged migration in a large application."
+      }
+    ],
+    "discussion": [
+      "Where is the boundary between a shared component and product logic?",
+      "How do you migrate component consumers while preserving every relevant state?"
+    ],
+    "group": "Shared components"
+  },
+  {
+    "slug": "solar",
+    "title": "Solar: launching and developing a separate app",
+    "period": "2022–2024",
+    "lead": "I contributed to launching Solar on the OneTwoTrip codebase and developing its main screens.",
+    "context": "The new product reused existing travel capabilities but required its own composition, visual language, home screen, authentication, profile and analytics. Shared code needed clear boundaries from application-specific behavior.",
+    "work": [
+      "Contributed to the Solar target, AppDelegate and Coordinator, initial journey and tab bar.",
+      "Developed the home screen: header menu, stories, banners, unfinished bookings, footer, configuration and analytics events.",
+      "Worked on the profile, orders, notifications, magic links and social sign-in; adapted links, quick actions and section navigation.",
+      "Maintained AppsFlyer/Adjust integrations and events, currency selection, payment differences and offline behavior.",
+      "Fixed regressions after shared changes were integrated and contributed to preparing and maintaining Solar releases."
+    ],
+    "technologies": [
+      "Swift",
+      "UIKit",
+      "Tuist / multi-target",
+      "Coordinator",
+      "Swinject",
+      "TCA",
+      "WebKit",
+      "AVKit / Lottie",
+      "AppsFlyer / Adjust",
+      "XCUITest"
+    ],
+    "decisions": [
+      "A shared codebase does not imply identical products. Configuration and build composition define Solar-specific behavior.",
+      "Shared changes require checking both apps: OTT navigation, styling or authentication changes can affect Solar.",
+      "My work focused on mobile app composition, user journeys and integration with the team's shared platform."
+    ],
+    "quality": [
+      "Separate UI tests cover the Solar home screen, tab bar, profile and authentication.",
+      "Integration and release fixes demonstrate continued product work after the initial launch."
+    ],
+    "result": "I gained experience developing a separate app on a shared modular foundation, from initial composition to end-to-end journeys and release support.",
+    "images": [
+      "stories-solar-grid"
+    ],
+    "examples": [
+      {
+        "scenario": "Composing a separate app",
+        "contribution": "Contributed to the Solar target, AppDelegate, Coordinator and tab bar.",
+        "focus": "A separate product on a shared codebase."
+      },
+      {
+        "scenario": "Home screen",
+        "contribution": "Developed menus, Stories, banners and unfinished bookings.",
+        "focus": "Configurable product-screen composition."
+      },
+      {
+        "scenario": "Sign-in and section navigation",
+        "contribution": "Worked on authentication, profile, orders and quick actions.",
+        "focus": "Consistent user journeys."
+      },
+      {
+        "scenario": "Different configurations",
+        "contribution": "Handled currencies, links, analytics and regressions following shared changes.",
+        "focus": "Maintaining multiple application variants."
+      }
+    ],
+    "discussion": [
+      "How should multiple apps share a codebase while preserving their differences?",
+      "What regressions can occur when shared changes reach a separate product?"
+    ],
+    "group": "Product journeys"
+  },
+  {
+    "slug": "digital-collectibles",
+    "title": "Solar Digital Collectibles: native UI and WebView",
+    "period": "2023–2024",
+    "lead": "I implemented the digital-achievements catalog, planetary interface and actions for earned rewards.",
+    "context": "The feature combined a visual planetary system in a WebView with native achievement cards. Rewards could be unavailable, earned or added to a wallet; those states determined the interface and available actions.",
+    "work": [
+      "Created planet cards, the bottom-sheet list, zoom controls and supporting actions.",
+      "Integrated the achievements API, WebView communication, reward screen and its business logic.",
+      "Added claiming and wallet actions, sharing, deep links and universal links to achievements.",
+      "Migrated the module to TCA, wrote unit tests and handled errors and recovery after network issues.",
+      "Refined text, images, video, sharing locales, small-screen behavior and profile entry points."
+    ],
+    "technologies": [
+      "Swift",
+      "UIKit",
+      "WebKit / native–web communication",
+      "TCA",
+      "Combine",
+      "REST",
+      "LinkPresentation",
+      "Swinject",
+      "XCTest"
+    ],
+    "decisions": [
+      "Native state and WebView content must stay synchronized when a card is selected or an achievement's availability changes.",
+      "My scope was the mobile achievements interface, API integration, WebView and user actions."
+    ],
+    "quality": [
+      "Wrote module unit tests and supported the migration of state to TCA.",
+      "After launch, improved sharing, links, error handling and presentation across screens."
+    ],
+    "result": "The feature combined an unusual visual model with production-app requirements: state, navigation, analytics and error handling.",
+    "images": [],
+    "examples": [
+      {
+        "scenario": "Planets and achievement lists",
+        "contribution": "Created cards, the sheet list, zoom controls and supporting actions.",
+        "focus": "A distinctive interface and navigation model."
+      },
+      {
+        "scenario": "Native screen and WebView",
+        "contribution": "Integrated the achievements API, WebView communication and reward-screen logic.",
+        "focus": "Connecting different presentation technologies."
+      },
+      {
+        "scenario": "Achievement actions",
+        "contribution": "Added claiming, wallet actions, sharing and universal links.",
+        "focus": "Product actions connected to external navigation."
+      },
+      {
+        "scenario": "Moving state to TCA",
+        "contribution": "Contributed to module migration, wrote unit tests and handled errors.",
+        "focus": "State architecture and testability."
+      }
+    ],
+    "discussion": [
+      "How do you synchronize native state with WebView events?",
+      "What changes in testing when a module moves to TCA?"
+    ],
+    "group": "Product journeys",
+    "walkthrough": [
+      {
+        "title": "One journey across two UI technologies",
+        "body": "A planet tap arrives as a WebView message. The native layer extracts the identifier, finds the achievement in the loaded collection and opens its screen. Navigation also tracks whether the collection sheet was open so that its state can be restored on return. My work connected the visual system, native cards and routing."
+      },
+      {
+        "title": "Adding to a wallet is an asynchronous journey",
+        "body": "The client checks connectivity and an empty field, then sends the address for server validation. Starting the operation introduces an intermediate status; later updates arrive through the API and polling. The achievement card and collection need to reflect the same result. I worked on this client logic and its checks; backend NFT issuance and address validation were outside my scope."
+      },
+      {
+        "title": "Recovery and screen dismissal",
+        "body": "A loading error offers a retry action. The planetary view also supports a WebView reload. Leaving the feature cancels status polling and dismisses related sheets and notifications. TCA expresses these transitions as actions and effects; unit tests exercise navigation, state, retry and related events."
+      },
+      {
+        "title": "A link needs to open a specific achievement",
+        "body": "An external link can arrive before the catalogue loads. I worked on coordinating universal links, network loading and UI readiness so that the correct item opens."
+      }
+    ],
+    "flow": [
+      {
+        "title": "Select a planet",
+        "body": "WebView or card event"
+      },
+      {
+        "title": "Reward screen",
+        "body": "Find the ID in the collection"
+      },
+      {
+        "title": "Wallet",
+        "body": "Validate input and call the API"
+      },
+      {
+        "title": "New status",
+        "body": "Polling and updating the views"
+      }
+    ]
+  },
+  {
+    "slug": "profile",
+    "title": "Profile, personal details and notifications",
+    "period": "2023–2026",
+    "lead": "I developed OTT and Solar profiles, personal-data editing, bonus sections and notification channels.",
+    "context": "The profile brings together authentication, personal data, loyalty, favorites, support and social features. It needs consistent state, correct validation and navigation to independent modules.",
+    "work": [
+      "Moved the Solar profile to the original TCA implementation, developed the header and its business logic, wallet/account sections and guest state.",
+      "Worked on profile photos, data editing, About the app, favorite hotels and marketing statistics.",
+      "Developed the OTT personal-details screen in UI 2.0 with new fields, validation and support navigation for contact changes.",
+      "Implemented notification-channel UI and business logic, scrolling to the first unread message, notification subsystem changes and events.",
+      "Contributed to social journeys: reporting a user, travel history in another user's profile and onboarding updates."
+    ],
+    "technologies": [
+      "Swift",
+      "UIKit",
+      "TCA",
+      "PropsBuilder",
+      "Swinject",
+      "Nuke",
+      "Push notifications",
+      "REST",
+      "XCTest / XCUITest"
+    ],
+    "decisions": [
+      "Guest, signed-in and loyalty-tier states need explicit presentation rather than unrelated rules that hide individual views.",
+      "Cached profile data needs to match the new session when switching accounts; I worked on keeping this behaviour consistent.",
+      "Notification channels and support share navigation but have different data and behavior."
+    ],
+    "quality": [
+      "Checks include a Solar profile unit test and UI tests for sections, photos and personal-data editing.",
+      "Regression work covers avatar caching, validation, keyboard behavior, small screens and preserving channel state."
+    ],
+    "result": "The profile became an ongoing area of my contribution, from screen composition to product widgets, testing and maintenance.",
+    "images": [],
+    "examples": [
+      {
+        "scenario": "Profile across sign-in states",
+        "contribution": "Moved the Solar profile to TCA and developed its header and account sections.",
+        "focus": "Screen composition and state lifecycle."
+      },
+      {
+        "scenario": "Editing personal details",
+        "contribution": "Worked on UI 2.0 fields, validation and support navigation for contact changes.",
+        "focus": "Forms and product-contract constraints."
+      },
+      {
+        "scenario": "Notification channels",
+        "contribution": "Implemented UI, business logic and scrolling to unread messages.",
+        "focus": "Aligning data, navigation and presentation."
+      },
+      {
+        "scenario": "Widgets and social journeys",
+        "contribution": "Added favorites, statistics and travel history in other users' profiles.",
+        "focus": "Module reuse and user context."
+      }
+    ],
+    "discussion": [
+      "How should guest and signed-in profiles share logic without diverging?",
+      "Which states need checking when users edit their contact details?"
+    ],
+    "group": "Product journeys"
+  },
+  {
+    "slug": "loyalty",
+    "title": "Cashback and accounts: balances, cards and screen states",
+    "period": "2023–2025",
+    "lead": "Developed Solar Cash and migrated the cashback section to UI 2.0: UIKit, TCA, multiple data sources, card and bonus balances, statuses and error handling.",
+    "context": "Loyalty depends on user status, available bonuses, cards and account state. The screen must explain conditions and offer the correct actions even with incomplete data or a network error.",
+    "work": [
+      "Added Solar Cash to the profile, credit/debit history, empty states and hotel-flow bonus integration.",
+      "Moved OTT cashback to UI 2.0: header, virtual/physical cards, Tripcoins, travel cashback, boosted cashback, information blocks and banners.",
+      "Separated legacy and new screens, added configuration, a feature flag and error handling, then removed the old implementation.",
+      "Wrote and maintained tests for different statuses, card issuance, missing connectivity, invalid backend responses and updates after card-tier changes."
+    ],
+    "technologies": [
+      "Swift",
+      "UIKit",
+      "TCA",
+      "Swift Concurrency / async-await",
+      "PropsBuilder",
+      "Swinject",
+      "REST / mapping",
+      "SnapshotTesting",
+      "XCTest",
+      "XCUITest"
+    ],
+    "decisions": [
+      "The cashback redesign had to preserve financial rules: functionality remained consistent while the visual styles changed.",
+      "User status and card capabilities form a state matrix. Checking a single successful screen is insufficient.",
+      "After issuing or upgrading a card, the parent section must refresh its data rather than merely dismissing the child screen."
+    ],
+    "quality": [
+      "Developed unit, snapshot and UI checks for loyalty tiers, information blocks, errors and navigation.",
+      "UI tests connect product actions to the resulting screen state."
+    ],
+    "result": "Financial user states gained an updated presentation and systematic checks. Revenue or program-adoption gains are not claimed without product analytics.",
+    "images": [
+      "cashback-accounts",
+      "cashback-upgrade",
+      "loyalty-progress"
+    ],
+    "examples": [
+      {
+        "scenario": "Solar Cash balance",
+        "contribution": "Added credit/debit history, empty states and hotel integration.",
+        "focus": "Financial data within a product interface."
+      },
+      {
+        "scenario": "New cashback screen",
+        "contribution": "Migrated card, Tripcoin and boosted-cashback blocks to UI 2.0.",
+        "focus": "Migrating a complex screen while preserving rules."
+      },
+      {
+        "scenario": "Controlled UI rollout",
+        "contribution": "Separated old and new implementations and added configuration and a feature flag.",
+        "focus": "Incremental introduction of changes."
+      },
+      {
+        "scenario": "Edge states",
+        "contribution": "Checked card statuses, network errors and updates after tier changes.",
+        "focus": "Systematic checks of financial journeys."
+      }
+    ],
+    "discussion": [
+      "How do you test a screen with several financial states?",
+      "How should a feature flag be used when replacing an existing section?"
+    ],
+    "group": "Product journeys",
+    "flow": [
+      {
+        "title": "Check the session",
+        "body": "Separate the guest state from loading personal financial data."
+      },
+      {
+        "title": "Assemble the data",
+        "body": "Fetch configuration plus account, card, loyalty-status and cashback data."
+      },
+      {
+        "title": "Build the blocks",
+        "body": "Show the appropriate balances, terms and actions for the card and user state."
+      },
+      {
+        "title": "Refresh after an action",
+        "body": "Synchronise the parent screen after card issuance or an upgrade."
+      }
+    ],
+    "walkthrough": [
+      {
+        "title": "One screen, multiple independent sources",
+        "body": "Cashback combines card balances, tripcoins, a savings account, loyalty status, offers and banners. I migrated these blocks to UI 2.0 and integrated configuration and error handling. In the TCA implementation, data from several services loads through async/await and TaskGroup after configuration, while a PropsBuilder produces UIKit components from state. Money and bonus units have different representations, and each balance remains associated with its own account."
+      },
+      {
+        "title": "A matrix of card and user states",
+        "body": "A virtual card has presence and upgrade-eligibility states; a physical card can be absent, pending, issued or failed. These states determine the copy, balance presentation and available navigation. I worked on the card and higher-cashback blocks, including refreshing the screen after issuance and upgrades. The challenge is keeping the parent screen consistent with the result of a child journey. [Card account, limits and operations](virtual-card.md)."
+      },
+      {
+        "title": "Network errors and financial-interface checks",
+        "body": "Empty data, a guest session, no connection and malformed service responses need distinct checks. I implemented error handling and developed unit, snapshot and UI tests for the section. The code tracks authorisation, loading and network availability separately; signing out resets personal state. Snapshot tests cover the accounts block and higher-cashback variants at different widths, while UI scenarios cover statuses and refresh after actions."
+      }
+    ]
+  },
+  {
+    "slug": "virtual-card",
+    "title": "Cards and transaction history: limits, pagination and states",
+    "period": "2024–2025",
+    "lead": "Updated virtual and physical card accounts: UIKit, account state, limits and TCA-based transaction history with filtering, pagination and refresh.",
+    "context": "Users need a financial section with a clear card state, available actions and limitations. Implementation covers account data, transactions and asynchronous status changes as well as the card shown on screen.",
+    "work": [
+      "Worked on the virtual/physical card home screen, plastic-card issuance states and transaction history.",
+      "Implemented spending limits, a dedicated limits screen and service information.",
+      "Added skeleton states and snackbar/bottom-sheet errors, updated business logic and addressed design-review feedback.",
+      "Developed tests for issuance, identity verification, 401 handling, transactions, card tiers and physical cards.",
+      "Shortened specific UI-test journeys with targeted deep links and refactored shared loyalty-test infrastructure.",
+      "Developed transaction history: date filtering, pagination, pull-to-refresh, grouping by month and navigation to details; fixed empty-list and scrolling behaviour."
+    ],
+    "technologies": [
+      "Swift",
+      "UIKit",
+      "TCA",
+      "Presenter / Interactor / Router",
+      "REST",
+      "Swinject",
+      "Props",
+      "SnapshotTesting",
+      "XCTest",
+      "XCUITest"
+    ],
+    "decisions": [
+      "Transactions and limits have their own modules; the financial home screen should not own every detail of nested processes.",
+      "A UI redesign does not imply changing banking logic. My contribution covers the mobile client and its integrations.",
+      "Test values and states are used for UI checks; the portfolio contains no real payment or customer data."
+    ],
+    "quality": [
+      "Checks include account-screen snapshots and UI tests for the main card, transactions, limits and physical cards.",
+      "Checks covered empty history, different card levels and error handling. The snapshot suite includes a locked balance and a long amount at 320 and 430 pt widths."
+    ],
+    "result": "The card account gained a more coherent mobile interface with separate states and testable user journeys.",
+    "images": [
+      "card-locked-balance",
+      "card-long-balance",
+      "card-limits",
+      "card-operation"
+    ],
+    "examples": [
+      {
+        "scenario": "Card account",
+        "contribution": "Worked on virtual and physical cards, issuance states and transactions.",
+        "focus": "Multiple states of a financial product."
+      },
+      {
+        "scenario": "Limits and servicing",
+        "contribution": "Implemented spending limits, a dedicated screen and service terms.",
+        "focus": "Clear presentation of product constraints."
+      },
+      {
+        "scenario": "Financial transaction history",
+        "contribution": "Developed transaction and bonus lists, a date filter and pagination resets on period changes and refresh; fixed scrolling.",
+        "focus": "TCA, REST API, pagination and list states."
+      },
+      {
+        "scenario": "Checking user journeys",
+        "contribution": "Developed issuance, identity and error tests; used targeted deep links.",
+        "focus": "Testability and UI-test maintenance."
+      }
+    ],
+    "discussion": [
+      "How do you separate loading, error and card-issuance states?",
+      "How do you coordinate date filtering, pagination, refresh and an empty transaction-history state?"
+    ],
+    "group": "Product journeys",
+    "walkthrough": [
+      {
+        "title": "Balance, fund availability and issuance status",
+        "body": "The account header combines the amount with card type, a masked number and status. I worked on the card screen and snapshot checks, including locked balances and long amounts. A large value on a compact screen uses an adjusted text style to preserve the fractional amount, currency and adjacent icon. The account screen uses Presenter/Interactor/Router, while transaction history is a separate TCA module: the shared UI does not erase those architectural boundaries."
+      },
+      {
+        "title": "Transaction history: filtering and pagination",
+        "body": "Developed the client-side money and bonus transaction lists. For money transactions, selecting a period clears the previous selection and starts at page one; refresh also resets the page number. Fetching another page accounts for both remaining results and an in-flight request. Received operations are merged, sorted by date and grouped by month; selecting a row opens details. My changes included date ranges, pagination resets, group headers and the next-page loading indicator."
+      },
+      {
+        "title": "Loading, empty results and scrolling",
+        "body": "Initial loading, refreshing an existing list and no results are different UI states. I worked on unified loading state, filter presentation and a scrolling fix for bonus history. Financial-journey checks complement component snapshots: one operation row does not establish pagination or filter correctness. The gallery labels these materials separately from the list behaviour explained here."
+      }
+    ]
+  },
+  {
+    "slug": "stories",
+    "title": "Stories: architecture, video and interactive journeys",
+    "period": "2024–2026",
+    "lead": "I moved Stories to TCA and developed interactive behavior, video loading and giveaway participation.",
+    "context": "A stories viewer has more than a slide sequence: viewed and saved items, video, external actions, authentication and a route that can change dynamically. Changes must preserve progress and dismissal behavior.",
+    "work": [
+      "Separated preview, slides, catalog and infrastructure; moved state to TCA and integrated the new modules into existing screens.",
+      "Added and corrected analytics events, saved stories and return-to-preview behavior.",
+      "Fixed dynamic-story playback and video caching; moved to bounded preloading rather than preparing every slide upfront.",
+      "Developed the Hotel Wednesday giveaway: a decision slide, backend participation, authentication over the story, dynamic branches and promo-code copying.",
+      "Added successful-authentication events from Stories and worked on UI compatibility during migration."
+    ],
+    "technologies": [
+      "Swift",
+      "UIKit",
+      "TCA",
+      "Combine",
+      "AVFoundation / video integration",
+      "Nuke",
+      "Swinject",
+      "REST",
+      "XCTest / SnapshotTesting / XCUITest"
+    ],
+    "decisions": [
+      "Catalog, storage, slide viewing and preview presentation have separate responsibilities, allowing one journey to change without rewriting every integration.",
+      "Interactive-story progress follows the available route rather than the initial slide count. Authentication and backend responses can change that route.",
+      "Limited preloading reduces the amount of work before display; no measured speedup in milliseconds is claimed."
+    ],
+    "quality": [
+      "Current tests cover reducers, props, analytics, universal links and previews; UI tests check the interactive journey.",
+      "Migration work separately considered compatibility and the correctness of existing journeys."
+    ],
+    "result": "Stories gained clearer state architecture and support for complex product journeys, including branching and returning from authentication.",
+    "images": [
+      "stories-solar-grid",
+      "stories-small-screen",
+      "stories-empty"
+    ],
+    "examples": [
+      {
+        "scenario": "Separating Stories modules",
+        "contribution": "Moved state to TCA and separated catalog, preview, slides and infrastructure.",
+        "focus": "Architectural migration of an existing feature."
+      },
+      {
+        "scenario": "Preparing video",
+        "contribution": "Replaced loading every slide upfront with bounded media preparation.",
+        "focus": "Resource management in a media journey."
+      },
+      {
+        "scenario": "Interactive giveaway",
+        "contribution": "Developed the decision slide, backend participation and dynamic branches.",
+        "focus": "A journey driven by user choices and effects."
+      },
+      {
+        "scenario": "Sign-in over a story",
+        "contribution": "Worked on authentication, return to viewing and successful-sign-in analytics.",
+        "focus": "Preserving context across external navigation."
+      }
+    ],
+    "discussion": [
+      "How do you preserve viewing context during authentication?",
+      "How does limited video preloading affect the design of the media journey?"
+    ],
+    "group": "Product journeys",
+    "walkthrough": [
+      {
+        "title": "One feature, several responsibilities",
+        "body": "Previews, the saved collection, slide playback and the shared repository have different responsibilities. During the TCA migration I separated them and integrated the new modules into existing entry points. The full-screen snapshots below show the collection with content, empty state and a compact layout."
+      },
+      {
+        "title": "The route changes during playback",
+        "body": "An interactive slide can trigger authentication or giveaway participation, and the server response can change the next branch. I worked on this route, returning to playback and analytics. Progress needs to match the available sequence rather than count every original slide mechanically."
+      },
+      {
+        "title": "Media preparation is bounded",
+        "body": "The change history includes moving from preparing all videos to loading two slides, as well as cache fixes. This demonstrates work on resource use and the media lifecycle. No quantitative speedup is claimed without a separate measurement. Collection screenshots illustrate its UI, not playback or interactive branches."
+      }
+    ]
+  },
+  {
+    "slug": "avia",
+    "title": "Flights: search forms, fares and order journeys",
+    "period": "2022–2026",
+    "lead": "I developed flight screens and contributed to migrating search and fare selection to UI 2.0.",
+    "context": "The journey from search to fare selection and order depends on navigation, selected parameters and correct prices. My contribution includes early fixes and later, broader presentation changes.",
+    "work": [
+      "Fixed search parameters, order statuses and navigation, travel documents, filters and related regressions.",
+      "Built the new search form from shared components, supported simple and multi-city routes, animations and analytics, and added UI checks.",
+      "Moved fare selection to UI 2.0: cards, selection state, prices, advice, banners, errors and the transition to booking.",
+      "Worked on selecting seats in existing orders, consistent passenger-avatar colors and eSIM offers."
+    ],
+    "technologies": [
+      "Swift",
+      "UIKit",
+      "TCA",
+      "PropsBuilder",
+      "Swinject",
+      "Common UI components",
+      "Feature flags",
+      "XCTest / SnapshotTesting / XCUITest"
+    ],
+    "decisions": [
+      "The new fare screen is a presentation layer over existing product logic and the backend contract.",
+      "Solar retained separate search-form behavior. Redesigning OTT should not automatically change the second product.",
+      "Price, selected fare and navigation parameters must remain consistent as the interface updates."
+    ],
+    "quality": [
+      "Added UI checks for the new search form and fares; maintained tests for subsequent order-journey changes.",
+      "Separate checks cover the search form and fares, while later order fixes include their own tests and review."
+    ],
+    "result": "This experience spans several steps of the flight journey and UI migration while preserving business rules.",
+    "images": [
+      "avia-tariff",
+      "avia-search"
+    ],
+    "examples": [
+      {
+        "scenario": "UI 2.0 search form",
+        "contribution": "Built simple and multi-city routes with shared components, events and UI checks.",
+        "focus": "A product form with multiple modes."
+      },
+      {
+        "scenario": "Fare selection",
+        "contribution": "Moved cards, prices, selection and the booking transition to UI 2.0.",
+        "focus": "Updating UI while preserving purchase rules."
+      },
+      {
+        "scenario": "Order maintenance",
+        "contribution": "Fixed parameters, statuses, documents, filters and navigation.",
+        "focus": "Regression work across a long product journey."
+      },
+      {
+        "scenario": "Additional services",
+        "contribution": "Worked on seats in existing orders and eSIM offers.",
+        "focus": "Integrating related products into order context."
+      }
+    ],
+    "discussion": [
+      "How would you design a shared form for simple and multi-city routes?",
+      "How do you update fare-selection UI without changing purchase rules?"
+    ],
+    "group": "Product journeys"
+  },
+  {
+    "slug": "b2b-scenarios",
+    "title": "Business-trip journeys inside the consumer app",
+    "period": "2026",
+    "lead": "I integrated business trips into search forms, profiles and orders while preserving different product and session-state rules.",
+    "context": "Users can book personal and business trips in one app. The work linked forms from several product areas with marketing communication without spreading one form's state to the others.",
+    "work": [
+      "Added a business-trip checkbox to Search Form 2.0 for flights, hotels and trains.",
+      "Implemented profile sheets and a banner placement on the rail-order screen.",
+      "Passed the business-trip flag in banner requests and refined corporate-card checks after the backend contract was clarified.",
+      "Added and fixed UI tests for the combined journeys."
+    ],
+    "technologies": [
+      "Swift",
+      "UIKit",
+      "TCA / state management",
+      "Feature flags",
+      "REST",
+      "Cross-module configuration",
+      "XCUITest"
+    ],
+    "decisions": [
+      "Separated form-local state from session state with different lifetimes so that changing one journey did not affect another.",
+      "Legacy forms and Solar were outside scope. Capabilities were controlled by separate flags rather than one shared condition."
+    ],
+    "quality": [
+      "Checks covered different entry points, parameter passing and the consequences of state changes.",
+      "Backend-parameter refinements and UI-test updates were handled as separate pieces of work."
+    ],
+    "result": "A cross-product journey with clear state-lifecycle rules and controlled feature activation.",
+    "images": [],
+    "examples": [
+      {
+        "scenario": "Business-trip search",
+        "contribution": "Added the business-trip flag to flights, hotels and trains.",
+        "focus": "One journey across multiple product areas."
+      },
+      {
+        "scenario": "Profile and order entry points",
+        "contribution": "Implemented profile sheets and a banner placement in rail orders.",
+        "focus": "Coordinated cross-module navigation."
+      },
+      {
+        "scenario": "Backend-contract changes",
+        "contribution": "Refined banner requests and corporate-card checks after requirements changed.",
+        "focus": "Adapting client logic to an API."
+      },
+      {
+        "scenario": "Checking combined journeys",
+        "contribution": "Added and fixed UI tests for business trips inside the consumer app.",
+        "focus": "Integration checks of the user journey."
+      }
+    ],
+    "discussion": [
+      "Where should business-trip state live, and when should it reset?",
+      "How do you check a shared journey across several product areas?"
+    ],
+    "group": "Product journeys"
+  },
+  {
+    "slug": "payments",
+    "title": "Payment integrations and completing a purchase",
+    "period": "2022–2026",
+    "lead": "I worked on client-side payment journeys across products and shared payment-progress presentation.",
+    "context": "Payments connect external providers, WebView/3DS, waiting for server status and returning to an order. Users need to understand whether an operation is continuing and what to do after an error.",
+    "work": [
+      "Integrated BridgerPay into the hotel journey and maintained related payment-method identification and widget UI changes.",
+      "Supported NowPayments in Solar flights and hotels; fixed completion and presentation of external payment journeys.",
+      "Worked on the shared SBP payment loader and its UI tests.",
+      "Developed the eSIM payment screen and client integration, contacts, errors, timer and order navigation.",
+      "Fixed order behavior after payment errors and related states in the rail product."
+    ],
+    "technologies": [
+      "Swift",
+      "UIKit / SwiftUI",
+      "WebKit",
+      "3DS",
+      "REST / polling",
+      "TCA",
+      "Coordinator",
+      "BridgerPay / NowPayments integrations",
+      "XCUITest"
+    ],
+    "decisions": [
+      "The external payment UI status can differ from the final order status. The client completes the journey according to the backend contract.",
+      "Payment methods have different transitions, but progress indication and error handling should be consistent.",
+      "My scope is client-side provider integration, payment state and navigation to the purchase result."
+    ],
+    "quality": [
+      "The history includes integration fixes, eSIM unit/UI tests and a UI test for the shared SBP loader.",
+      "Requirements and implementation are separated by product and provider."
+    ],
+    "result": "I gained experience supporting purchases from the form to confirmation, including rejection, waiting and returning from an external interface.",
+    "images": [
+      "payment-waiting",
+      "payment-long-error"
+    ],
+    "examples": [
+      {
+        "scenario": "External payment providers",
+        "contribution": "Integrated BridgerPay in hotels and maintained NowPayments in Solar.",
+        "focus": "Client-side integration of payment journeys."
+      },
+      {
+        "scenario": "Waiting for SBP payment",
+        "contribution": "Worked on the shared payment loader and its UI tests.",
+        "focus": "Reusable presentation of an intermediate state."
+      },
+      {
+        "scenario": "Buying an eSIM",
+        "contribution": "Developed payment UI, backend interaction, contact handling and order navigation.",
+        "focus": "Orchestrating several purchase steps."
+      },
+      {
+        "scenario": "Returning after failure",
+        "contribution": "Fixed order state after payment errors and completion of external journeys.",
+        "focus": "Error handling and interface recovery."
+      }
+    ],
+    "discussion": [
+      "Which states does the client pass through between payment initiation and order confirmation?",
+      "How do you restore a clear interface after an external provider rejects a payment?"
+    ],
+    "group": "Product journeys",
+    "walkthrough": [
+      {
+        "title": "Waiting for an external result",
+        "body": "Opening a banking app or WebView does not complete a purchase by itself. The client needs to show waiting, handle return and obtain the outcome according to the provider contract. My work included Solar and eSIM payment integrations, the shared loader and transition checks."
+      },
+      {
+        "title": "eSIM: a detailed checkout case",
+        "body": "For eSIM I worked on the SwiftUI screen, user contacts, REST API integration, 3DS, polling, promo codes and the timer. [The dedicated case](esim.md) explains payment transitions, protection against stale promo responses, a fully discounted purchase without card selection and resuming after screen lock; it also includes the original price-breakdown snapshot."
+      },
+      {
+        "title": "An error should leave a clear next step",
+        "body": "Retry and Close have different consequences for the purchase journey. A full-screen baseline with a long message shows another concern: actions must remain accessible with awkward data. These snapshots belong to the shared team payment container; my contribution is described in the integration and state-handling examples."
+      }
+    ]
+  },
+  {
+    "slug": "quality",
+    "title": "Quality: unit, snapshot and user-journey checks",
+    "period": "2023–2026",
+    "lead": "I supported product changes with several levels of automated checks and developed the test journeys themselves.",
+    "context": "A large iOS app needs correct logic, stable presentation and working end-to-end journeys. These levels complement one another and catch different regressions.",
+    "work": [
+      "Wrote state and business-logic unit tests for the Solar profile, Digital Collectibles, finance, eSIM and travel history.",
+      "Added snapshots for input fields, card accounts, eSIM and travel history with different sizes, text and states.",
+      "Developed XCUITest journeys for authentication, profile, loyalty, virtual cards, eSIM, travel history, flights and B2B integrations.",
+      "Maintained accessibility identifiers and mocks; updated journeys for UI 2.0 and contract changes.",
+      "Shortened specific test routes with deep links and fixed unstable or broken checks."
+    ],
+    "technologies": [
+      "XCTest",
+      "XCUITest",
+      "SnapshotTesting",
+      "TCA TestStore",
+      "Mocks",
+      "Accessibility identifiers",
+      "Allure",
+      "Jenkins"
+    ],
+    "decisions": [
+      "Unit tests check decisions and state, snapshots catch visual regressions, and UI tests check connected screens and actions. One level does not replace the others.",
+      "Error states need controlled responses and network conditions rather than waiting for an accidental production failure.",
+      "Test files, methods, runs and snapshot images are different metrics and are not mixed in the statistics."
+    ],
+    "quality": [
+      "The analysis distinguishes testing tasks from commits that touch tests. Neither figure is a code-coverage percentage.",
+      "The included images are genuine snapshot baselines; application tests were not rerun to create this portfolio."
+    ],
+    "result": "Testing became both part of my feature work and a separate engineering contribution: creating checks, maintaining them and diagnosing regressions.",
+    "images": [],
+    "examples": [
+      {
+        "scenario": "Checking business state",
+        "contribution": "Wrote unit tests for profiles, achievements, finance, eSIM and trips.",
+        "focus": "Testing logic independently of appearance."
+      },
+      {
+        "scenario": "Checking components",
+        "contribution": "Added snapshots for UI sizes, text and states.",
+        "focus": "Visual regressions and the design system."
+      },
+      {
+        "scenario": "End-to-end journeys",
+        "contribution": "Developed XCUITest flows for sign-in, purchases, profiles and integrations.",
+        "focus": "Checking app behavior from the user's perspective."
+      },
+      {
+        "scenario": "Maintaining tests",
+        "contribution": "Maintained mocks and accessibility identifiers, fixed instability and used deep links.",
+        "focus": "Practical maintenance of automated checks."
+      }
+    ],
+    "discussion": [
+      "Which errors are best caught by unit, snapshot and UI tests?",
+      "How do you distinguish a test problem from an application regression?"
+    ],
+    "group": "Quality"
+  },
+  {
+    "slug": "jenkins",
+    "title": "Jenkins: build diagnostics and CI maintenance",
+    "period": "2025–2026",
+    "lead": "I developed practical tools for dSYM handling, macOS-agent maintenance, build information and the review process.",
+    "context": "iOS builds need crash-diagnostic symbols, available disk space on macOS agents and clear environment information. I developed these tools within the team’s existing Jenkins and Fastlane infrastructure.",
+    "work": [
+      "Created a pipeline to upload dSYMs from a selected macOS agent's cache by app, version and build number. Added input/cache checks, parallel uploads and retries for failed files only.",
+      "Extended dSYM uploads to debug builds of release tasks and added the agent name to build details.",
+      "Added a CI-agent maintenance pipeline with manual execution, a system-cleaner availability check, disk state before/after and freed-space reporting.",
+      "Extended the review process: Fastlane review notifications reports completed reviews before the move to testing.",
+      "Fixed the metrics environment with pinned Ruby, execution without user gems and shared post-cleanup."
+    ],
+    "technologies": [
+      "Jenkins Declarative Pipeline",
+      "Groovy",
+      "Bash",
+      "Ruby / Fastlane",
+      "macOS agents",
+      "Firebase Crashlytics dSYM",
+      "mise",
+      "Git"
+    ],
+    "decisions": [
+      "dSYM retries are bounded by the overall job timeout; this differs from the bounded HTTP retries in the later metrics publisher.",
+      "The maintenance pipeline manually cleans a selected agent and reports the result through available disk space.",
+      "My contribution centers on pipeline orchestration and integrating existing system tools."
+    ],
+    "quality": [
+      "For dSYM handling and agent maintenance, I accounted for input checks, required-file availability and unsuccessful operations.",
+      "Ruby launcher checks covered gem conflicts and entry-point integration. Local checks do not establish production reliability."
+    ],
+    "result": "Dedicated maintenance and diagnostic tools became available for iOS CI, and build information became more useful for investigating failures. I do not claim unmeasured time savings or availability gains.",
+    "images": [],
+    "examples": [
+      {
+        "scenario": "Uploading dSYMs",
+        "contribution": "Created a pipeline selecting artifacts by app/build, uploading in parallel and retrying failures.",
+        "focus": "Automating iOS diagnostics."
+      },
+      {
+        "scenario": "Maintaining a macOS agent",
+        "contribution": "Added a manual cleanup pipeline with checks and free-space measurements.",
+        "focus": "Controlled operations on the CI environment."
+      },
+      {
+        "scenario": "Build and review context",
+        "contribution": "Added agent names to build information and completed-review reporting.",
+        "focus": "Diagnostics and team workflow."
+      },
+      {
+        "scenario": "Isolating Ruby",
+        "contribution": "Worked with pinned Ruby, user gems and shared cleanup.",
+        "focus": "Reproducible infrastructure scripts."
+      }
+    ],
+    "discussion": [
+      "How do you retry failed artifact uploads without repeating successful ones?",
+      "Which checks should precede maintenance on a selected CI agent?"
+    ],
+    "group": "Engineering tools"
+  },
+  {
+    "slug": "repository-metrics",
+    "title": "Repository metrics: history, test analysis and delivery",
+    "period": "2026",
+    "lead": "I developed repository measurement: historical backfill, static test analysis and resilient metric publication from Jenkins.",
+    "context": "Engineering decisions benefit from a history of the codebase. A lengthy calculation loses value if the final upload fails and forces everything to run again. This work combines collection, counting semantics and reliable delivery.",
+    "work": [
+      "Added current and historical metric calculation using Git states, isolated checkouts and reproducible timestamps.",
+      "Added README inventory for eligible Tuist modules: total, with, without and coverage based on file presence.",
+      "Developed a dedicated SwiftSyntax analyzer for XCTest and Quick with Codex: inheritance and helper resolution, unit/snapshot separation, historical Objective-C support and explicit limitations.",
+      "Separated calculation from publication through an immutable saved queue, a progress checkpoint, batched delivery, response validation, bounded retries and Restart from Stage.",
+      "Added tool bootstrap, checks before long calculations and an isolated Jenkins fixture for sandbox/CPS and recovery scenarios."
+    ],
+    "technologies": [
+      "Swift / SwiftSyntax",
+      "Swift Package Manager",
+      "Ruby",
+      "Python",
+      "Bash",
+      "Groovy / Jenkins CPS",
+      "Static code analysis / cloc",
+      "VictoriaMetrics",
+      "Grafana",
+      "mise"
+    ],
+    "decisions": [
+      "The test metric counts unique declarations, not PNG files or executed tests; ambiguous analysis cases block publication.",
+      "Queue contents and progress are separate: a failed checkpoint write must not destroy calculated data. Repeated points retain their original timestamps and labels.",
+      "Project-wide historical analysis is distinct from my period of employment.",
+      "Prepared Grafana panels and local checks do not establish a production rollout."
+    ],
+    "quality": [
+      "Historical calculation and documentation inventory were checked with local dry runs against repository states.",
+      "Automated checks and local-fixture runs covered network delivery, the Ruby environment and Jenkins; this was not an assessment of the production pipeline.",
+      "Checks covered network failures, lost responses, restart, repeated restart, missing checkpoints, cancellation and sandbox behavior."
+    ],
+    "result": "A testable path from source code and Git history to metrics, with recoverable publication. This work involved substantial AI assistance: I defined the problem and constraints, reviewed the solution and managed iterations.",
+    "images": [],
+    "examples": [
+      {
+        "scenario": "Historical calculation",
+        "contribution": "Added monthly Git-state backfill and fixed timestamps.",
+        "focus": "Reproducible analysis of repository history."
+      },
+      {
+        "scenario": "Static test analysis",
+        "contribution": "Developed a SwiftSyntax XCTest/Quick analyzer with Codex and explicit diagnostic limits.",
+        "focus": "Source analysis and correct metric semantics."
+      },
+      {
+        "scenario": "Delivery after network failure",
+        "contribution": "Separated payload and progress, added batches, retries and Restart from Stage.",
+        "focus": "Recovery of a long infrastructure operation."
+      },
+      {
+        "scenario": "Checking Jenkins behavior",
+        "contribution": "Added bootstrap and a local fixture for sandbox/CPS and recovery.",
+        "focus": "Infrastructure checks outside production."
+      }
+    ],
+    "discussion": [
+      "How do you separate calculation from delivery so it survives a stage restart?",
+      "Why do test declarations differ from test runs and code coverage?"
+    ],
+    "group": "Engineering tools"
+  },
+  {
+    "slug": "engineering-workflow",
+    "title": "Documentation, AI tools and engineering workflow",
+    "period": "2026",
+    "lead": "I developed repeatable workflows for systems analysis, module documentation and preparing changes.",
+    "context": "In a large modular codebase, progress depends on context: public contracts, feature entry points, available tests and current requirements. I began formalizing that context in documentation and tools.",
+    "work": [
+      "Developed and refined a skill for turning systems analysis into a mobile story, including a shared process for iOS and Android.",
+      "Created a process for preparing and incrementally updating Tuist-module READMEs to reflect entry points, configuration, dependencies and checks.",
+      "Added documentation for eSIM and Stories modules, connecting descriptions to code and tests.",
+      "Used AI agents for research, implementation and verification, documenting the extent of their assistance in review descriptions.",
+      "Contributed to OTT, Solar and KZ release changes: configuration, product differences and integration checks."
+    ],
+    "technologies": [
+      "Codex",
+      "Repository skills",
+      "Jira / Bitbucket integrations",
+      "Markdown",
+      "Tuist manifests",
+      "Ruby / Python tooling",
+      "Git / release workflow"
+    ],
+    "decisions": [
+      "Documentation should explain a module's boundaries, entry points and verification, rather than repeat filenames.",
+      "AI assistance is explicit. Owning a task includes setting constraints, evaluating solutions and checking results; it does not mean writing every change by hand.",
+      "README presence does not prove quality: coverage counts files, while content review is a separate activity."
+    ],
+    "quality": [
+      "The history includes creating the process, fixing it and applying it to eSIM and Stories.",
+      "For AI-assisted changes I separately described the author's role, tool contribution and completed verification."
+    ],
+    "result": "My engineering work expanded from implementing screens to improving how the team and tools understand and change the project.",
+    "images": [],
+    "examples": [
+      {
+        "scenario": "From analysis to a task",
+        "contribution": "Developed and refined a workflow that turns systems analysis into mobile stories.",
+        "focus": "Formalizing input requirements for development."
+      },
+      {
+        "scenario": "Module documentation",
+        "contribution": "Created a README preparation/update process and applied it to eSIM and Stories.",
+        "focus": "Maintaining the team's architectural context."
+      },
+      {
+        "scenario": "Working with AI tools",
+        "contribution": "Used agents for research and implementation, recorded their contribution and checked results.",
+        "focus": "Setting constraints and evaluating generated changes."
+      },
+      {
+        "scenario": "Application variants",
+        "contribution": "Contributed to OTT, Solar and KZ release configuration.",
+        "focus": "Managing product differences on a shared foundation."
+      }
+    ],
+    "discussion": [
+      "What should a module README contain to help the next developer?",
+      "How do you verify an AI-assisted change and describe your own role?"
+    ],
+    "group": "Engineering tools"
+  },
+  {
+    "slug": "product-maintenance",
+    "title": "Hotels, trains and everyday product reliability",
+    "period": "2021–2026",
+    "lead": "Much of my work involved steadily improving the existing app: bugs, navigation, locales and screen states.",
+    "context": "Major features rely on handling real edge cases. Early tasks show how I learned a large codebase, moving from visual defects to asynchronous data, network failures and navigation between screens.",
+    "work": [
+      "In hotels, fixed favorites, review loading, photos and galleries, results states, calendars, safe areas, scrolling and post-search navigation.",
+      "In rail journeys, added documents for canceled orders, status checking after payment errors and cancellation/repeating of electronic registration.",
+      "Worked on shared orders: pull-to-refresh, empty states, archived-order deep links and consistent authentication.",
+      "Fixed date formatting, locale changes, offline WebViews, the status bar, keyboard behavior and small-device presentation.",
+      "Continued maintaining shared and product-specific journeys alongside new features."
+    ],
+    "technologies": [
+      "Swift",
+      "UIKit",
+      "Legacy Objective-C interoperability",
+      "REST",
+      "WebKit",
+      "DateFormatter / localization",
+      "Navigation / coordinators",
+      "Debugging"
+    ],
+    "decisions": [
+      "Fixing UI often means finding the cause in lifecycle, data or routing rather than simply changing a constraint.",
+      "Maintenance work across several products complements the larger feature case studies."
+    ],
+    "quality": [
+      "My recorded engineering work begins in December 2021; the career overview describes its progression.",
+      "The cases distinguish bug fixes, new journeys and maintenance of existing team modules."
+    ],
+    "result": "This work built practical understanding of a large app and provided a foundation for more independent features, shared components and engineering tools.",
+    "images": [],
+    "examples": [
+      {
+        "scenario": "Hotel journeys",
+        "contribution": "Fixed favorites, reviews, galleries, search results, calendars and post-search navigation.",
+        "focus": "Diagnosing regressions in an existing product."
+      },
+      {
+        "scenario": "Rail orders",
+        "contribution": "Worked on cancellation documents, post-payment-error state and electronic registration.",
+        "focus": "Aligning client UI with order state."
+      },
+      {
+        "scenario": "Shared order list",
+        "contribution": "Refined refresh, empty states, archived links and authentication.",
+        "focus": "Reusable navigation and data updates."
+      },
+      {
+        "scenario": "Platform behavior",
+        "contribution": "Fixed dates, locales, offline WebViews, the keyboard and small screens.",
+        "focus": "Reliability across different environments."
+      }
+    ],
+    "discussion": [
+      "How do you isolate a regression in a large app with shared components?",
+      "Which states are easy to miss when fixing navigation and order refresh?"
+    ],
+    "group": "Product journeys"
+  },
+  {
+    "slug": "analysis-documentation",
+    "title": "Systems analysis and technical documentation",
+    "period": "2023–2026",
+    "lead": "I helped turn product ideas into agreed mobile journeys and documented feature configuration and behavior.",
+    "context": "A mockup is not enough for mobile implementation: client/backend behavior, data constraints, loading, errors and version compatibility need agreement. Recording these decisions and making them usable by the team formed a separate part of my work.",
+    "work": [
+      "Prepared systems analysis for manual trips: city sources, date-selection order, arrival constraints, saving and refreshing the timeline, deleting and restoring segments. Agreed decisions are distinguished from open questions.",
+      "Analyzed automatic versus user-created segments, editability flags and the impact of optional fields on older app versions.",
+      "Created Solar documentation covering flavor, project generation, localization and feature configuration.",
+      "Documented the custom home-screen widget contract: titles, section, deep link, colors, analytics parameter and task requirements.",
+      "Created Quick Actions documentation, subsequently extended by other team members.",
+      "Contributed to formalizing B2B journeys and offline eSIM access by clarifying and updating mobile requirements."
+    ],
+    "technologies": [
+      "Systems analysis",
+      "Confluence / Jira",
+      "API contracts",
+      "Backward compatibility",
+      "Feature configuration",
+      "Deep links and analytics"
+    ],
+    "decisions": [
+      "Check edge states before implementation: missing arrival dates, a hotel as the first trip segment, segment order and refreshing after saving.",
+      "Record open questions explicitly: a question in systems analysis does not mean its solution is implemented or released.",
+      "Describe configuration contracts so colleagues can prepare a change without reading the implementation."
+    ],
+    "quality": [
+      "Distinguished agreed decisions from open questions and compatibility constraints.",
+      "Recorded data and client-behavior requirements for use during implementation and verification."
+    ],
+    "result": "I complemented iOS development with contract analysis and documentation, clarifying behavior before implementation and preserving technical context for the team.",
+    "images": [],
+    "examples": [
+      {
+        "scenario": "Manual trip creation",
+        "contribution": "Analyzed city/date selection, timeline refresh, segment deletion and restoration.",
+        "focus": "Systems analysis of a user journey."
+      },
+      {
+        "scenario": "Data compatibility",
+        "contribution": "Examined editability flags and optional fields' impact on older versions.",
+        "focus": "API agreement and backward compatibility."
+      },
+      {
+        "scenario": "Configuration contracts",
+        "contribution": "Documented Solar, home-screen widgets and Quick Actions for colleagues.",
+        "focus": "Technical documentation people can use."
+      },
+      {
+        "scenario": "Clarifying mobile requirements",
+        "contribution": "Contributed to formalizing B2B journeys and offline eSIM access.",
+        "focus": "Connecting product requirements with client implementation."
+      }
+    ],
+    "discussion": [
+      "Which questions should be resolved between a mockup and implementation?",
+      "How do you document open questions and compatibility risks without presenting them as completed work?"
+    ],
+    "group": "Engineering tools"
+  }
+]

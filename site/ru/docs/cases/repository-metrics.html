@@ -1,0 +1,69 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Валерий Веселов — iOS Developer. Полное портфолио OneTwoTrip и Solar."><title>Метрики репозитория: история, анализ тестов и доставка · Valeriy Veselov</title><link rel="alternate" hreflang="en" href="../../../en/docs/cases/repository-metrics.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">К содержанию</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Основная навигация"><a href="index.html">Кейсы</a><a href="../gallery.html">Галерея</a><a href="../statistics.html">Графики</a><a href="../../catalog.html">Задачи</a><a href="../career/summary.html">Резюме</a></nav><nav class="language-switch" aria-label="Язык страницы"><a data-language="ru" lang="ru" hreflang="ru" href="repository-metrics.html" aria-current="page">RU</a><a data-language="en" lang="en" hreflang="en" href="../../../en/docs/cases/repository-metrics.html">EN</a></nav></header><main id="main" class="article"><p><a href="../../../en/docs/cases/repository-metrics.html">EN</a> · <a href="../../../index.html">Выбор языка / Language</a></p>
+<h1 id="_1">Метрики репозитория: история, анализ тестов и доставка</h1>
+<p><strong>2026 · OneTwoTrip / iOS</strong></p>
+<p>Развивал измеримость репозитория: исторический backfill, статический анализ тестов и устойчивую публикацию метрик из Jenkins.</p>
+<h2 id="_2">Контекст</h2>
+<p>Для технических решений нужна история состояния кодовой базы. Длительный расчёт теряет ценность, если отправка в хранилище падает в самом конце и заставляет выполнять всю работу заново. Этот блок объединяет сбор данных, методику счёта и надёжность доставки.</p>
+<h2 id="_3">Мой вклад</h2>
+<ul>
+<li>Добавлял расчёт текущих и исторических метрик: выбор состояний Git, изолированный checkout и воспроизводимые временные метки.</li>
+<li>Добавил инвентаризацию README у подходящих Tuist-модулей: total, with, without и coverage по наличию файла.</li>
+<li>Разработал с помощью Codex отдельный SwiftSyntax-анализатор XCTest и Quick: разрешение наследования и helpers, разделение unit/snapshot, поддержка исторического Objective-C и диагностируемые ограничения.</li>
+<li>Отделил расчёт от публикации: сохраняемая неизменяемая очередь, отдельный checkpoint прогресса, пакетная отправка, проверка ответа, ограниченные повторы и Restart from Stage.</li>
+<li>Добавил bootstrap инструментов, проверки до длительного расчёта и изолированный Jenkins-стенд для sandbox/CPS и сценариев восстановления.</li>
+</ul>
+<h2 id="_4">Технологии</h2>
+<p>Swift / SwiftSyntax, Swift Package Manager, Ruby, Python, Bash, Groovy / Jenkins CPS, Static code analysis / cloc, VictoriaMetrics, Grafana, mise.</p>
+<h2 id="_5">Примеры задач</h2>
+<table>
+<thead>
+<tr>
+<th>Сценарий</th>
+<th>Что я делал</th>
+<th>Инженерный акцент</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Исторический расчёт</td>
+<td>Добавил backfill по месячным состояниям Git и фиксированные метки времени.</td>
+<td>Воспроизводимый анализ истории репозитория.</td>
+</tr>
+<tr>
+<td>Статический анализ тестов</td>
+<td>С помощью Codex разрабатывал SwiftSyntax-анализатор XCTest/Quick и ограничения диагностики.</td>
+<td>Анализ исходного кода и корректная семантика метрик.</td>
+</tr>
+<tr>
+<td>Доставка после сетевого сбоя</td>
+<td>Отделял payload от прогресса, добавлял пакетную отправку, повторы и Restart from Stage.</td>
+<td>Восстановление длительной инфраструктурной операции.</td>
+</tr>
+<tr>
+<td>Проверка Jenkins-поведения</td>
+<td>Добавлял bootstrap и локальный стенд для sandbox/CPS и сценариев восстановления.</td>
+<td>Проверка инфраструктуры вне production.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_6">Инженерные решения</h2>
+<ul>
+<li>Метрика тестов считает уникальные объявления, а не число PNG или реально выполненных тестов; неоднозначные случаи анализа блокируют публикацию.</li>
+<li>Содержимое очереди и прогресс разделены: сбой сохранения checkpoint не должен уничтожать рассчитанные данные. Повтор тех же точек сохраняет исходные timestamps и labels.</li>
+<li>Исторический анализ всего проекта отделён от периода моей работы.</li>
+<li>Подготовленные панели Grafana и локальные проверки не равны подтверждённому production rollout.</li>
+</ul>
+<h2 id="_7">Качество и проверки</h2>
+<ul>
+<li>Исторический расчёт и инвентаризация документации проверялись локальным dry-run на состояниях репозитория.</li>
+<li>Для сетевой доставки, Ruby-окружения и Jenkins выполнялись автоматизированные проверки и запуски локального стенда; это не оценка production-пайплайна.</li>
+<li>Проверялись сетевые отказы, потеря ответа, restart, повторный restart, отсутствие checkpoint, отмена и sandbox.</li>
+</ul>
+<h2 id="_8">Результат и границы</h2>
+<p>Создана проверяемая цепочка от исходников и истории Git до метрик с возможностью восстановить публикацию. Вклад выполнен с существенным AI-assistance: я задавал проблему и ограничения, проверял решение и управлял итерациями.</p>
+<h2 id="_9">Что можно обсудить на интервью</h2>
+<ul>
+<li>Как разделить расчёт данных и их доставку, чтобы пережить перезапуск stage?</li>
+<li>Почему число объявлений тестов отличается от числа прогонов и code coverage?</li>
+</ul>
+<p><a href="index.html">Все кейсы</a> · <a href="../archive/index.html">Практические задачи</a> · <a href="../engineering/technologies.html">Технологии</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">О показателях</a><a href="../../../index.html">Выбрать язык</a><span>Срез 29.09.2026</span></footer></body></html>

@@ -1,0 +1,95 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Валерий Веселов — iOS Developer. Полное портфолио OneTwoTrip и Solar."><title>Технологии и инженерные практики · Valeriy Veselov</title><link rel="alternate" hreflang="en" href="../../../en/docs/engineering/technologies.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">К содержанию</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Основная навигация"><a href="../cases/index.html">Кейсы</a><a href="../gallery.html">Галерея</a><a href="../statistics.html">Графики</a><a href="../../catalog.html">Задачи</a><a href="../career/summary.html">Резюме</a></nav><nav class="language-switch" aria-label="Язык страницы"><a data-language="ru" lang="ru" hreflang="ru" href="technologies.html" aria-current="page">RU</a><a data-language="en" lang="en" hreflang="en" href="../../../en/docs/engineering/technologies.html">EN</a></nav></header><main id="main" class="article"><p><a href="../../../en/docs/engineering/technologies.html">EN</a> · <a href="../../../index.html">Выбор языка / Language</a></p>
+<h1 id="_1">Технологии и инженерные практики</h1>
+<p>Матрица показывает технологии в областях подтверждённого вклада. Она не утверждает первичное авторство общей архитектуры или всех используемых библиотек.</p>
+<table>
+<thead>
+<tr>
+<th>Область</th>
+<th>Практика и технологии</th>
+<th>Где проявляется</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Язык и платформенный UI</td>
+<td>Swift, UIKit, SwiftUI; интеграция через UIHostingController</td>
+<td><a href="../cases/esim.html">eSIM</a>, <a href="../cases/avia.html">авиа</a>, <a href="../cases/design-system.html">UI-компоненты</a></td>
+</tr>
+<tr>
+<td>Модульность</td>
+<td>Tuist, отдельные feature/infrastructure-модули, публичные интерфейсы</td>
+<td><a href="../cases/travel-history.html">история путешествий</a>, <a href="../cases/solar.html">Solar</a></td>
+</tr>
+<tr>
+<td>Состояние и эффекты</td>
+<td>TCA, Combine, однонаправленный поток состояния; PropsBuilder для представления</td>
+<td><a href="../cases/stories.html">Stories</a>, <a href="../cases/esim.html">eSIM</a></td>
+</tr>
+<tr>
+<td>Существующая архитектура</td>
+<td>Presenter / Interactor / Router; DI через Swinject</td>
+<td><a href="../cases/calendar.html">календарь</a>, <a href="../cases/chat.html">чат</a>, <a href="../cases/auth.html">авторизация</a></td>
+</tr>
+<tr>
+<td>Компоновка UIKit</td>
+<td>Общие стили, PinLayout, конфигурируемые компоненты</td>
+<td><a href="../cases/design-system.html">UI 2.0</a>, <a href="../cases/calendar.html">календарь</a></td>
+</tr>
+<tr>
+<td>Сеть и модели</td>
+<td>REST, Codable; Alamofire и Socket.IO в текущем модуле чата</td>
+<td><a href="../cases/chat.html">чат</a>, <a href="../cases/esim.html">eSIM</a></td>
+</tr>
+<tr>
+<td>Навигация</td>
+<td>Router/coordinator, диплинки, продолжение действия после авторизации</td>
+<td><a href="../cases/auth.html">вход</a>, <a href="../cases/b2b-scenarios.html">B2B</a>, <a href="../cases/payments.html">платежи</a></td>
+</tr>
+<tr>
+<td>Платёжный путь</td>
+<td>3DS, polling статуса, таймер, возврат из фона, банковские и сохранённые карты</td>
+<td><a href="../cases/esim.html">eSIM</a>, <a href="../cases/payments.html">платежи</a></td>
+</tr>
+<tr>
+<td>Медиа и web</td>
+<td>WebKit, AVKit, Lottie; загрузка изображений Nuke в актуальных модулях</td>
+<td><a href="../cases/digital-collectibles.html">Digital Collectibles</a>, <a href="../cases/stories.html">Stories</a></td>
+</tr>
+<tr>
+<td>Продуктовая конфигурация</td>
+<td>Feature flags, разные flavor приложения, локали, BI-события</td>
+<td><a href="../cases/solar.html">Solar</a>, <a href="../cases/b2b-scenarios.html">B2B</a>, <a href="../cases/analysis-documentation.html">SA</a></td>
+</tr>
+<tr>
+<td>Автоматизированные проверки</td>
+<td>XCTest, SnapshotTesting, XCUITest, accessibility identifiers</td>
+<td><a href="../cases/quality.html">качество</a>, <a href="../cases/virtual-card.html">карта</a>, <a href="../cases/loyalty.html">лояльность</a></td>
+</tr>
+<tr>
+<td>CI/CD</td>
+<td>Jenkins/Groovy, Fastlane/Ruby, dSYM, macOS build agents</td>
+<td><a href="../cases/jenkins.html">Jenkins</a></td>
+</tr>
+<tr>
+<td>Метрики и инструменты</td>
+<td>SwiftSyntax, статический анализ тестов, Python, Ruby, HTTP delivery</td>
+<td><a href="../cases/repository-metrics.html">метрики</a></td>
+</tr>
+<tr>
+<td>Командный контекст</td>
+<td>Git/Bitbucket, Jira, Confluence, SA и README модулей</td>
+<td><a href="../cases/analysis-documentation.html">документация</a>, <a href="../cases/engineering-workflow.html">процессы</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">Архитектурные темы для обсуждения на собеседовании</h2>
+<ol>
+<li>Как отделить состояние и эффекты экрана от навигации, особенно в платёжной оркестрации.</li>
+<li>Как проектировать общий компонент, когда разные вертикали имеют разные ограничения дат и сценарии использования.</li>
+<li>Как обновлять UI существующего продукта, сохраняя бизнес-правила, аналитику и корректность переходов.</li>
+<li>Что сохранять при возврате из авторизации или из фона и как пересчитывать абсолютный дедлайн оплаты.</li>
+<li>Как выбирать уровень проверки: бизнес-состояния — unit, внешний вид — snapshot, пользовательский маршрут — UI/E2E.</li>
+<li>Как обеспечить повторяемую доставку метрик при временных ошибках сети и перезапуске Jenkins stage.</li>
+<li>Почему статический подсчёт тестов, количество прогонов и code coverage — разные метрики.</li>
+</ol>
+<p>Ответы следует строить вокруг конкретных решений из кейсов. Наличие технологии в таблице не означает одинаковую глубину опыта во всех её возможностях.</p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">О показателях</a><a href="../../../index.html">Выбрать язык</a><span>Срез 29.09.2026</span></footer></body></html>

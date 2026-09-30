@@ -1,0 +1,67 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Валерий Веселов — iOS Developer. Полное портфолио OneTwoTrip и Solar."><title>Jenkins: диагностируемые сборки и обслуживание CI · Valeriy Veselov</title><link rel="alternate" hreflang="en" href="../../../en/docs/cases/jenkins.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">К содержанию</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Основная навигация"><a href="index.html">Кейсы</a><a href="../gallery.html">Галерея</a><a href="../statistics.html">Графики</a><a href="../../catalog.html">Задачи</a><a href="../career/summary.html">Резюме</a></nav><nav class="language-switch" aria-label="Язык страницы"><a data-language="ru" lang="ru" hreflang="ru" href="jenkins.html" aria-current="page">RU</a><a data-language="en" lang="en" hreflang="en" href="../../../en/docs/cases/jenkins.html">EN</a></nav></header><main id="main" class="article"><p><a href="../../../en/docs/cases/jenkins.html">EN</a> · <a href="../../../index.html">Выбор языка / Language</a></p>
+<h1 id="jenkins-ci">Jenkins: диагностируемые сборки и обслуживание CI</h1>
+<p><strong>2025–2026 · OneTwoTrip / iOS</strong></p>
+<p>Развивал практические инструменты для dSYM, обслуживания macOS-агентов, информации о сборке и review-процесса.</p>
+<h2 id="_1">Контекст</h2>
+<p>Для сопровождения iOS-сборок нужны символы диагностики сбоев, доступное место на macOS-агентах и понятная информация об окружении. Я развивал эти инструменты в существующей Jenkins- и Fastlane-инфраструктуре команды.</p>
+<h2 id="_2">Мой вклад</h2>
+<ul>
+<li>Создал pipeline загрузки dSYM из кеша выбранного macOS-агента по приложению, версии и номеру сборки. Добавил проверку входных данных и кеша, параллельную отправку и повтор только неуспешных файлов.</li>
+<li>Расширил загрузку dSYM на debug-сборки релизных задач и добавил имя агента в сведения о сборке.</li>
+<li>Добавил pipeline обслуживания CI-агента: ручной запуск, проверка наличия системного cleaner-скрипта, состояние диска до/после и объём освобождённого места.</li>
+<li>Доработал review-процесс: блок о пройденном ревью для перехода к Test ready реализован в Fastlane уведомления о code review.</li>
+<li>Исправлял среду расчёта метрик: закреплённый Ruby, запуск без пользовательских gems, общий post-cleanup.</li>
+</ul>
+<h2 id="_3">Технологии</h2>
+<p>Jenkins Declarative Pipeline, Groovy, Bash, Ruby / Fastlane, macOS agents, Firebase Crashlytics dSYM, mise, Git.</p>
+<h2 id="_4">Примеры задач</h2>
+<table>
+<thead>
+<tr>
+<th>Сценарий</th>
+<th>Что я делал</th>
+<th>Инженерный акцент</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Отправка dSYM</td>
+<td>Создал pipeline выбора артефактов по приложению и сборке, параллельной отправки и повтора ошибок.</td>
+<td>Автоматизация диагностики iOS-приложения.</td>
+</tr>
+<tr>
+<td>Обслуживание macOS-агента</td>
+<td>Добавил ручной pipeline очистки с проверками и измерением свободного места.</td>
+<td>Контролируемые операции с окружением CI.</td>
+</tr>
+<tr>
+<td>Контекст сборки и review</td>
+<td>Добавлял имя агента в сведения о сборке и отчёт о завершённом review.</td>
+<td>Диагностируемость и командный процесс.</td>
+</tr>
+<tr>
+<td>Изоляция Ruby-окружения</td>
+<td>Работал с закреплённой версией Ruby, пользовательскими gems и общей очисткой.</td>
+<td>Воспроизводимость инфраструктурных скриптов.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_5">Инженерные решения</h2>
+<ul>
+<li>Повтор загрузки dSYM ограничен общим timeout job; это не тот же механизм, что ограниченные HTTP-retry в более позднем отправщике метрик.</li>
+<li>Pipeline обслуживания выполняет ручную очистку выбранного агента с проверкой результата по свободному месту.</li>
+<li>Мой вклад сосредоточен на pipeline-оркестрации и интеграции существующих системных инструментов.</li>
+</ul>
+<h2 id="_6">Качество и проверки</h2>
+<ul>
+<li>При работе над dSYM и обслуживанием агентов учитывал проверки входных параметров, наличие требуемых файлов и обработку неуспешных операций.</li>
+<li>Для Ruby launcher выполнялись регрессионные проверки конфликтов gems и подключения entry points. Оценка production-надёжности в локальные проверки не входит.</li>
+</ul>
+<h2 id="_7">Результат и границы</h2>
+<p>Появились самостоятельные инструменты обслуживания и диагностики iOS CI, а информация о сборках стала полезнее для поиска причин сбоев. Экономию времени и изменение доступности CI без измерений не заявляю.</p>
+<h2 id="_8">Что можно обсудить на интервью</h2>
+<ul>
+<li>Как повторять неуспешную отправку артефактов без повторной обработки успешных?</li>
+<li>Какие проверки нужны перед обслуживанием выбранного CI-агента?</li>
+</ul>
+<p><a href="index.html">Все кейсы</a> · <a href="../archive/index.html">Практические задачи</a> · <a href="../engineering/technologies.html">Технологии</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">О показателях</a><a href="../../../index.html">Выбрать язык</a><span>Срез 29.09.2026</span></footer></body></html>

@@ -1,0 +1,90 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>A custom support chat replacing the Zendesk SDK · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../../ru/docs/cases/chat.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="index.html">Cases</a><a href="../gallery.html">Gallery</a><a href="../statistics.html">Charts</a><a href="../../catalog.html">Examples</a><a href="../career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../../ru/docs/cases/chat.html">RU</a><a data-language="en" lang="en" hreflang="en" href="chat.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../../ru/docs/cases/chat.html">RU</a> · <a href="../../../index.html">Language selection</a></p>
+<h1 id="a-custom-support-chat-replacing-the-zendesk-sdk">A custom support chat replacing the Zendesk SDK</h1>
+<p><strong>2022–2024 · OneTwoTrip / iOS</strong></p>
+<p>I contributed to a custom support interface integrated with the Helpdesk API and application journeys.</p>
+<p><a href="#screens">View screens and states</a> · <a href="../gallery.html">Full gallery</a></p>
+<h2 id="context">Context</h2>
+<p>Users need to talk to a bot or support agent inside the app, send documents and return to previous conversations. Moving from a packaged SDK required UI, networking, delivery states and authentication integration.</p>
+<h2 id="my-contribution">My contribution</h2>
+<ul>
+<li>Developed chat and chatbot interactions: text messages, suggested replies, images, attachments, links and navigation to orders.</li>
+<li>Worked on undelivered-message indicators, errors, reconnection, scrolling and read receipts.</li>
+<li>Added a feature flag, chat deep link and analytics events; contributed to removing Zendesk SDK and moving FAQ to a WebView.</li>
+<li>Extended chat in Solar with a separate tab, entry points from orders and payment errors, and support for GuideGPT/Solly journeys.</li>
+<li>Fixed regressions involving endless loading, sending without a socket connection, attachments, the keyboard and obscured messages.</li>
+</ul>
+<h2 id="technologies">Technologies</h2>
+<p>Swift, UIKit, Socket.IO, Alamofire, ChatLayout, DifferenceKit, Nuke, WebKit, Swinject, TCA / Combine in the current implementation.</p>
+<h2 id="practical-examples">Practical examples</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Messages and chatbot actions</td>
+<td>Developed text, suggested replies, attachments and order navigation.</td>
+<td>An interactive interface over a support API.</td>
+</tr>
+<tr>
+<td>Connection loss</td>
+<td>Worked on undelivered messages, reconnection and errors.</td>
+<td>Realtime state under network failures.</td>
+</tr>
+<tr>
+<td>Support within an order</td>
+<td>Added deep links and support entry points from orders and payment failures.</td>
+<td>Navigation that preserves user context.</td>
+</tr>
+<tr>
+<td>Long conversations</td>
+<td>Fixed scrolling, keyboard behavior, obscured messages and read receipts.</td>
+<td>Maintaining a complex UIKit interface.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="engineering-decisions">Engineering decisions</h2>
+<ul>
+<li>Transport, message state and UI have separate responsibilities. Tapping Send does not mean delivery: intermediate and error states are necessary.</li>
+<li>Authentication and order navigation must work from the support context; unavailable networking and a broken socket connection need separate handling.</li>
+<li>The module evolved over several years: the listed stack reflects its current structure, not only its initial version.</li>
+</ul>
+<h2 id="quality-and-checks">Quality and checks</h2>
+<ul>
+<li>Journeys and requirements were checked against the main chat task and its subtasks. The repository contains snapshots for bubbles, suggested replies and undelivered-message state.</li>
+<li>The fixes show ongoing maintenance after integration, beyond the initial UI implementation.</li>
+</ul>
+<h2 id="outcome-and-scope">Outcome and scope</h2>
+<p>Support gained a custom mobile interface and product navigation. My contribution included building, integrating and stabilizing parts of this team-owned solution.</p>
+<p><a name="screens"></a></p>
+<h2 id="screens-and-interface-states">Screens and interface states</h2>
+<p>Original snapshot-test images using prepared data. Each example identifies its source type. Design and overall architecture were team work; my contribution is described above. Select an image to inspect the details.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Chat reply options</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a name="visual-chat-options"></a><a href="../../../../assets/screenshots/chat-options.png"><img src="../../../../assets/screenshots/chat-options.png" alt="Chat reply options" width="250"></a></td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>Image context and notes</summary>
+<ul>
+<li><strong>Chat reply options.</strong> Quick replies as part of a guided support conversation. <em>Original component snapshot using test data.</em></li>
+</ul>
+</details>
+<p><a href="../gallery.html">Full screen and component gallery</a></p>
+<h2 id="topics-for-an-interview">Topics for an interview</h2>
+<ul>
+<li>How should chat behave after connection loss or an undelivered message?</li>
+<li>What makes scrolling and keyboard handling difficult in a conversation?</li>
+</ul>
+<p><a href="index.html">All cases</a> · <a href="../archive/index.html">Practical examples</a> · <a href="../engineering/technologies.html">Technologies</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">About the metrics</a><a href="../../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>

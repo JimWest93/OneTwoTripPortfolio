@@ -1,0 +1,12 @@
+.research/
+__pycache__/
+.DS_Store
+node_modules/
+.playwright/
+.env
+.env.*
+*.pem
+*.key
+*.p8
+*.p12
+*.mobileprovision

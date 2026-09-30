@@ -1,0 +1,117 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>Cards and transaction history: limits, pagination and states · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../../ru/docs/cases/virtual-card.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="index.html">Cases</a><a href="../gallery.html">Gallery</a><a href="../statistics.html">Charts</a><a href="../../catalog.html">Examples</a><a href="../career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../../ru/docs/cases/virtual-card.html">RU</a><a data-language="en" lang="en" hreflang="en" href="virtual-card.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../../ru/docs/cases/virtual-card.html">RU</a> · <a href="../../../index.html">Language selection</a></p>
+<h1 id="cards-and-transaction-history-limits-pagination-and-states">Cards and transaction history: limits, pagination and states</h1>
+<p><strong>2024–2025 · OneTwoTrip / iOS</strong></p>
+<p>Updated virtual and physical card accounts: UIKit, account state, limits and TCA-based transaction history with filtering, pagination and refresh.</p>
+<p><a href="#screens">View screens and states</a> · <a href="../gallery.html">Full gallery</a></p>
+<h2 id="context">Context</h2>
+<p>Users need a financial section with a clear card state, available actions and limitations. Implementation covers account data, transactions and asynchronous status changes as well as the card shown on screen.</p>
+<h2 id="my-contribution">My contribution</h2>
+<ul>
+<li>Worked on the virtual/physical card home screen, plastic-card issuance states and transaction history.</li>
+<li>Implemented spending limits, a dedicated limits screen and service information.</li>
+<li>Added skeleton states and snackbar/bottom-sheet errors, updated business logic and addressed design-review feedback.</li>
+<li>Developed tests for issuance, identity verification, 401 handling, transactions, card tiers and physical cards.</li>
+<li>Shortened specific UI-test journeys with targeted deep links and refactored shared loyalty-test infrastructure.</li>
+<li>Developed transaction history: date filtering, pagination, pull-to-refresh, grouping by month and navigation to details; fixed empty-list and scrolling behaviour.</li>
+</ul>
+<h2 id="technologies">Technologies</h2>
+<p>Swift, UIKit, TCA, Presenter / Interactor / Router, REST, Swinject, Props, SnapshotTesting, XCTest, XCUITest.</p>
+<h2 id="practical-examples">Practical examples</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Card account</td>
+<td>Worked on virtual and physical cards, issuance states and transactions.</td>
+<td>Multiple states of a financial product.</td>
+</tr>
+<tr>
+<td>Limits and servicing</td>
+<td>Implemented spending limits, a dedicated screen and service terms.</td>
+<td>Clear presentation of product constraints.</td>
+</tr>
+<tr>
+<td>Financial transaction history</td>
+<td>Developed transaction and bonus lists, a date filter and pagination resets on period changes and refresh; fixed scrolling.</td>
+<td>TCA, REST API, pagination and list states.</td>
+</tr>
+<tr>
+<td>Checking user journeys</td>
+<td>Developed issuance, identity and error tests; used targeted deep links.</td>
+<td>Testability and UI-test maintenance.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="engineering-decisions">Engineering decisions</h2>
+<ul>
+<li>Transactions and limits have their own modules; the financial home screen should not own every detail of nested processes.</li>
+<li>A UI redesign does not imply changing banking logic. My contribution covers the mobile client and its integrations.</li>
+<li>Test values and states are used for UI checks; the portfolio contains no real payment or customer data.</li>
+</ul>
+<h2 id="quality-and-checks">Quality and checks</h2>
+<ul>
+<li>Checks include account-screen snapshots and UI tests for the main card, transactions, limits and physical cards.</li>
+<li>Checks covered empty history, different card levels and error handling. The snapshot suite includes a locked balance and a long amount at 320 and 430 pt widths.</li>
+</ul>
+<h2 id="outcome-and-scope">Outcome and scope</h2>
+<p>The card account gained a more coherent mobile interface with separate states and testable user journeys.</p>
+<h2 id="a-closer-look-at-the-journey">A closer look at the journey</h2>
+<h3 id="balance-fund-availability-and-issuance-status">Balance, fund availability and issuance status</h3>
+<p>The account header combines the amount with card type, a masked number and status. I worked on the card screen and snapshot checks, including locked balances and long amounts. A large value on a compact screen uses an adjusted text style to preserve the fractional amount, currency and adjacent icon. The account screen uses Presenter/Interactor/Router, while transaction history is a separate TCA module: the shared UI does not erase those architectural boundaries.</p>
+<h3 id="transaction-history-filtering-and-pagination">Transaction history: filtering and pagination</h3>
+<p>Developed the client-side money and bonus transaction lists. For money transactions, selecting a period clears the previous selection and starts at page one; refresh also resets the page number. Fetching another page accounts for both remaining results and an in-flight request. Received operations are merged, sorted by date and grouped by month; selecting a row opens details. My changes included date ranges, pagination resets, group headers and the next-page loading indicator.</p>
+<h3 id="loading-empty-results-and-scrolling">Loading, empty results and scrolling</h3>
+<p>Initial loading, refreshing an existing list and no results are different UI states. I worked on unified loading state, filter presentation and a scrolling fix for bonus history. Financial-journey checks complement component snapshots: one operation row does not establish pagination or filter correctness. The gallery labels these materials separately from the list behaviour explained here.</p>
+<p><a name="screens"></a></p>
+<h2 id="screens-and-interface-states">Screens and interface states</h2>
+<p>Original snapshot-test images using prepared data. Each example identifies its source type. Design and overall architecture were team work; my contribution is described above. Select an image to inspect the details.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Card being issued: locked balance</th>
+<th style="text-align: center;">Large balance on a compact screen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a name="visual-card-locked-balance"></a><a href="../../../../assets/screenshots/card-locked-balance.png"><img src="../../../../assets/screenshots/card-locked-balance.png" alt="Card being issued: locked balance" width="250"></a></td>
+<td style="text-align: center;"><a name="visual-card-long-balance"></a><a href="../../../../assets/screenshots/card-long-balance.png"><img src="../../../../assets/screenshots/card-long-balance.png" alt="Large balance on a compact screen" width="250"></a></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Card limits</th>
+<th style="text-align: center;">Financial operation row</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a name="visual-card-limits"></a><a href="../../../../assets/screenshots/card-limits.png"><img src="../../../../assets/screenshots/card-limits.png" alt="Card limits" width="250"></a></td>
+<td style="text-align: center;"><a name="visual-card-operation"></a><a href="../../../../assets/screenshots/card-operation.png"><img src="../../../../assets/screenshots/card-operation.png" alt="Financial operation row" width="250"></a></td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>Image context and notes</summary>
+<ul>
+<li><strong>Card being issued: locked balance.</strong> Account header showing issuance status and a locked-balance indicator. Status and fund availability need to remain distinct from the amount. <em>Original component snapshot using test data.</em></li>
+<li><strong>Large balance on a compact screen.</strong> Snapshot at 320 pt width: a large test balance, fractional amount, currency and card icon. An example of adapting text size to a long balance. <em>Original component snapshot using test data.</em></li>
+<li><strong>Card limits.</strong> Limit presentation is part of the virtual card management journey. <em>Original component snapshot using test data.</em></li>
+<li><strong>Financial operation row.</strong> A history component showing purpose, date, time, amount and operation type. The card case explains pagination, filtering and list states. <em>Original component snapshot using test data.</em></li>
+</ul>
+</details>
+<p><a href="../gallery.html">Full screen and component gallery</a></p>
+<h2 id="topics-for-an-interview">Topics for an interview</h2>
+<ul>
+<li>How do you separate loading, error and card-issuance states?</li>
+<li>How do you coordinate date filtering, pagination, refresh and an empty transaction-history state?</li>
+</ul>
+<p><a href="index.html">All cases</a> · <a href="../archive/index.html">Practical examples</a> · <a href="../engineering/technologies.html">Technologies</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">About the metrics</a><a href="../../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>

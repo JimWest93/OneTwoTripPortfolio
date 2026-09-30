@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>A shared calendar across product areas · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../../ru/docs/cases/calendar.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="index.html">Cases</a><a href="../gallery.html">Gallery</a><a href="../statistics.html">Charts</a><a href="../../catalog.html">Examples</a><a href="../career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../../ru/docs/cases/calendar.html">RU</a><a data-language="en" lang="en" hreflang="en" href="calendar.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../../ru/docs/cases/calendar.html">RU</a> · <a href="../../../index.html">Language selection</a></p>
+<h1 id="a-shared-calendar-across-product-areas">A shared calendar across product areas</h1>
+<p><strong>2022–2023 · OneTwoTrip / iOS</strong></p>
+<p>I contributed to a shared calendar and migrated different date-selection journeys to it.</p>
+<h2 id="context">Context</h2>
+<p>Flights, hotels, trains and other products select dates differently but need consistent behavior and a shared visual component. The work covered configuration, selected-date state, locales and integrations as well as appearance.</p>
+<h2 id="my-contribution">My contribution</h2>
+<ul>
+<li>Added the working-day calendar and weekend display, then worked on the shared calendar component.</li>
+<li>Developed PropsBuilder, configuration, presenter, public entry points and example scenarios.</li>
+<li>Integrated the shared calendar into hotel, flight, rail and other entry points; removed replaced legacy modules.</li>
+<li>Fixed initial scrolling to a selected date, month and weekday presentation across locales, date editing and selection constraints.</li>
+</ul>
+<h2 id="technologies">Technologies</h2>
+<p>Swift, UIKit, UICollectionView, Props / render, Presenter / Interactor / Router, Swinject, Tuist, Localization / DateFormatter.</p>
+<h2 id="practical-examples">Practical examples</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shared date selection</td>
+<td>Developed calendar configuration, public entry points, presenter and PropsBuilder.</td>
+<td>Designing a reusable UI module.</td>
+</tr>
+<tr>
+<td>Different product areas</td>
+<td>Integrated the calendar into flights, hotels and trains while preserving constraints.</td>
+<td>A shared component with product configuration.</td>
+</tr>
+<tr>
+<td>Returning to a selected date</td>
+<td>Fixed initial scrolling and editing an existing date range.</td>
+<td>Correct state restoration.</td>
+</tr>
+<tr>
+<td>Locales and working days</td>
+<td>Worked on months, weekdays, weekends and the working-day calendar.</td>
+<td>Localization and calendar behavior.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="engineering-decisions">Engineering decisions</h2>
+<ul>
+<li>The product area supplies configuration: product differences should not create hard dependencies from the calendar to every screen.</li>
+<li>Consumers were migrated separately. Integration compatibility was checked incrementally before old modules were removed.</li>
+<li>App and device locales can differ; formatting and calendar order must follow the chosen product behavior.</li>
+</ul>
+<h2 id="quality-and-checks">Quality and checks</h2>
+<ul>
+<li>The history distinguishes component implementation, integrations and regression fixes. Example apps were used to check different configurations.</li>
+<li>The work spans calendar integration in hotels, flights, trains and the virtual-card journey.</li>
+</ul>
+<h2 id="outcome-and-scope">Outcome and scope</h2>
+<p>Repeated date-selection interfaces were consolidated into a configurable shared implementation maintained across several products.</p>
+<h2 id="topics-for-an-interview">Topics for an interview</h2>
+<ul>
+<li>What belongs in a shared calendar's public configuration?</li>
+<li>How do you meet different product requirements without duplicating the component?</li>
+</ul>
+<p><a href="index.html">All cases</a> · <a href="../archive/index.html">Practical examples</a> · <a href="../engineering/technologies.html">Technologies</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">About the metrics</a><a href="../../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>

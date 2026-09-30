@@ -1,0 +1,65 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>Business-trip journeys inside the consumer app · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../../ru/docs/cases/b2b-scenarios.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="index.html">Cases</a><a href="../gallery.html">Gallery</a><a href="../statistics.html">Charts</a><a href="../../catalog.html">Examples</a><a href="../career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../../ru/docs/cases/b2b-scenarios.html">RU</a><a data-language="en" lang="en" hreflang="en" href="b2b-scenarios.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../../ru/docs/cases/b2b-scenarios.html">RU</a> · <a href="../../../index.html">Language selection</a></p>
+<h1 id="business-trip-journeys-inside-the-consumer-app">Business-trip journeys inside the consumer app</h1>
+<p><strong>2026 · OneTwoTrip / iOS</strong></p>
+<p>I integrated business trips into search forms, profiles and orders while preserving different product and session-state rules.</p>
+<h2 id="context">Context</h2>
+<p>Users can book personal and business trips in one app. The work linked forms from several product areas with marketing communication without spreading one form's state to the others.</p>
+<h2 id="my-contribution">My contribution</h2>
+<ul>
+<li>Added a business-trip checkbox to Search Form 2.0 for flights, hotels and trains.</li>
+<li>Implemented profile sheets and a banner placement on the rail-order screen.</li>
+<li>Passed the business-trip flag in banner requests and refined corporate-card checks after the backend contract was clarified.</li>
+<li>Added and fixed UI tests for the combined journeys.</li>
+</ul>
+<h2 id="technologies">Technologies</h2>
+<p>Swift, UIKit, TCA / state management, Feature flags, REST, Cross-module configuration, XCUITest.</p>
+<h2 id="practical-examples">Practical examples</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business-trip search</td>
+<td>Added the business-trip flag to flights, hotels and trains.</td>
+<td>One journey across multiple product areas.</td>
+</tr>
+<tr>
+<td>Profile and order entry points</td>
+<td>Implemented profile sheets and a banner placement in rail orders.</td>
+<td>Coordinated cross-module navigation.</td>
+</tr>
+<tr>
+<td>Backend-contract changes</td>
+<td>Refined banner requests and corporate-card checks after requirements changed.</td>
+<td>Adapting client logic to an API.</td>
+</tr>
+<tr>
+<td>Checking combined journeys</td>
+<td>Added and fixed UI tests for business trips inside the consumer app.</td>
+<td>Integration checks of the user journey.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="engineering-decisions">Engineering decisions</h2>
+<ul>
+<li>Separated form-local state from session state with different lifetimes so that changing one journey did not affect another.</li>
+<li>Legacy forms and Solar were outside scope. Capabilities were controlled by separate flags rather than one shared condition.</li>
+</ul>
+<h2 id="quality-and-checks">Quality and checks</h2>
+<ul>
+<li>Checks covered different entry points, parameter passing and the consequences of state changes.</li>
+<li>Backend-parameter refinements and UI-test updates were handled as separate pieces of work.</li>
+</ul>
+<h2 id="outcome-and-scope">Outcome and scope</h2>
+<p>A cross-product journey with clear state-lifecycle rules and controlled feature activation.</p>
+<h2 id="topics-for-an-interview">Topics for an interview</h2>
+<ul>
+<li>Where should business-trip state live, and when should it reset?</li>
+<li>How do you check a shared journey across several product areas?</li>
+</ul>
+<p><a href="index.html">All cases</a> · <a href="../archive/index.html">Practical examples</a> · <a href="../engineering/technologies.html">Technologies</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">About the metrics</a><a href="../../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>

@@ -1,0 +1,65 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Валерий Веселов — iOS Developer. Полное портфолио OneTwoTrip и Solar."><title>B2B-сценарии внутри B2C-приложения · Valeriy Veselov</title><link rel="alternate" hreflang="en" href="../../../en/docs/cases/b2b-scenarios.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">К содержанию</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Основная навигация"><a href="index.html">Кейсы</a><a href="../gallery.html">Галерея</a><a href="../statistics.html">Графики</a><a href="../../catalog.html">Задачи</a><a href="../career/summary.html">Резюме</a></nav><nav class="language-switch" aria-label="Язык страницы"><a data-language="ru" lang="ru" hreflang="ru" href="b2b-scenarios.html" aria-current="page">RU</a><a data-language="en" lang="en" hreflang="en" href="../../../en/docs/cases/b2b-scenarios.html">EN</a></nav></header><main id="main" class="article"><p><a href="../../../en/docs/cases/b2b-scenarios.html">EN</a> · <a href="../../../index.html">Выбор языка / Language</a></p>
+<h1 id="b2b-b2c-">B2B-сценарии внутри B2C-приложения</h1>
+<p><strong>2026 · OneTwoTrip / iOS</strong></p>
+<p>Интегрировал бизнес-поездки в формы поиска, профиль и заказ, сохраняя разные правила продуктового и сессионного состояния.</p>
+<h2 id="_1">Контекст</h2>
+<p>Пользователь может бронировать личные и рабочие поездки в одном приложении. Требовалось связать формы нескольких вертикалей и маркетинговые коммуникации, не распространяя состояние одной формы на другие.</p>
+<h2 id="_2">Мой вклад</h2>
+<ul>
+<li>Добавлял чекбокс рабочей поездки в Search Form 2.0 авиа, отелей и поездов.</li>
+<li>Реализовывал шторки в профиле и баннерное место на экране железнодорожного заказа.</li>
+<li>Поддерживал признак бизнес-поездки в баннерных запросах и дорабатывал проверку корпоративной карты после уточнения backend-контракта.</li>
+<li>Добавлял и исправлял UI-тесты совместных сценариев.</li>
+</ul>
+<h2 id="_3">Технологии</h2>
+<p>Swift, UIKit, TCA / state management, Feature flags, REST, Cross-module configuration, XCUITest.</p>
+<h2 id="_4">Примеры задач</h2>
+<table>
+<thead>
+<tr>
+<th>Сценарий</th>
+<th>Что я делал</th>
+<th>Инженерный акцент</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Рабочая поездка в поиске</td>
+<td>Добавлял признак бизнес-поездки в авиа, отелях и поездах.</td>
+<td>Один сценарий в нескольких вертикалях.</td>
+</tr>
+<tr>
+<td>Точки входа из профиля и заказа</td>
+<td>Реализовывал шторки профиля и баннерное место в железнодорожном заказе.</td>
+<td>Согласование межмодульной навигации.</td>
+</tr>
+<tr>
+<td>Изменение backend-контракта</td>
+<td>Дорабатывал баннерные запросы и проверку корпоративной карты после уточнения требований.</td>
+<td>Адаптация клиентской логики к API.</td>
+</tr>
+<tr>
+<td>Проверка совместных сценариев</td>
+<td>Добавлял и исправлял UI-тесты B2B-сценариев внутри B2C-приложения.</td>
+<td>Интеграционная проверка пользовательского пути.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_5">Инженерные решения</h2>
+<ul>
+<li>Разделял локальное состояние формы и состояние сессии с разным временем жизни, чтобы изменение одного сценария не влияло на другой.</li>
+<li>Legacy-формы и Solar были вне scope. Возможности включались отдельными флагами, а не одним общим условием.</li>
+</ul>
+<h2 id="_6">Качество и проверки</h2>
+<ul>
+<li>Проверялось поведение разных точек включения, передача параметров и последствия изменения состояния.</li>
+<li>Доработки backend-параметра и UI-тестов отражены отдельными задачами.</li>
+</ul>
+<h2 id="_7">Результат и границы</h2>
+<p>Согласован межвертикальный сценарий с чёткими правилами жизненного цикла состояния и управляемым включением функциональности.</p>
+<h2 id="_8">Что можно обсудить на интервью</h2>
+<ul>
+<li>Где должно храниться состояние рабочей поездки и когда оно сбрасывается?</li>
+<li>Как проверить единый сценарий в нескольких продуктовых вертикалях?</li>
+</ul>
+<p><a href="index.html">Все кейсы</a> · <a href="../archive/index.html">Практические задачи</a> · <a href="../engineering/technologies.html">Технологии</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">О показателях</a><a href="../../../index.html">Выбрать язык</a><span>Срез 29.09.2026</span></footer></body></html>

@@ -1,0 +1,52 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>How to read the portfolio metrics · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../ru/docs/methodology.html"><link rel="stylesheet" href="../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="cases/index.html">Cases</a><a href="gallery.html">Gallery</a><a href="statistics.html">Charts</a><a href="../catalog.html">Examples</a><a href="career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../ru/docs/methodology.html">RU</a><a data-language="en" lang="en" hreflang="en" href="methodology.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../ru/docs/methodology.html">RU</a> · <a href="../../index.html">Language selection</a></p>
+<h1 id="how-to-read-the-portfolio-metrics">How to read the portfolio metrics</h1>
+<p>This portfolio describes my experience through tasks and engineering decisions. Statistics provide context; the substance of the work is explained in the <a href="cases/index.html">cases</a> and <a href="archive/index.html">practical examples</a>.</p>
+<h2 id="period-and-counting-units">Period and counting units</h2>
+<p>The analysis covers <strong>December 22, 2021–September 28, 2026</strong>. The start is the first identified authored change, not a verified employment date. The first and last years are partial and marked on the charts.</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>What is counted</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4,046 non-merge commits</td>
+<td>Unique authored change records in the available Git history</td>
+<td>One outcome may involve multiple commits, backports or fixes</td>
+</tr>
+<tr>
+<td>831 work items</td>
+<td>Unique tasks matched to my code changes and checked against the work history</td>
+<td>Includes different task states; not a count of released features</td>
+</tr>
+<tr>
+<td>342 merged PRs</td>
+<td>Authored changes accepted through pull requests in available history since November 2024</td>
+<td>A shorter period than the full work history; PRs and commits are not added together</td>
+</tr>
+<tr>
+<td>788 commits touching tests</td>
+<td>Changes affecting unit, snapshot or UI tests, or their resources</td>
+<td>Includes additions, fixes and removals; not code coverage</td>
+</tr>
+<tr>
+<td>84 catalog examples</td>
+<td>Selected scenarios from 21 case studies</td>
+<td>Examples overlap and introduce the experience rather than count features</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-the-charts-work">How the charts work</h2>
+<p>A task belongs to the year of its first authored code change, even if work continued later. Each identifier was counted once in the underlying analysis. Ambiguous matches were checked separately; one unverified record was excluded from the total of 831.</p>
+<p>Domains and types of work were classified for this portfolio based on task content. Each task has one category on the relevant chart. Cases are organized differently: eSIM payment may illustrate product development, payment integration and automated checks at the same time.</p>
+<p>Change counts do not measure task difficulty, working hours or developer effectiveness. Gaps in Git do not mean no work happened: requirements analysis, decision discussions and diagnosis do not always produce commits.</p>
+<h2 id="basis-of-the-experience-descriptions">Basis of the experience descriptions</h2>
+<p>Preparation cross-checked authored changes, tasks, reviews, technical documentation and current module structure. Historical task assignment alone is not treated as proof of personal implementation. The reader-facing version uses self-contained descriptions without internal identifiers or corporate-system links.</p>
+<p>The architecture, design and overall product were created by the team. The technology matrix covers tools in areas I contributed to; a library's presence does not mean I first introduced it into the app.</p>
+<p>Professional growth is described through expanding tasks and engineering practices. Formal promotions, management positions and business results are not claimed without additional evidence. Some infrastructure solutions involved substantial AI assistance; the relevant cases explain my role and verification approach.</p>
+<h2 id="images-and-reproducibility">Images and reproducibility</h2>
+<p>The gallery contains unchanged snapshot-test baselines using prepared data. Captions explain the UI state and source type. Test amounts and masked card numbers are fixtures. The images show product areas; the case text defines my contribution.</p>
+<p>The <code>data/</code> directory holds case text and aggregates sufficient to rebuild the portfolio. <code>build_charts.py</code> reproduces charts; <code>build_portfolio.py</code> builds documents and the website. <code>validate.py</code> checks totals, section links, language parity and the absence of private links and identifiers in reader-facing materials.</p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="methodology.html">About the metrics</a><a href="../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>

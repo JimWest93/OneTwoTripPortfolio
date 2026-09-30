@@ -1,0 +1,106 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>Shared UI components and the move to UI 2.0 · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../../ru/docs/cases/design-system.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="index.html">Cases</a><a href="../gallery.html">Gallery</a><a href="../statistics.html">Charts</a><a href="../../catalog.html">Examples</a><a href="../career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../../ru/docs/cases/design-system.html">RU</a><a data-language="en" lang="en" hreflang="en" href="design-system.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../../ru/docs/cases/design-system.html">RU</a> · <a href="../../../index.html">Language selection</a></p>
+<h1 id="shared-ui-components-and-the-move-to-ui-20">Shared UI components and the move to UI 2.0</h1>
+<p><strong>2022–2026 · OneTwoTrip / iOS</strong></p>
+<p>I developed shared styles and components used by several product teams.</p>
+<p><a href="#screens">View screens and states</a> · <a href="../gallery.html">Full gallery</a></p>
+<h2 id="context">Context</h2>
+<p>Changing a basic input field or button affects many screens. My work included API consistency, consumer migration, state handling and checking designs across device sizes.</p>
+<h2 id="my-contribution">My contribution</h2>
+<ul>
+<li>Simplified shared button styles, updated the palette and migrated the app to new styles; removed unused components.</li>
+<li>Developed input fields and search fields, including a compact variant, input states, errors, disabled behavior and icons. Investigated existing text-field implementations before consolidation.</li>
+<li>Extended selection fields, segmented controls and floating buttons; built a shared profile widget.</li>
+<li>Added information blocks and bottom action bars variants for UI 2.0 with long text, prices, buttons and loading states.</li>
+<li>Updated component usage in profiles, travel history, search forms and fare selection.</li>
+</ul>
+<h2 id="technologies">Technologies</h2>
+<p>Swift, UIKit, SwiftUI interoperability, Props, PinLayout, Design tokens / styles, SnapshotTesting, XCTest, Accessibility identifiers.</p>
+<h2 id="practical-examples">Practical examples</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Consistent input fields</td>
+<td>Developed input fields and search fields with errors, disabled states, icons and compact presentation.</td>
+<td>A shared component&#x27;s contract and states.</td>
+</tr>
+<tr>
+<td>Selection fields and controls</td>
+<td>Extended selection fields, the segmented control and floating buttons.</td>
+<td>Interface composition across screens.</td>
+</tr>
+<tr>
+<td>Bottom action bar</td>
+<td>Added bottom action bars variants with prices, long text, buttons and loading.</td>
+<td>Flexible layout and action states.</td>
+</tr>
+<tr>
+<td>New styles across the app</td>
+<td>Updated buttons, the palette and component consumers in product modules.</td>
+<td>A staged migration in a large application.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="engineering-decisions">Engineering decisions</h2>
+<ul>
+<li>A component describes visual state through Props; business rules remain with its consumer.</li>
+<li>New forms preserved legacy-screen compatibility. A compact search field was separated when its purpose was genuinely different.</li>
+<li>Reusable UI must handle long values, errors, disabled, editing and loading states, and small screens as well as defaults.</li>
+</ul>
+<h2 id="quality-and-checks">Quality and checks</h2>
+<ul>
+<li>Dedicated snapshot work covered input fields; current baselines include different sizes and states of input fields, search fields, selection fields and bottom action bars.</li>
+<li>When changing a shared component, I considered its consumers and checked the relevant visual states.</li>
+</ul>
+<h2 id="outcome-and-scope">Outcome and scope</h2>
+<p>My contribution was developing individual foundational components and integrating them into product journeys. The architecture and design system were built by the team.</p>
+<p><a name="screens"></a></p>
+<h2 id="screens-and-interface-states">Screens and interface states</h2>
+<p>Original snapshot-test images using prepared data. Each example identifies its source type. Design and overall architecture were team work; my contribution is described above. Select an image to inspect the details.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Shared input field</th>
+<th style="text-align: center;">Shared selection field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a name="visual-input-field"></a><a href="../../../../assets/screenshots/input-field.png"><img src="../../../../assets/screenshots/input-field.png" alt="Shared input field" width="250"></a></td>
+<td style="text-align: center;"><a name="visual-select-field"></a><a href="../../../../assets/screenshots/select-field.png"><img src="../../../../assets/screenshots/select-field.png" alt="Shared selection field" width="250"></a></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Price and action bottom bar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a name="visual-bottom-bar"></a><a href="../../../../assets/screenshots/bottom-bar.png"><img src="../../../../assets/screenshots/bottom-bar.png" alt="Price and action bottom bar" width="250"></a></td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>Image context and notes</summary>
+<ul>
+<li><strong>Shared input field.</strong> A shared input field reused in product forms. <em>Original component snapshot using test data.</em></li>
+<li><strong>Shared selection field.</strong> A selection field with consistent value and state presentation. <em>Original component snapshot using test data.</em></li>
+<li><strong>Price and action bottom bar.</strong> Price and the primary action form a reusable component. <em>Original component snapshot using test data.</em></li>
+</ul>
+</details>
+<p><a href="../gallery.html">Full screen and component gallery</a></p>
+<h2 id="topics-for-an-interview">Topics for an interview</h2>
+<ul>
+<li>Where is the boundary between a shared component and product logic?</li>
+<li>How do you migrate component consumers while preserving every relevant state?</li>
+</ul>
+<p><a href="index.html">All cases</a> · <a href="../archive/index.html">Practical examples</a> · <a href="../engineering/technologies.html">Technologies</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">About the metrics</a><a href="../../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>

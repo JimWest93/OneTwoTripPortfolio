@@ -1,0 +1,85 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>Jenkins and engineering infrastructure · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../../ru/docs/engineering/ci-details.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="../cases/index.html">Cases</a><a href="../gallery.html">Gallery</a><a href="../statistics.html">Charts</a><a href="../../catalog.html">Examples</a><a href="../career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../../ru/docs/engineering/ci-details.html">RU</a><a data-language="en" lang="en" hreflang="en" href="ci-details.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../../ru/docs/engineering/ci-details.html">RU</a> · <a href="../../../index.html">Language selection</a></p>
+<h1 id="jenkins-and-engineering-infrastructure">Jenkins and engineering infrastructure</h1>
+<p>My CI contributions include iOS-build maintenance and diagnostics tools, historical repository metrics and resilient result delivery. This work took place within the team's existing infrastructure.</p>
+<h2 id="tools-for-ios-builds">Tools for iOS builds</h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>What I implemented</th>
+<th>Practical purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dSYM upload</td>
+<td>App, version, build and macOS-agent selection; cache checks, parallel upload and retries for failed files</td>
+<td>Resend the required artifacts without manually locating every file</td>
+</tr>
+<tr>
+<td>Environment diagnostics</td>
+<td>Selected agent name in build details</td>
+<td>Connect failures to a specific environment</td>
+</tr>
+<tr>
+<td>Agent maintenance</td>
+<td>Manual cleanup, cleaner checks, disk space before and after</td>
+<td>Observe the maintenance result and control the selected node</td>
+</tr>
+<tr>
+<td>Different dSYM configurations</td>
+<td>Support for debug builds of release tasks</td>
+<td>Account for build-artifact differences</td>
+</tr>
+<tr>
+<td>Review notification</td>
+<td>Completed-review reporting in the existing Fastlane process</td>
+<td>Make review state visible to the team</td>
+</tr>
+</tbody>
+</table>
+<p>The overall timeout bounds dSYM retries. The maintenance pipeline performs cleanup without a separate agent-restart stage. These are individual tools within a team-owned CI system.</p>
+<h2 id="current-and-historical-metrics">Current and historical metrics</h2>
+<p>For historical analysis I added monthly repository-state selection, calculation in a temporary checkout and fixed data timestamps. A separate inventory records README presence in eligible Tuist modules.</p>
+<p>With Codex, I developed a SwiftSyntax-based static test analyzer. It parses XCTest and Quick, inheritance and helper constructs; historical Objective-C is handled separately. Unsupported constructs produce diagnostics so an incomplete count is not mistaken for a valid result.</p>
+<p>This measures source code. Test declarations, executed scenarios and code coverage are different quantities.</p>
+<h2 id="recovering-publication-after-failure">Recovering publication after failure</h2>
+<p>I separated metric calculation from delivery: prepared data is stored as an immutable payload, while delivery progress is saved separately. Publication uses bounded batches, validates HTTP responses and retries temporary failures within limits. Restarting the Jenkins stage can resume delivery of already calculated data.</p>
+<p>Handling includes successful server responses, transient network failures and rate limits, lost responses and missing checkpoints. Repeated delivery preserves the original timestamps and labels. This separation avoids tying a long calculation to the reliability of its final network step.</p>
+<h2 id="reproducible-environment">Reproducible environment</h2>
+<p>Later changes address bootstrap, pinned Ruby, user-gem interference, shared cleanup and Jenkins sandbox/CPS behavior. Environment checks run before lengthy work so failures surface earlier.</p>
+<h2 id="verification">Verification</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Scenarios checked</th>
+<th>Limits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Historical calculation</td>
+<td>Local dry runs of historical code metrics and documentation presence</td>
+<td>The history of the whole repository, not my employment period</td>
+</tr>
+<tr>
+<td>Ruby launcher</td>
+<td>Automated Ruby tests and source checks</td>
+<td>Script execution in a controlled environment</td>
+</tr>
+<tr>
+<td>Metric delivery</td>
+<td>Network failures, lost responses, bounded retries and saved progress</td>
+<td>Local automated checks</td>
+</tr>
+<tr>
+<td>Jenkins recovery</td>
+<td>Local Jenkins fixture runs and Python recovery tests</td>
+<td>A local fixture does not replace production observation</td>
+</tr>
+</tbody>
+</table>
+<p>These figures refer to checks performed while developing the corresponding solutions. They do not include a production pipeline run or importing the prepared Grafana panels. I do not claim measured time savings or CI availability improvements.</p>
+<p>A substantial part of the recent metrics implementation used AI assistance: I defined the problem, set constraints, reviewed solutions and managed iterations.</p>
+<p><a href="../cases/jenkins.html">Jenkins case</a> · <a href="../cases/repository-metrics.html">Metrics case</a> · <a href="../archive/index.html">Practical examples</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">About the metrics</a><a href="../../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>

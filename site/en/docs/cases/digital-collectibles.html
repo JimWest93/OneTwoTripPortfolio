@@ -1,0 +1,82 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Valeriy Veselov — iOS Developer. Complete OneTwoTrip and Solar portfolio."><title>Solar Digital Collectibles: native UI and WebView · Valeriy Veselov</title><link rel="alternate" hreflang="ru" href="../../../ru/docs/cases/digital-collectibles.html"><link rel="stylesheet" href="../../../styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="../../index.html"><span class="mark">V.</span> Valeriy Veselov</a><nav aria-label="Main navigation"><a href="index.html">Cases</a><a href="../gallery.html">Gallery</a><a href="../statistics.html">Charts</a><a href="../../catalog.html">Examples</a><a href="../career/summary.html">Summary</a></nav><nav class="language-switch" aria-label="Page language"><a data-language="ru" lang="ru" hreflang="ru" href="../../../ru/docs/cases/digital-collectibles.html">RU</a><a data-language="en" lang="en" hreflang="en" href="digital-collectibles.html" aria-current="page">EN</a></nav></header><main id="main" class="article"><p><a href="../../../ru/docs/cases/digital-collectibles.html">RU</a> · <a href="../../../index.html">Language selection</a></p>
+<h1 id="solar-digital-collectibles-native-ui-and-webview">Solar Digital Collectibles: native UI and WebView</h1>
+<p><strong>2023–2024 · OneTwoTrip / iOS</strong></p>
+<p>I implemented the digital-achievements catalog, planetary interface and actions for earned rewards.</p>
+<h2 id="context">Context</h2>
+<p>The feature combined a visual planetary system in a WebView with native achievement cards. Rewards could be unavailable, earned or added to a wallet; those states determined the interface and available actions.</p>
+<h2 id="my-contribution">My contribution</h2>
+<ul>
+<li>Created planet cards, the bottom-sheet list, zoom controls and supporting actions.</li>
+<li>Integrated the achievements API, WebView communication, reward screen and its business logic.</li>
+<li>Added claiming and wallet actions, sharing, deep links and universal links to achievements.</li>
+<li>Migrated the module to TCA, wrote unit tests and handled errors and recovery after network issues.</li>
+<li>Refined text, images, video, sharing locales, small-screen behavior and profile entry points.</li>
+</ul>
+<h2 id="technologies">Technologies</h2>
+<p>Swift, UIKit, WebKit / native–web communication, TCA, Combine, REST, LinkPresentation, Swinject, XCTest.</p>
+<h2 id="practical-examples">Practical examples</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>My contribution</th>
+<th>Engineering focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Planets and achievement lists</td>
+<td>Created cards, the sheet list, zoom controls and supporting actions.</td>
+<td>A distinctive interface and navigation model.</td>
+</tr>
+<tr>
+<td>Native screen and WebView</td>
+<td>Integrated the achievements API, WebView communication and reward-screen logic.</td>
+<td>Connecting different presentation technologies.</td>
+</tr>
+<tr>
+<td>Achievement actions</td>
+<td>Added claiming, wallet actions, sharing and universal links.</td>
+<td>Product actions connected to external navigation.</td>
+</tr>
+<tr>
+<td>Moving state to TCA</td>
+<td>Contributed to module migration, wrote unit tests and handled errors.</td>
+<td>State architecture and testability.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="engineering-decisions">Engineering decisions</h2>
+<ul>
+<li>Native state and WebView content must stay synchronized when a card is selected or an achievement's availability changes.</li>
+<li>My scope was the mobile achievements interface, API integration, WebView and user actions.</li>
+</ul>
+<h2 id="quality-and-checks">Quality and checks</h2>
+<ul>
+<li>Wrote module unit tests and supported the migration of state to TCA.</li>
+<li>After launch, improved sharing, links, error handling and presentation across screens.</li>
+</ul>
+<h2 id="outcome-and-scope">Outcome and scope</h2>
+<p>The feature combined an unusual visual model with production-app requirements: state, navigation, analytics and error handling.</p>
+<h2 id="a-closer-look-at-the-journey">A closer look at the journey</h2>
+<ol>
+<li><strong>Select a planet.</strong> WebView or card event</li>
+<li><strong>Reward screen.</strong> Find the ID in the collection</li>
+<li><strong>Wallet.</strong> Validate input and call the API</li>
+<li><strong>New status.</strong> Polling and updating the views</li>
+</ol>
+<p>A simplified route through one journey. Error branches and additional actions are discussed below.</p>
+<h3 id="one-journey-across-two-ui-technologies">One journey across two UI technologies</h3>
+<p>A planet tap arrives as a WebView message. The native layer extracts the identifier, finds the achievement in the loaded collection and opens its screen. Navigation also tracks whether the collection sheet was open so that its state can be restored on return. My work connected the visual system, native cards and routing.</p>
+<h3 id="adding-to-a-wallet-is-an-asynchronous-journey">Adding to a wallet is an asynchronous journey</h3>
+<p>The client checks connectivity and an empty field, then sends the address for server validation. Starting the operation introduces an intermediate status; later updates arrive through the API and polling. The achievement card and collection need to reflect the same result. I worked on this client logic and its checks; backend NFT issuance and address validation were outside my scope.</p>
+<h3 id="recovery-and-screen-dismissal">Recovery and screen dismissal</h3>
+<p>A loading error offers a retry action. The planetary view also supports a WebView reload. Leaving the feature cancels status polling and dismisses related sheets and notifications. TCA expresses these transitions as actions and effects; unit tests exercise navigation, state, retry and related events.</p>
+<h3 id="a-link-needs-to-open-a-specific-achievement">A link needs to open a specific achievement</h3>
+<p>An external link can arrive before the catalogue loads. I worked on coordinating universal links, network loading and UI readiness so that the correct item opens.</p>
+<h2 id="topics-for-an-interview">Topics for an interview</h2>
+<ul>
+<li>How do you synchronize native state with WebView events?</li>
+<li>What changes in testing when a module moves to TCA?</li>
+</ul>
+<p><a href="index.html">All cases</a> · <a href="../archive/index.html">Practical examples</a> · <a href="../engineering/technologies.html">Technologies</a></p></main><footer><span>OneTwoTrip & Solar · 2021–2026</span><a href="../methodology.html">About the metrics</a><a href="../../../index.html">Choose a language</a><span>As of September 29, 2026</span></footer></body></html>
